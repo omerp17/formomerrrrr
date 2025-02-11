@@ -2,12 +2,60 @@
 <resources>
 
     <string-array name="cityArr">
-
-        <item>תל אביב</item>
-        <item>ראשון לציון</item>
+        <item>אבן יהודה</item>
+        <item>אבו גוש</item>
+        <item>אגם</item>
+        <item>אום אל פחם</item>
+        <item>אור עקיבא</item>
+        <item>אור יהודה</item>
+        <item>אשל הנשיא</item>
+        <item>אשדוד</item>
+        <item>אשקלון</item>
+        <item>בית דגן</item>
+        <item>בית שמש</item>
+        <item>בני ברק</item>
+        <item>בצרה</item>
+        <item>בת ים</item>
+        <item>גבעתיים</item>
+        <item>גן יבנה</item>
+        <item>דימונה</item>
+        <item>הוד השרון</item>
+        <item>הרצליה</item>
+        <item>זכרון יעקב</item>
+        <item>חדרה</item>
+        <item>חיפה</item>
         <item>חולון</item>
-
-
+        <item>חורפיש</item>
+        <item>טבריה</item>
+        <item>יוקנעם</item>
+        <item>ירושלים</item>
+        <item>יבנה</item>
+        <item>יפה נוף</item>
+        <item>לוד</item>
+        <item>מגדל העמק</item>
+        <item>מודיעין-מכבים-רעות</item>
+        <item>מעלות-תרשיחא</item>
+        <item>מיתר</item>
+        <item>נצרת</item>
+        <item>נתיבות</item>
+        <item>נתניה</item>
+        <item>סחנין</item>
+        <item>עכו</item>
+        <item>עפולה</item>
+        <item>פתח תקווה</item>
+        <item>צפת</item>
+        <item>קריית גת</item>
+        <item>קריית שמונה</item>
+        <item>קריית טבעון</item>
+        <item>ראשון לציון</item>
+        <item>רמלה</item>
+        <item>רמת גן</item>
+        <item>רמת השרון</item>
+        <item>רעננה</item>
+        <item>רחובות</item>
+        <item>שדרות</item>
+        <item>שלומי</item>
+        <item>תל אביב-יפו</item>
     </string-array>
 
 

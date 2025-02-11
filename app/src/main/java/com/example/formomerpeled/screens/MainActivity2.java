@@ -1,10 +1,9 @@
-package com.example.formomerpeled;
+package com.example.formomerpeled.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +11,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.formomerpeled.R;
 
 public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
-    Button btnRegMain, btnLogMain, btnReg;
+    Button btnRegMain, btnLogMain, btnAddNewRestaurant,btnAboutUs;
 
 
     @Override
@@ -36,13 +34,12 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         btnRegMain.setOnClickListener(this);
         btnLogMain = (Button)findViewById(R.id.btnLogMain);
         btnLogMain.setOnClickListener(this);
+        btnAboutUs = (Button)findViewById(R.id.btnAboutUs);
+        btnAboutUs.setOnClickListener(this);
 
     }
 
     public void onClick(View v) {
-
-
-
         if (v == btnRegMain) {
             Intent go = new Intent(this, Register.class);
             startActivity(go);
@@ -52,5 +49,12 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             Intent go = new Intent(this, Login.class);
             startActivity(go);
         }
-    }
-}
+        if (v == btnAddNewRestaurant) {
+            Intent go = new Intent(this, AddRestaurant.class);
+            startActivity(go);
+        }
+        if (v == btnAboutUs) {
+            Intent go = new Intent(this ,Odot.class);
+            startActivity(go);
+        }
+}}

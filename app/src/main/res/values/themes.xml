@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.FormOmerPeled" parent="Base.Theme.FormOmerPeled" />
+
+    <style name="customRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/star</item>
+        <item name="android:minHeight">20dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
 </resources>

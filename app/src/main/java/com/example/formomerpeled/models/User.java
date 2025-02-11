@@ -1,4 +1,4 @@
-package com.example.formomerpeled.model;
+package com.example.formomerpeled.models;
 
 public class User {
     String id;
