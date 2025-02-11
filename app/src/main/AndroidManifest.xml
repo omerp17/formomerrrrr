@@ -41,7 +41,7 @@
             android:name=".screens.Register"
             android:exported="false" />
         <activity
-            android:name=".screens.MainActivity2"
+            android:name=".screens.AdminPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

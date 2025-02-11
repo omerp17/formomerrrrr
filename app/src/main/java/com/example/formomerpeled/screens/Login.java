@@ -38,6 +38,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     AuthenticationService authenticationService;
     DatabaseService databaseService;
     SharedPreferences sharedpreferences;
+    String admin = "omer9peled@gmail.com";
+    String passadmin = "246135";
+
+
+    public static boolean isAdmin = false;
 
 
     @Override
@@ -81,6 +86,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             Intent go = new Intent(this, MainActivity2.class);
             startActivity(go);
         }
+
+
+
+
+
         if(btnLog==v) {
             email2 = etEmail2.getText().toString();
             pass2 = etPass2.getText().toString();
@@ -97,9 +107,24 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success");
 
+
+
+
+
+
                     databaseService.getUser(id, new DatabaseService.DatabaseCallback<User>() {
                         @Override
                         public void onCompleted(User user) {
+
+
+                            if (email2.equals(admin) && pass2.equals(passadmin)) {
+                                Intent golog = new Intent(getApplicationContext(), AdminPage.class);
+                                isAdmin = true;
+                                startActivity(golog);
+                            } else {
+                                Intent go = new Intent(getApplicationContext(), MainActivity2.class);
+                                startActivity(go);
+                            }
 
                         }
 
