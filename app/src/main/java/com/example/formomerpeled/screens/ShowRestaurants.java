@@ -1,5 +1,6 @@
 package com.example.formomerpeled.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.formomerpeled.models.Restaurant;
 import com.example.formomerpeled.adapter.RestaurantsAdapter;
 import com.example.formomerpeled.services.DatabaseService;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,15 @@ public class ShowRestaurants extends AppCompatActivity {
         restaurantList = new ArrayList<>();
 
         // Create the adapter and set it to the RecyclerView
-        restaurantsAdapter = new RestaurantsAdapter(restaurantList);
+        restaurantsAdapter = new RestaurantsAdapter(restaurantList, new RestaurantsAdapter.OnItemClickListener() {
+            @Override
+            public void OnItemClick(Restaurant restaurant) {
+                Log.d("juan", "carlos");
+                Intent go = new Intent(ShowRestaurants.this, ViewDetails.class);
+                go.putExtra("restaurant", (Serializable) restaurant);
+                startActivity(go);
+            }
+        });
         recyclerView.setAdapter(restaurantsAdapter);
 
 

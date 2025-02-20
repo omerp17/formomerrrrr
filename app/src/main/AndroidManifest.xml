@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- הרשאות עבור קריאת וכתיבת אחסון ותמונה מהמצלמה -->
     <uses-feature
         android:name="android.hardware.camera"
@@ -35,7 +34,7 @@
             android:name=".screens.Login"
             android:exported="false" />
         <activity
-            android:name=".screens.ShowRestaurants"
+            android:name=".screens.AdminPage"
             android:exported="false" />
         <activity
             android:name=".screens.Register"
@@ -43,12 +42,15 @@
         <activity
             android:name=".screens.ShowUsers"
             android:exported="false" />
-
         <activity
-            android:name=".screens.AdminPage"
+            android:name=".screens.ViewDetails"
+            android:exported="false" />
+        <activity
+            android:name=".screens.ShowRestaurants"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
