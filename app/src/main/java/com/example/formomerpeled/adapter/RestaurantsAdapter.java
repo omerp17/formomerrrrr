@@ -29,13 +29,14 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     private List<Restaurant> restaurantList;
     private OnItemClickListener clickListener;
+
     // אתחול עם רשימת מסעדות
     public RestaurantsAdapter(List<Restaurant> restaurantList, OnItemClickListener listener) {
         this.restaurantList = restaurantList;
         this.clickListener = listener;
     }
 
-    public static class RestaurantViewHolder extends RecyclerView.ViewHolder {
+    public  class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private TextView restaurantName;
         private TextView restaurantCuisine;
         private TextView restaurantAddress;
@@ -74,6 +75,15 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantDomain.setMovementMethod(LinkMovementMethod.getInstance());
             glutenFreeItems.setText(restaurant.getGlutenFreeMenuItems());
 
+            if(clickListener != null){
+                viewDetailsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickListener.onItemClick(restaurant);
+                    }
+                });
+            }
+
             // אם יש תמונה, המר את ה-Base64 ל-Bitmap ושים ב-ImageView
             if (restaurant.getImageCode() != null) {
                 Bitmap bitmap = ImageUtil.convertFrom64base(restaurant.getImageCode());
@@ -85,7 +95,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     }
 
     public interface OnItemClickListener{
-        void OnItemClick(Restaurant restaurant);
+        void onItemClick(Restaurant restaurant);
     }
 
 

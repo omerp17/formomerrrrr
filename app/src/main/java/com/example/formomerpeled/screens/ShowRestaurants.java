@@ -46,10 +46,10 @@ public class ShowRestaurants extends AppCompatActivity {
         // Create the adapter and set it to the RecyclerView
         restaurantsAdapter = new RestaurantsAdapter(restaurantList, new RestaurantsAdapter.OnItemClickListener() {
             @Override
-            public void OnItemClick(Restaurant restaurant) {
-                Log.d("juan", "carlos");
+            public void onItemClick(Restaurant restaurant) {
                 Intent go = new Intent(ShowRestaurants.this, ViewDetails.class);
-                go.putExtra("restaurant", (Serializable) restaurant);
+                go.putExtra("name", restaurant.getName());
+                go.putExtra("phone", restaurant.getPhoneNumber());
                 startActivity(go);
             }
         });

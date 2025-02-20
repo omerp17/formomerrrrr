@@ -35,7 +35,8 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         Intent reciever = getIntent();
 
 
-        txtRestaurantNameView.setText(reciever.getStringExtra("restaurant"));
+        txtRestaurantNameView.setText(reciever.getStringExtra("name"));
+
 //        txtRestaurantDomainView.setText(res.getDomain());
 //        txtContactView.setText(res.getPhoneNumber());
 //        txtRestaurantPhoneNumberView.setText(res.getPhoneNumber());
