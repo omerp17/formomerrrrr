@@ -6,65 +6,114 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- כותרת של שם המסעדה -->
     <TextView
         android:id="@+id/txtRestaurantNameView"
-        android:layout_width="169dp"
-        android:layout_height="57dp"
-        android:layout_marginTop="71dp"
-        android:layout_marginBottom="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="72dp"
+        android:gravity="center"
         android:text="TextView"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtRestaurantDomainView"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtCheckOurWebsite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtRestaurantDomainView"
-        android:layout_width="66dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginBottom="15dp"
-        android:autoLink="web"
-        android:clickable="true"
-        android:text="Website"
-        android:textColor="@android:color/holo_blue_dark"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtContactView"
-        app:layout_constraintStart_toStartOf="@+id/txtContactView"
-        app:layout_constraintTop_toBottomOf="@+id/txtRestaurantNameView" />
+    <!-- כותרת "צרו קשר:" -->
 
+    <!-- כותרת "בקרו אצלנו:" -->
+
+    <!-- לינק לאתר -->
     <TextView
         android:id="@+id/txtContactView"
-        android:layout_width="166dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="30dp"
-        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="start"
+        android:text="צרו קשר:"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/txtRestaurantPhoneNumberView"
+        app:layout_constraintEnd_toStartOf="@+id/txtCheckOurWebsite"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txtCheckOurWebsite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="start"
+        android:text="בקרו אצלנו:"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/txtRestaurantPhoneNumberView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRestaurantDomainView" />
+        app:layout_constraintStart_toEndOf="@+id/txtContactView"
+        app:layout_constraintTop_toBottomOf="@+id/txtRestaurantNameView" />
+
+    <!-- מספר הטלפון של המסעדה -->
+
+    <!-- כפתור חזור -->
+    <TextView
+        android:id="@+id/txtRestaurantDomainView"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="34dp"
+        android:autoLink="web"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="Website"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBackView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtRestaurantPhoneNumberView"
+        app:layout_constraintTop_toTopOf="@+id/txtCheckOurWebsite" />
 
     <TextView
         android:id="@+id/txtRestaurantPhoneNumberView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="71dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginBottom="64dp"
+        android:gravity="center"
         android:text="Phone Number"
         android:textColor="@android:color/darker_gray"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/btnBackView"
-        app:layout_constraintStart_toStartOf="@+id/txtContactView"
-        app:layout_constraintTop_toBottomOf="@+id/txtContactView" />
+        app:layout_constraintEnd_toStartOf="@+id/txtRestaurantDomainView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCheckOurWebsite" />
 
     <Button
         android:id="@+id/btnBackView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="304dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/txtRestaurantPhoneNumberView"
+        android:layout_marginBottom="156dp"
+        android:text="חזור"
+        app:layout_constraintBottom_toTopOf="@+id/ivResViewDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRestaurantPhoneNumberView" />
+
+    <!-- תמונה של המסעדה -->
+    <ImageView
+        android:id="@+id/ivResViewDetails"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="121dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBackView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

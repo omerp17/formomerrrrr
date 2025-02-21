@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.formomerpeled.R;
+import com.example.formomerpeled.Utils.ImageUtil;
 import com.example.formomerpeled.models.Restaurant;
 import com.example.formomerpeled.adapter.RestaurantsAdapter;
 import com.example.formomerpeled.services.DatabaseService;
@@ -50,6 +51,10 @@ public class ShowRestaurants extends AppCompatActivity {
                 Intent go = new Intent(ShowRestaurants.this, ViewDetails.class);
                 go.putExtra("name", restaurant.getName());
                 go.putExtra("phone", restaurant.getPhoneNumber());
+                go.putExtra("website", restaurant.getDomain());
+               // go.putExtra("image", restaurant.getImageCode());
+
+
                 startActivity(go);
             }
         });

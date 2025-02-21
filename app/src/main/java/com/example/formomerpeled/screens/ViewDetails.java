@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,6 +20,7 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
 
     TextView txtRestaurantNameView, txtRestaurantDomainView, txtContactView, txtRestaurantPhoneNumberView;
     Button btnBackView;
+    private ImageView ivDViewDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +38,10 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
 
 
         txtRestaurantNameView.setText(reciever.getStringExtra("name"));
+        txtRestaurantPhoneNumberView.setText(reciever.getStringExtra("phone"));
+        txtRestaurantDomainView.setText(reciever.getStringExtra("website"));
 
-//        txtRestaurantDomainView.setText(res.getDomain());
-//        txtContactView.setText(res.getPhoneNumber());
-//        txtRestaurantPhoneNumberView.setText(res.getPhoneNumber());
+
     }
 
     private void init_views() {
@@ -48,7 +50,6 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         txtContactView = findViewById(R.id.txtContactView);
         txtRestaurantPhoneNumberView=findViewById(R.id.txtRestaurantPhoneNumberView);
         btnBackView = findViewById(R.id.btnBackView);
-
 
         btnBackView.setOnClickListener(this);
 

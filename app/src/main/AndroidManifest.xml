@@ -28,7 +28,7 @@
             android:name=".screens.Odot"
             android:exported="false" />
         <activity
-            android:name=".screens.AddRestaurant"
+            android:name=".screens.ViewDetails"
             android:exported="false" />
         <activity
             android:name=".screens.Login"
@@ -43,7 +43,7 @@
             android:name=".screens.ShowUsers"
             android:exported="false" />
         <activity
-            android:name=".screens.ViewDetails"
+            android:name=".screens.AddRestaurant"
             android:exported="false" />
         <activity
             android:name=".screens.ShowRestaurants"
