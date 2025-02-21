@@ -32,6 +32,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button btnLog, btnBackLogin;
 
     String email2, pass2;
+ 
 
     public static final String MyPREFERENCES = "MyPrefs";
 
