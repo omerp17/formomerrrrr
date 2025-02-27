@@ -60,6 +60,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             glutenFreeItems = itemView.findViewById(R.id.txtGlutenFreeItems);
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
             ivD= itemView.findViewById(R.id.ivRes);
+
         }
 
         public void bind(Restaurant restaurant) {
@@ -96,6 +97,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     public interface OnItemClickListener{
         void onItemClick(Restaurant restaurant);
+        void onLongClick(Restaurant restaurant);
     }
 
 
@@ -103,8 +105,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // מניחים שמדובר ב-XML בשם item_restaurant.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant, parent, false);
-
-
 
 
         view.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
@@ -115,6 +115,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     public void onBindViewHolder(RestaurantViewHolder holder, int position) {
         Restaurant restaurant = restaurantList.get(position);
         holder.bind(restaurant);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                clickListener.onLongClick(restaurant);
+                return false;
+            }
+        });
     }
 
     @Override

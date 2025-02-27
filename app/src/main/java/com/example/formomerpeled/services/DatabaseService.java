@@ -115,6 +115,8 @@ public class DatabaseService {
         writeData("Restaurants/" + restaurant.getId(), restaurant, callback);
     }
 
+
+
     /// get a restaurant from the database
     public void getRestaurant(@NotNull final String rid, @NotNull final DatabaseCallback<Restaurant> callback) {
         getData("Restaurants/" + rid, Restaurant.class, callback);

@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 
 import com.example.formomerpeled.R;
+import com.example.formomerpeled.Utils.SharedPreferencesUtil;
 import com.example.formomerpeled.models.User;
 import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
@@ -29,7 +30,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "loginToFireBase";
     TextView tvLog;
     EditText etEmail2, etPass2;
-    Button btnLog, btnBackLogin;
+    Button btnLog, btnBackLogin, btnCreateNewUser;
 
     String email2, pass2;
  
@@ -68,6 +69,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etEmail2.setText(email2);
         etPass2.setText(pass2);
         btnLog.setOnClickListener(this);
+        btnCreateNewUser.setOnClickListener(this);
     }
 
     private void init_views() {
@@ -75,7 +77,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         etEmail2 = findViewById(R.id.etEmail2);
         etPass2 = findViewById(R.id.etPassword2);
         btnBackLogin=findViewById(R.id.btnBackLogin);
+        btnCreateNewUser=findViewById(R.id.btnCreateNewUser);
 
+        btnCreateNewUser.setOnClickListener(this);
         btnLog.setOnClickListener(this);
         btnBackLogin.setOnClickListener(this);
     }
@@ -88,9 +92,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(go);
         }
 
-
-
-
+        if (v == btnCreateNewUser) {
+            Intent go = new Intent(this, Register.class);
+            startActivity(go);
+        }
 
         if(btnLog==v) {
             email2 = etEmail2.getText().toString();
@@ -108,25 +113,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success");
 
-
-
-
-
-
                     databaseService.getUser(id, new DatabaseService.DatabaseCallback<User>() {
                         @Override
                         public void onCompleted(User user) {
 
+                            SharedPreferencesUtil.saveUser(Login.this, user);
 
-                            if (email2.equals(admin) && pass2.equals(passadmin)) {
-                                Intent golog = new Intent(getApplicationContext(), AdminPage.class);
-                                isAdmin = true;
-                                startActivity(golog);
-                            } else {
-                                Intent go = new Intent(getApplicationContext(), MainActivity2.class);
-                                startActivity(go);
-                            }
-
+                            // TODO add intent to main page
                         }
 
                         @Override

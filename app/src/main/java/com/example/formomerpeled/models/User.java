@@ -4,32 +4,20 @@ public class User {
     String id;
     String fname, lname, phone,email, password;
 
+    boolean isAdmin;
     public User()
     {
 
     }
 
-    public User(String id, String fname, String lname, String phone, String email, String password) {
+    public User(String id, String fname, String lname, String phone, String email, String password, boolean isAdmin) {
         this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.phone = phone;
         this.email = email;
         this.password = password;
-    }
-
-    public User(String fname, String lname, String phone, String email, String password){
-        this.fname=fname;
-        this.lname=lname;
-        this.phone=phone;
-        this.email=email;
-        this.password=password;
-    }
-    public User(String fname, String lname, String phone, String email){
-        this.fname=fname;
-        this.lname=lname;
-        this.phone=phone;
-        this.email=email;
+        this.isAdmin = isAdmin;
     }
 
     public String getId() {
@@ -80,6 +68,14 @@ public class User {
         this.password = password;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -89,6 +85,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 }

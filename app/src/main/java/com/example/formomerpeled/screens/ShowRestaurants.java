@@ -11,8 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.Utils.ImageUtil;
+import com.example.formomerpeled.Utils.SharedPreferencesUtil;
 import com.example.formomerpeled.models.Restaurant;
 import com.example.formomerpeled.adapter.RestaurantsAdapter;
+import com.example.formomerpeled.models.User;
 import com.example.formomerpeled.services.DatabaseService;
 
 import java.io.Serializable;
@@ -36,6 +38,8 @@ public class ShowRestaurants extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_restaurants); // Make sure this XML exists in your res/layout folder
+        /// get the instance of the database service
+        databaseService = DatabaseService.getInstance();
 
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView);
@@ -57,13 +61,21 @@ public class ShowRestaurants extends AppCompatActivity {
 
                 startActivity(go);
             }
+
+            @Override
+            public void onLongClick(Restaurant restaurant) {
+                User user = SharedPreferencesUtil.getUser(ShowRestaurants.this);
+
+                if (user.isAdmin()) {
+                    databaseService.getRestaurant();
+                }
+            }
         });
         recyclerView.setAdapter(restaurantsAdapter);
 
 
 
-        /// get the instance of the database service
-        databaseService = DatabaseService.getInstance();
+
 
       
         /// Adapter for the restaurant recycler view
