@@ -88,6 +88,24 @@ public class DatabaseService {
         });
     }
 
+
+    /// remove data from the database at a specific path
+    /// @param path the path to remove the data from
+    /// @param callback the callback to call when the operation is completed
+    /// @see DatabaseCallback
+    private void deleteData(@NotNull final String path, @Nullable final DatabaseCallback<Void> callback) {
+        readData(path).removeValue((error, ref) -> {
+            if (error != null) {
+                if (callback == null) return;
+                callback.onFailed(error.toException());
+            } else {
+                if (callback == null) return;
+                callback.onCompleted(null);
+            }
+        });
+    }
+
+
     /// generate a new id for a new object in the database
     private String generateNewId(@NotNull final String path) {
         return databaseReference.child(path).push().getKey();
@@ -159,4 +177,14 @@ public class DatabaseService {
             callback.onCompleted(users);
         });
     }
+
+
+
+    /// delete a restaurant from the database
+    /// @param restaurantId the id of the restaurant to delete
+    /// @param callback the callback to call when the operation is completed
+    public void deleteRestaurant(@NotNull final String restaurantId, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData("Restaurants/" + restaurantId, callback);
+    }
+
 }

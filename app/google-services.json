@@ -1,14 +1,14 @@
 {
   "project_info": {
-    "project_number": "630535267744",
-    "firebase_url": "https://myfoodtake-ce330-default-rtdb.firebaseio.com",
-    "project_id": "myfoodtake-ce330",
-    "storage_bucket": "myfoodtake-ce330.firebasestorage.app"
+    "project_number": "961814280678",
+    "firebase_url": "https://omerpeled-3323c-default-rtdb.firebaseio.com",
+    "project_id": "omerpeled-3323c",
+    "storage_bucket": "omerpeled-3323c.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:630535267744:android:8e748b26baa6851b1c30c5",
+        "mobilesdk_app_id": "1:961814280678:android:3afb1112e1e316beb97e27",
         "android_client_info": {
           "package_name": "com.example.formomerpeled"
         }
@@ -16,7 +16,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCkKHGpRcLS0deiKI4KJ2BuvhkjcNqo4B0"
+          "current_key": "AIzaSyDOfqZ98BVeSCp1z8yK9RK6GtD1jZN7V5M"
         }
       ],
       "services": {

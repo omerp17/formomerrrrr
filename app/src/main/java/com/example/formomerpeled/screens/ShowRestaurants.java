@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -67,7 +68,22 @@ public class ShowRestaurants extends AppCompatActivity {
                 User user = SharedPreferencesUtil.getUser(ShowRestaurants.this);
 
                 if (user.isAdmin()) {
-                    databaseService.getRestaurant();
+                    databaseService.deleteRestaurant(restaurant.getId(), new DatabaseService.DatabaseCallback<Void>() {
+                        @Override
+                        public void onCompleted(Void object) {
+                            Toast.makeText(ShowRestaurants.this,"the res delete",Toast.LENGTH_LONG).show();
+
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+
+                        }
+                    });
+
+
+
+
                 }
             }
         });
@@ -77,16 +93,16 @@ public class ShowRestaurants extends AppCompatActivity {
 
 
 
-      
+
         /// Adapter for the restaurant recycler view
         /// @see ArrayAdapter
         /// @see Restaurant
-      
+
 
         /// Adapter for the restaurant spinner
         /// @see RestaurantSpinnerAdapter
         /// @see Restaurant
-        
+
         /// get all the restaurants from the database
 
         databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {

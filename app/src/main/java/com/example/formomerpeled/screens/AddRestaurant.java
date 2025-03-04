@@ -33,26 +33,32 @@ import com.example.formomerpeled.services.DatabaseService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class AddRestaurant extends AppCompatActivity implements View.OnClickListener {
+public class AddRestaurant extends AppCompatActivity implements View.OnClickListener, RatingBar.OnRatingBarChangeListener {
     FirebaseDatabase database;
     DatabaseService databaseService = DatabaseService.getInstance();
-    DatabaseReference myRef;
-    Bitmap bitmap;
 
     EditText etName, etRestaurantType, etPhoneNumber, etAddress, etDomain, etGlutenFreeItems;
     String Name, RestaurantType, PhoneNumber, City, Address, Domain, GlutenFreeItems, imageCode;
 
     RatingBar ratingBar;
-    float rating;
+
 
     private final String TAG="AddRestaurant";
     Spinner spCity;
     Button btnAdd, btnBackAddRestaurant, btnGallery;
     ImageView ivResImage;
-    public static final int GALLERY_INTENT = 2;
+    float rating= 0.0F;
 
     /// Activity result launcher for selecting image from gallery
     private ActivityResultLauncher<Intent> selectImageLauncher;
+
+
+
+    // constant to compare
+    // the activity result code
+    int SELECT_PICTURE = 200;
+    private float rating2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +67,13 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_add_new_restaurant);
         initViews();
 
-        // בדוק הרשאות גישה לאחסון
-        checkPermissions();
+        //      בדוק הרשאות גישה לאחסון
+        /// request permission for the camera and storage
+        ImageUtil.requestPermission(this);
+
+
+
+
 
         // אתחול של ה-ActivityResultLauncher לבחירת תמונה מהגלריה
         selectImageLauncher = registerForActivityResult(
@@ -80,6 +91,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         btnGallery = findViewById(R.id.btnGalleryD);
 
 
+
         etName = findViewById(R.id.etName);
         etRestaurantType = findViewById(R.id.etRestaurantType);
         etPhoneNumber = findViewById(R.id.etPhoneNumber);
@@ -88,6 +100,8 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         etDomain = findViewById(R.id.etDomain);
         etGlutenFreeItems = findViewById(R.id.etGlutenFreeItems);
         ratingBar=findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(this) ;
+        ivResImage=findViewById(R.id.ivAddRes);
 
         btnAdd.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
@@ -108,7 +122,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
             Domain = etDomain.getText().toString();
             GlutenFreeItems = etGlutenFreeItems.getText().toString();
             imageCode = ImageUtil.convertTo64Base(ivResImage); // המרת התמונה ל-Base64
-            float rating = ratingBar.getRating();
+           //rating = ratingBar.getRating();
 
 
             // בדוק אם התמונה קיימת
@@ -118,7 +132,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
 
                 // יצירת אובייקט מסעדה
-            Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), Name, RestaurantType, Address, City, PhoneNumber, GlutenFreeItems, Domain, imageCode, rating);
+            Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), Name, RestaurantType, Address, City, PhoneNumber, GlutenFreeItems, Domain, imageCode, rating2);
             databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void object) {
@@ -130,7 +144,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
                     etDomain.setText("");
                     etGlutenFreeItems.setText("");
                     ratingBar.setRating(0); // מאפס את ה-RatingBar ל-0 (אם תרצה)
-                    ivResImage.setImageResource(0); // מנקה את התמונה
+
                 }
 
                 @Override
@@ -144,9 +158,10 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
     private void selectImageFromGallery() {
         // פתיחת הגלריה לבחירת תמונה
-        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        intent.setType("image/*");  // רק תמונות
-        selectImageLauncher.launch(intent); // שימוש ב-ActivityResultLauncher
+
+
+
+        imageChooser();
     }
 
     // פונקציה לבדוק אם כל השדות מלאים
@@ -183,25 +198,42 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
+    void imageChooser() {
 
-    // בקשת הרשאות בזמן ריצה (למערכות Android 6 ומעלה)
-    private void checkPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_INTENT);
+        // create an instance of the
+        // intent of the type image
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+
+        // pass the constant to compare it
+        // with the returned requestCode
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    // this function is triggered when user
+    // selects the image from the imageChooser
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+
+            // compare the resultCode with the
+            // SELECT_PICTURE constant
+            if (requestCode == SELECT_PICTURE) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    // update the preview image in the layout
+                    ivResImage.setImageURI(selectedImageUri);
+                }
+            }
         }
     }
 
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == GALLERY_INTENT) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // הרשאה ניתנה, אפשר להפעיל את הגלריה
-                selectImageFromGallery();
-            } else {
-                // הרשאה לא ניתנה, תוכל להראות הודעת שגיאה
-                Toast.makeText(this, "אין הרשאות לגישה לאחסון", Toast.LENGTH_SHORT).show();
-            }
-        }
+    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+        rating2=rating;
     }
 }

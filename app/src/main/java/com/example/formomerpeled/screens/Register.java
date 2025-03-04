@@ -28,9 +28,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     Button btnReg, btnBackReg;
     String lname, fname, email, phone, password;
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    DatabaseService databaseService = DatabaseService.getInstance();
-    AuthenticationService authenticationService = AuthenticationService.getInstance();
+
+    DatabaseService databaseService;
+    AuthenticationService authenticationService ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             return insets;
         });
         initViews();
+
+        authenticationService=AuthenticationService.getInstance();
+        databaseService=DatabaseService.getInstance();
 
     }
 
@@ -101,8 +105,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             }
 
             if (isValid==true){
-                authenticationService.signIn(email, password, new AuthenticationService.AuthCallback<String>() {
-                    @Override
+
+
+
+                authenticationService.signUp(email, password, new  AuthenticationService.AuthCallback<String>() {
+
                     public void onCompleted(String uid) {
                         User user = new User();
                         user.setId(uid);
@@ -111,11 +118,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         user.setFname(fname);
                         user.setLname(lname);
                         user.setPhone(phone);
+                        user.setAdmin(false);
                         databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
                             @Override
                             public void onCompleted(Void object) {
                                 Log.d(TAG, "onCompleted: User registered successfully");
-                                /// save the user to shared preferences
+                                                  //   / save the user to shared preferences
                                 SharedPreferencesUtil.saveUser(Register.this, user);
                                 Log.d(TAG, "onCompleted: Redirecting to MainActivity");
                                 /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
@@ -128,10 +136,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             @Override
                             public void onFailed(Exception e) {
                                 Log.e(TAG, "onFailed: Failed to register user", e);
-                                /// show error message to user
+                            //    / show error message to user
                                 Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
-                                /// sign out the user if failed to register
-                                /// this is to prevent the user from being logged in again
+                            //    / sign out the user if failed to register
+                            //    / this is to prevent the user from being logged in again
                                 authenticationService.signOut();
                             }
                         });
@@ -139,9 +147,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
                     @Override
                     public void onFailed(Exception e) {
-                        Log.e(TAG, "onFailed: Failed to register user", e);
+                        Log.e(TAG, "onFailed: Failed to Sing up user", e);
                         /// show error message to user
-                        Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register.this, "Failed to Sing Up user", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

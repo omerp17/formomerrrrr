@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private Button viewDetailsButton;
 
         private ImageView ivD;
+        RatingBar restaurantRatingBar;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +62,8 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             glutenFreeItems = itemView.findViewById(R.id.txtGlutenFreeItems);
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
             ivD= itemView.findViewById(R.id.ivRes);
+            // אתחול ה-RatingBar
+            restaurantRatingBar = itemView.findViewById(R.id.restaurantRatingBar);
 
         }
 
@@ -71,7 +75,9 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantPhoneNumber.setText(restaurant.getPhoneNumber());
 
             restaurantDomain.setText(restaurant.getDomain());
-            
+            // הגדרת הדירוג ב-RatingBar
+            restaurantRatingBar.setRating(restaurant.getRating()); // הדירוג שהוזן למסעדה
+
 
             restaurantDomain.setMovementMethod(LinkMovementMethod.getInstance());
             glutenFreeItems.setText(restaurant.getGlutenFreeMenuItems());

@@ -37,14 +37,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public static final String MyPREFERENCES = "MyPrefs";
 
+
     AuthenticationService authenticationService;
     DatabaseService databaseService;
     SharedPreferences sharedpreferences;
-    String admin = "omer9peled@gmail.com";
-    String passadmin = "246135";
+
 
 
     public static boolean isAdmin = false;
+    private User user2=null;
 
 
     @Override
@@ -60,14 +61,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
 
         authenticationService = AuthenticationService.getInstance();
+        if(authenticationService.isUserSignedIn())
+        {
+
+
+        }
         databaseService = DatabaseService.getInstance();
 
-        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        User user=SharedPreferencesUtil.getUser(Login.this);
         init_views();
-        email2 = sharedpreferences.getString("email", "");
-        pass2 = sharedpreferences.getString("password", "");
-        etEmail2.setText(email2);
-        etPass2.setText(pass2);
+        if(user!=null) {
+            etEmail2.setText(user.getEmail());
+            etPass2.setText(user.getPassword());
+        }
         btnLog.setOnClickListener(this);
         btnCreateNewUser.setOnClickListener(this);
     }
@@ -104,20 +110,31 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             authenticationService.signIn(email2, pass2, new AuthenticationService.AuthCallback<String>() {
                 @Override
                 public void onCompleted(String id) {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
 
-                    editor.putString("email", email2);
-                    editor.putString("password", pass2);
 
-                    editor.commit();
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success");
+
+
+
 
                     databaseService.getUser(id, new DatabaseService.DatabaseCallback<User>() {
                         @Override
                         public void onCompleted(User user) {
 
                             SharedPreferencesUtil.saveUser(Login.this, user);
+                            user2=user;
+
+                            if(user2.isAdmin()) {
+                                isAdmin=true;
+                                Intent go = new Intent(Login.this, AdminPage.class);
+                                startActivity(go);
+                            }
+                            else {
+
+                                Intent go = new Intent(Login.this, MainActivity2.class);
+                                startActivity(go);
+                            }
 
                             // TODO add intent to main page
                         }
