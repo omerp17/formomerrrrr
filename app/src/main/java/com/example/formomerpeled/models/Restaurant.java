@@ -1,7 +1,7 @@
 package com.example.formomerpeled.models;
 
 public class Restaurant {
-        private String id;
+        private String id, uId;
         private String name;
         private String cuisineType;
         private String address;
@@ -13,11 +13,20 @@ public class Restaurant {
         private float rating;  // שדה לדירוג שנבחר
 
 
+        public String getuId() {
+                return uId;
+        }
+
+        public void setuId(String uId) {
+                this.uId = uId;
+        }
+
         public Restaurant() {
         }
 
-        public Restaurant(String id, String name, String cuisineType, String address, String city, String phoneNumber, String glutenFreeMenuItems, String domain, String imageCode, float rating) {
+        public Restaurant(String id, String uId, String name, String cuisineType, String address, String city, String phoneNumber, String glutenFreeMenuItems, String domain, String imageCode, float rating) {
                 this.id = id;
+                this.uId = uId;
                 this.name = name;
                 this.cuisineType = cuisineType;
                 this.address = address;

@@ -29,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.Utils.ImageUtil;
 import com.example.formomerpeled.models.Restaurant;
+import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class AddRestaurant extends AppCompatActivity implements View.OnClickListener, RatingBar.OnRatingBarChangeListener {
     FirebaseDatabase database;
     DatabaseService databaseService = DatabaseService.getInstance();
+    AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     EditText etName, etRestaurantType, etPhoneNumber, etAddress, etDomain, etGlutenFreeItems;
     String Name, RestaurantType, PhoneNumber, City, Address, Domain, GlutenFreeItems, imageCode;
@@ -132,7 +134,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
 
                 // יצירת אובייקט מסעדה
-            Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), Name, RestaurantType, Address, City, PhoneNumber, GlutenFreeItems, Domain, imageCode, rating2);
+            Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), authenticationService.getCurrentUserId(), Name, RestaurantType, Address, City, PhoneNumber, GlutenFreeItems, Domain, imageCode, rating2);
             databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void object) {

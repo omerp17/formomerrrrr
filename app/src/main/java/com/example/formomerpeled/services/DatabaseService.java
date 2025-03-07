@@ -184,7 +184,8 @@ public class DatabaseService {
     /// @param restaurantId the id of the restaurant to delete
     /// @param callback the callback to call when the operation is completed
     public void deleteRestaurant(@NotNull final String restaurantId, @Nullable final DatabaseCallback<Void> callback) {
-        deleteData("Restaurants/" + restaurantId, callback);
+        deleteData("/Restaurants/" + restaurantId, callback);
+//        writeData("/Restaurants/" + restaurantId, null, callback);
     }
 
 }

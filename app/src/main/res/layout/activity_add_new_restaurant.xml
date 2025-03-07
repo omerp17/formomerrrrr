@@ -7,210 +7,213 @@
     android:layout_height="match_parent"
     tools:context=".screens.AddRestaurant">
 
-
+    <!-- Title Text -->
     <TextView
         android:id="@+id/txtEnterRestaurant"
-
-        android:layout_width="223dp"
-        android:layout_height="0dp"
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
         android:text="הכנס מסעדה"
-        android:textSize="40dp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/etName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/etPhoneNumber"
-        android:layout_width="162dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="149dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="380dp"
-        android:ems="10"
-        android:hint="Phone Number"
-        android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.928"
-        app:layout_constraintStart_toEndOf="@+id/ratingBar"
-        app:layout_constraintTop_toTopOf="parent" />
-
+    <!-- Name Input -->
     <EditText
         android:id="@+id/etName"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="83dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="21dp"
-        android:ems="10"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:hint="Name"
         android:inputType="text"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/etPhoneNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnterRestaurant" />
+
+    <!-- Phone Number Input -->
+    <EditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/etRestaurantType"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/etName" />
 
-
+    <!-- Restaurant Type Input -->
     <EditText
         android:id="@+id/etRestaurantType"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="13dp"
         android:hint="Restaurant Type"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
-        app:layout_constraintEnd_toStartOf="@+id/etPhoneNumber"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtRating"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/etPhoneNumber" />
 
+    <!-- Rating Text -->
+
+    <!-- Rating Bar -->
     <TextView
         android:id="@+id/txtRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="39dp"
+        android:layout_marginBottom="11dp"
         android:text="הכניסו דירוג לפי גוגל"
-        app:layout_constraintBottom_toTopOf="@+id/spCity"
+        app:layout_constraintBottom_toTopOf="@+id/ratingBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ratingBar"
-        app:layout_constraintTop_toBottomOf="@+id/etPhoneNumber" />
-
-    <RatingBar
-        android:id="@+id/ratingBar"
-
-
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-
-
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="89dp"
-        android:layout_marginBottom="36dp"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="0.1"
-
-        app:layout_constraintBottom_toTopOf="@+id/etAddress"
-        app:layout_constraintEnd_toStartOf="@+id/txtRating"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etRestaurantType" />
 
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="0.1"
+        app:layout_constraintBottom_toTopOf="@+id/etAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRating" />
+
+    <!-- Address Input -->
     <EditText
         android:id="@+id/etAddress"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="29dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="18dp"
         android:hint="Address"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/ivAddRes"
-        app:layout_constraintEnd_toStartOf="@+id/spCity"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/etDomain"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+    <!-- City Spinner -->
+
+    <!-- ImageView for Restaurant Image -->
+
+    <!-- Button for Selecting Image -->
+
+    <!-- Domain Input -->
+
+    <!-- Gluten Free Items Input -->
 
     <Spinner
         android:id="@+id/spCity"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="31dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="17dp"
         android:entries="@array/cityArr"
-        app:layout_constraintBottom_toTopOf="@+id/btnGalleryD"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/etAddress"
-        app:layout_constraintTop_toBottomOf="@+id/txtRating" />
-
-    <Button
-        android:id="@+id/btnGalleryD"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="68dp"
-        android:text="בחר תמונה מהגלריה"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/etDomain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivAddRes"
-        app:layout_constraintTop_toBottomOf="@+id/spCity" />
+        app:layout_constraintBottom_toTopOf="@+id/btnAdd"
+        app:layout_constraintEnd_toStartOf="@+id/ivAddRes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etGlutenFreeItems" />
 
     <ImageView
         android:id="@+id/ivAddRes"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginEnd="37dp"
-        android:layout_marginBottom="288dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnGalleryD"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etAddress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnBackAddRestaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spCity"
+        app:layout_constraintTop_toBottomOf="@+id/etGlutenFreeItems"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnGalleryD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="7dp"
+        android:text="בחר תמונה מהגלריה"
+        app:layout_constraintBottom_toTopOf="@+id/ivAddRes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/etGlutenFreeItems" />
 
     <EditText
         android:id="@+id/etDomain"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="23dp"
-        android:ems="10"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="13dp"
         android:hint="Domain"
         android:inputType="text"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/etGlutenFreeItems"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGalleryD" />
+        app:layout_constraintTop_toBottomOf="@+id/etAddress" />
+
+    <!-- Add Restaurant Button -->
+
+    <!-- Back Button -->
 
     <EditText
         android:id="@+id/etGlutenFreeItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="52dp"
-        android:ems="10"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="45dp"
         android:hint="Gluten Free Items"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/btnBackAddRestaurant"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivAddRes"
+        app:layout_constraintEnd_toStartOf="@+id/ivAddRes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etDomain" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="51dp"
+        android:text="הכנס מסעדה"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBackAddRestaurant"
+        app:layout_constraintEnd_toStartOf="@+id/btnBackAddRestaurant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivAddRes" />
 
     <Button
         android:id="@+id/btnBackAddRestaurant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="29dp"
+        android:layout_marginEnd="14dp"
         android:layout_marginBottom="16dp"
         android:text="חזור"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnAdd"
-        app:layout_constraintTop_toBottomOf="@+id/etGlutenFreeItems" />
-
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-
-        android:layout_marginStart="19dp"
-        android:layout_marginEnd="62dp"
-        android:layout_marginBottom="28dp"
-        android:text="הכנס מסעדה"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnBackAddRestaurant"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPhoneNumber" />
-
+        app:layout_constraintTop_toBottomOf="@+id/ivAddRes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,7 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.formomerpeled.R;
 
 public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
-    Button btnRegMain, btnLogMain, btnAddNewRestaurant,btnAboutUs;
+    Button btnRegMain, btnLogMain, btnAddNewRestaurant,btnAboutUs, btnGoAllRestaurantFromMain;
 
 
     @Override
@@ -36,10 +36,17 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         btnLogMain.setOnClickListener(this);
         btnAboutUs = (Button)findViewById(R.id.btnAboutUs);
         btnAboutUs.setOnClickListener(this);
+        btnGoAllRestaurantFromMain = (Button)findViewById(R.id.btnGoAllRestaurantFromMain);
+        btnGoAllRestaurantFromMain.setOnClickListener(this);
 
     }
 
     public void onClick(View v) {
+
+        if (v == btnGoAllRestaurantFromMain) {
+            Intent go = new Intent(this, ShowRestaurants.class);
+            startActivity(go);
+        }
         if (v == btnRegMain) {
             Intent go = new Intent(this, Register.class);
             startActivity(go);
