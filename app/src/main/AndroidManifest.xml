@@ -20,7 +20,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FormOmerPeled"
         tools:targetApi="31">
-
+        <activity
+            android:name=".screens.Profile"
+            android:exported="false" />
         <activity
             android:name=".screens.RemoveRestaurant"
             android:exported="false" />
@@ -33,7 +35,6 @@
         <activity
             android:name=".screens.ShowRestaurants"
             android:exported="false" />
-
         <activity
             android:name=".screens.Register"
             android:exported="false" />
@@ -41,7 +42,7 @@
             android:name=".screens.ShowUsers"
             android:exported="false" />
         <activity
-            android:name=".screens.AddRestaurant"
+            android:name=".screens.MainActivity2"
             android:exported="false" />
         <activity
             android:name=".screens.Login"
@@ -50,7 +51,7 @@
             android:name=".screens.AdminPage"
             android:exported="false" />
         <activity
-            android:name=".screens.MainActivity2"
+            android:name=".screens.AddRestaurant"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

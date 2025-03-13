@@ -42,6 +42,8 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         txtRestaurantDomainView.setText(reciever.getStringExtra("website"));
 
 
+
+
     }
 
     private void init_views() {

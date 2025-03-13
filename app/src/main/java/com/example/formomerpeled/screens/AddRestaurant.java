@@ -105,12 +105,16 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         ratingBar.setOnRatingBarChangeListener(this) ;
         ivResImage=findViewById(R.id.ivAddRes);
 
+        btnBackAddRestaurant.setOnClickListener(this);
+
         btnAdd.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+
+
         if (view == btnGallery) {
             selectImageFromGallery(); // קורא לפונקציה לבחירת תמונה
         }
@@ -125,6 +129,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
             GlutenFreeItems = etGlutenFreeItems.getText().toString();
             imageCode = ImageUtil.convertTo64Base(ivResImage); // המרת התמונה ל-Base64
            //rating = ratingBar.getRating();
+
 
 
             // בדוק אם התמונה קיימת

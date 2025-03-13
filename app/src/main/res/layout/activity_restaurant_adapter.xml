@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
+    android:background="#FFE8BB"
     android:elevation="2dp">
 
     <LinearLayout
@@ -55,7 +56,9 @@
             android:id="@+id/btnViewDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="View Details" />
+            android:text="View Details"
+            android:backgroundTint="#6C9182"
+            />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

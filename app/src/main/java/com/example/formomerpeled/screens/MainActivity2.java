@@ -38,6 +38,8 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         btnAboutUs.setOnClickListener(this);
         btnGoAllRestaurantFromMain = (Button)findViewById(R.id.btnGoAllRestaurantFromMain);
         btnGoAllRestaurantFromMain.setOnClickListener(this);
+        btnAddNewRestaurant = (Button)findViewById(R.id.btnAddNewRestaurant);
+        btnAddNewRestaurant.setOnClickListener(this);
 
     }
 

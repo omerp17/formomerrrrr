@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FFE8BB"
+    android:gravity="center">
+
+    <!-- כרטיס עם תמונת פרופיל -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:elevation="8dp"
+        android:layout_marginBottom="20dp"
+        android:radius="75dp"
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:id="@+id/profileImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/profileuser"
+            android:contentDescription="Profile Picture"
+            android:scaleType="centerCrop"
+            android:layout_margin="4dp"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- כרטיס עם פרטי המשתמש -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:layout_marginBottom="16dp"
+        android:radius="8dp"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- First Name Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvFirstName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="First Name: John"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditFirstName"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/editprofilebutton"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Password"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:layout_gravity="end"/>
+
+            </LinearLayout>
+
+            <!-- Last Name Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvLastName"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Last Name: Doe"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditLastName"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/editprofilebutton"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Last Name"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
+
+            <!-- Phone Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Phone: 123-456-7890"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditPhone"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/editprofilebutton"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Phone"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
+
+            <!-- Email Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Email: john.doe@example.com"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditEmail"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/editprofilebutton"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Email"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
+
+            <!-- Password Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvPassword"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Password: ********"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"
+                    android:textStyle="bold"/>
+
+                <ImageButton
+                    android:id="@+id/btnEditPassword"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/editprofilebutton"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Edit Password"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="2dp"
+                    android:layout_gravity="end"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- כפתור שמירת שינויים -->
+    <Button
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Changes"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:backgroundTint="#6C9182"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="50dp"
+        android:padding="14dp"
+        android:layout_gravity="center"/>
+
+    <!-- כפתור חזור -->
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:backgroundTint="#6C9182"
+        android:text="Back"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+</LinearLayout>

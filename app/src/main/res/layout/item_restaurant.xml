@@ -24,6 +24,8 @@
             android:layout_gravity="start"/>
 
         <!-- תמונת המסעדה -->
+
+        <!-- פרטי המסעדה - טקסטים -->
         <ImageView
             android:id="@+id/ivRes"
             android:layout_width="120dp"
@@ -32,7 +34,6 @@
             android:layout_marginEnd="16dp"
             android:src="@drawable/ic_launcher_background" />
 
-        <!-- פרטי המסעדה - טקסטים -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -106,6 +107,7 @@
                 android:id="@+id/btnViewDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#6C9182"
                 android:text="View Details"
                 android:textSize="14sp"
                 android:layout_marginTop="8dp"

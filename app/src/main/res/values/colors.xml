@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cream_pigment">#FFE8BB</color>
+    <color name="cream_pigment2">#FFFFEE</color>
+    <color name="green">#6C9182</color>
 </resources>
