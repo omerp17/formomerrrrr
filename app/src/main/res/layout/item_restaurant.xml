@@ -14,18 +14,23 @@
         android:padding="16dp">
 
         <!-- כפתור מחק בצד שמאל למעלה -->
-        <ImageButton
-            android:id="@+id/btnDelete"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_delete"
-            android:contentDescription="Delete"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:layout_gravity="start"/>
+
 
         <!-- תמונת המסעדה -->
 
         <!-- פרטי המסעדה - טקסטים -->
+
+        <ImageButton
+            android:id="@+id/btnDelete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Delete"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_delete" />
+
         <ImageView
             android:id="@+id/ivRes"
             android:layout_width="120dp"
@@ -51,16 +56,17 @@
                 android:textColor="@android:color/black"/>
 
             <!-- סוג האוכל -->
+
+            <!-- כתובת המסעדה -->
             <TextView
                 android:id="@+id/txtRestaurantCuisine"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:text="Cuisine Type"
-                android:textSize="14sp"
                 android:textColor="@android:color/darker_gray"
-                android:layout_marginTop="4dp"/>
+                android:textSize="14sp" />
 
-            <!-- כתובת המסעדה -->
             <TextView
                 android:id="@+id/txtRestaurantAddress"
                 android:layout_width="wrap_content"
@@ -116,12 +122,16 @@
             <!-- שדה דירוג - כוכבים -->
             <RatingBar
                 android:id="@+id/restaurantRatingBar"
-                android:layout_width="wrap_content"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1" />
+
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

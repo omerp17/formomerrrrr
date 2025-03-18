@@ -48,15 +48,17 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvFirstName"
+                <EditText
+                    android:id="@+id/etFirstName"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="First Name: John"
+                    android:text="First Name"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+                    android:hint="First Name"
+                    android:background="@android:color/white"
+                    android:padding="8dp"/>
 
                 <ImageButton
                     android:id="@+id/btnEditFirstName"
@@ -65,12 +67,11 @@
                     android:layout_marginStart="8dp"
                     android:src="@drawable/editprofilebutton"
                     android:background="@android:color/transparent"
-                    android:contentDescription="Edit Password"
+                    android:contentDescription="Edit First Name"
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:padding="2dp"
                     android:layout_gravity="end"/>
-
             </LinearLayout>
 
             <!-- Last Name Row -->
@@ -80,15 +81,17 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvLastName"
+                <EditText
+                    android:id="@+id/etLastName"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Last Name: Doe"
+                    android:text="Last Name"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+                    android:hint="Last Name"
+                    android:background="@android:color/white"
+                    android:padding="8dp"/>
 
                 <ImageButton
                     android:id="@+id/btnEditLastName"
@@ -110,15 +113,17 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvPhone"
+                <EditText
+                    android:id="@+id/etPhone"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Phone: 123-456-7890"
+                    android:text="Phone"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+                    android:hint="Phone"
+                    android:background="@android:color/white"
+                    android:padding="8dp"/>
 
                 <ImageButton
                     android:id="@+id/btnEditPhone"
@@ -140,15 +145,17 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvEmail"
+                <EditText
+                    android:id="@+id/etEmail"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Email: john.doe@example.com"
+                    android:text="Email"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+                    android:hint="Email"
+                    android:background="@android:color/white"
+                    android:padding="8dp"/>
 
                 <ImageButton
                     android:id="@+id/btnEditEmail"
@@ -170,15 +177,18 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
 
-                <TextView
-                    android:id="@+id/tvPassword"
+                <EditText
+                    android:id="@+id/etPassword"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Password: ********"
+                    android:text="Password"
                     android:textSize="18sp"
                     android:textColor="@android:color/black"
-                    android:textStyle="bold"/>
+                    android:hint="Password"
+                    android:background="@android:color/white"
+                    android:padding="8dp"
+                    android:inputType="textPassword"/>
 
                 <ImageButton
                     android:id="@+id/btnEditPassword"
@@ -221,5 +231,4 @@
         android:text="Back"
         android:textColor="@android:color/white"
         android:textSize="14sp" />
-
 </LinearLayout>

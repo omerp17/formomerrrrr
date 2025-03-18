@@ -10,26 +10,12 @@
     tools:context=".screens.MainActivity2">
 
     <!-- Title Text -->
-
-    <!-- Log In Button -->
-
-    <!-- Register Button -->
-
-    <!-- Add Restaurant Button -->
-
-    <!-- About Us Button -->
-
-    <!-- Restaurants Button -->
-
-
     <TextView
         android:id="@+id/tvtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="19dp"
-        android:layout_marginBottom="33dp"
-        android:fontFamily="sans-serif-black"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="13dp"
         android:gravity="center"
         android:shadowColor="#3F594A"
         android:shadowDx="2"
@@ -40,16 +26,47 @@
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAccount" />
+
+    <!-- Image View (Logo) -->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="246dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="29dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogMain"
+        app:layout_constraintStart_toEndOf="@+id/btnAccount"
+        app:layout_constraintTop_toBottomOf="@+id/btnAccount" />
+
+    <!-- Account Button (Top-left) -->
+    <ImageButton
+        android:id="@+id/btnAccount"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Account"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profileuser"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/tvtitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Log In Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#6C9182"
         android:text="התחבר"
         android:textColor="#FFFFFF"
@@ -57,17 +74,15 @@
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btnRegMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnRegMain"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+    <!-- Register Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnRegMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#6C9182"
         android:text="הרשם"
         android:textColor="#FFFFFF"
@@ -75,16 +90,15 @@
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btnAddNewRestaurant"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnAddNewRestaurant"
         app:layout_constraintTop_toBottomOf="@+id/btnLogMain" />
 
+    <!-- Add New Restaurant Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAddNewRestaurant"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#6C9182"
         android:text="הכנס מסעדה"
         android:textColor="#FFFFFF"
@@ -92,16 +106,15 @@
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btnAboutUs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnAboutUs"
         app:layout_constraintTop_toBottomOf="@+id/btnRegMain" />
 
+    <!-- About Us Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAboutUs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#6C9182"
         android:text="אודות"
         android:textColor="#FFFFFF"
@@ -109,16 +122,15 @@
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toTopOf="@+id/btnGoAllRestaurantFromMain"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnGoAllRestaurantFromMain"
         app:layout_constraintTop_toBottomOf="@+id/btnAddNewRestaurant" />
 
+    <!-- Restaurants Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGoAllRestaurantFromMain"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="39dp"
         android:backgroundTint="#6C9182"
         android:text="מסעדות"
         android:textColor="#FFFFFF"
@@ -126,18 +138,7 @@
         app:cornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/btnAccount"
         app:layout_constraintTop_toBottomOf="@+id/btnAboutUs" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="241dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="44dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogMain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvtitle"
-        app:srcCompat="@drawable/logo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

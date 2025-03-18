@@ -2,49 +2,82 @@ package com.example.formomerpeled.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.models.User;
 import com.example.formomerpeled.Utils.SharedPreferencesUtil;
+import com.example.formomerpeled.services.DatabaseService;
 
 public class Profile extends AppCompatActivity {
+
+    private EditText etFirstName, etLastName, etPhone, etEmail, etPassword;
+    private Button btnSaveChanges, btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // קבלת משתנים של ה-TextView ושל כפתור חזור
-        TextView tvEmail = findViewById(R.id.tvEmail);
-        TextView tvPhone = findViewById(R.id.tvPhone);
-        TextView tvfName = findViewById(R.id.tvFirstName);
-        TextView tvLName = findViewById(R.id.tvLastName);
-        TextView tvPassword = findViewById(R.id.tvPassword);
-        Button btnBack = findViewById(R.id.btnBack); // הכפתור חזור
+        // מציאת משתנים
+        etFirstName = findViewById(R.id.etFirstName);
+        etLastName = findViewById(R.id.etLastName);
+        etPhone = findViewById(R.id.etPhone);
+        etEmail = findViewById(R.id.etEmail);
+        etPassword = findViewById(R.id.etPassword);
+        btnSaveChanges = findViewById(R.id.btnSaveChanges);
+        btnBack = findViewById(R.id.btnBack);
 
         // קבלת המשתמש המחובר
         User user = SharedPreferencesUtil.getUser(getApplicationContext());
 
         if (user != null) {
-            // הצגת פרטי המשתמש
-            tvEmail.setText("Email: " + user.getEmail());
-            tvPhone.setText("Phone: " + (user.getPhone() != null ? user.getPhone() : "N/A"));
-            tvfName.setText("Name: " + (user.getFname() != null ? user.getFname() : "N/A"));
-            tvLName.setText("Name: " + (user.getLname() != null ? user.getLname() : "N/A"));
-            tvPassword.setText("Name: " + (user.getPassword() != null ? user.getPassword() : "N/A"));
+            // הצגת פרטי המשתמש ב-EditTexts
+            etFirstName.setText(user.getFname());
+            etLastName.setText(user.getLname());
+            etPhone.setText(user.getPhone());
+            etEmail.setText(user.getEmail());
+            etPassword.setText(user.getPassword());
         } else {
-            tvEmail.setText("User not logged in");
+            // אם אין משתמש מחובר, הצגת הודעה מתאימה
+            etEmail.setText("User not logged in");
         }
 
-        // פעולה על לחיצה על כפתור חזור
-        btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(Profile.this, MainActivity2.class);
-            startActivity(intent);
-            finish(); // סוגר את המסך הנוכחי כדי שלא יחזור אליו בלחיצה על כפתור ה-back
+        // כפתור שמירת שינויים
+        btnSaveChanges.setOnClickListener(v -> {
+            if (user != null) {
+                // עדכון הערכים באובייקט המשתמש
+                user.setFname(etFirstName.getText().toString());
+                user.setLname(etLastName.getText().toString());
+                user.setPhone(etPhone.getText().toString());
+                user.setEmail(etEmail.getText().toString());
+                user.setPassword(etPassword.getText().toString());
+
+                // שמירת הערכים המעודכנים ב-SharedPreferences
+                SharedPreferencesUtil.saveUser(getApplicationContext(), user);
+
+                // עדכון המשתמש ב-Firebase
+                DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        Toast.makeText(Profile.this, "Changes saved successfully!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Toast.makeText(Profile.this, "Failed to update user: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.e("ProfileError", "Error updating user", e);
+                    }
+                });
+            } else {
+                Toast.makeText(Profile.this, "No user found", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

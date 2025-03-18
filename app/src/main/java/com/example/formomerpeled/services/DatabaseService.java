@@ -1,9 +1,12 @@
 package com.example.formomerpeled.services;
 
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.example.formomerpeled.R;
 import com.example.formomerpeled.models.Restaurant;
 import com.example.formomerpeled.models.User;
 import com.google.firebase.database.DatabaseReference;
@@ -111,6 +114,10 @@ public class DatabaseService {
         return databaseReference.child(path).push().getKey();
     }
 
+
+
+
+
     public String generateRestaurantId() {
         return generateNewId("Restaurant/");
     }
@@ -125,9 +132,36 @@ public class DatabaseService {
     }
 
     /// get a user from the database
-    public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
-        getData("Users/" + uid, User.class, callback);
+    public void getUser(String userId, DatabaseCallback<User> callback) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference.child(userId).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        User user = task.getResult().getValue(User.class);
+                        callback.onCompleted(user); // מחזיר את המידע
+                    } else {
+                        callback.onFailed(task.getException()); // שגיאה
+                    }
+                });
     }
+
+
+    public void updateUser(User user, DatabaseCallback<Void> callback) {
+        // עדכון המידע במסד הנתונים
+        // לדוגמה, אם אתה עובד עם Firebase:
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+
+        // שימוש ב-uid של המשתמש על מנת לעדכן את הנתונים
+        databaseReference.child(user.getId()).setValue(user)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        callback.onCompleted(null); // הצלחה
+                    } else {
+                        callback.onFailed(task.getException()); // שגיאה
+                    }
+                });
+    }
+
 
     public void createNewRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
         writeData("Restaurants/" + restaurant.getId(), restaurant, callback);

@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.Utils.ImageUtil;
@@ -67,17 +70,15 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_new_restaurant);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
         initViews();
 
-        //      בדוק הרשאות גישה לאחסון
-        /// request permission for the camera and storage
         ImageUtil.requestPermission(this);
 
-
-
-
-
-        // אתחול של ה-ActivityResultLauncher לבחירת תמונה מהגלריה
         selectImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -91,7 +92,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
     private void initViews() {
         btnAdd = findViewById(R.id.btnAdd);
         btnGallery = findViewById(R.id.btnGalleryD);
-
+        btnBackAddRestaurant = findViewById(R.id.btnBackAddRestaurant); // תיקון קריטי
 
 
         etName = findViewById(R.id.etName);
@@ -101,19 +102,28 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         etAddress = findViewById(R.id.etAddress);
         etDomain = findViewById(R.id.etDomain);
         etGlutenFreeItems = findViewById(R.id.etGlutenFreeItems);
-        ratingBar=findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(this) ;
-        ivResImage=findViewById(R.id.ivAddRes);
+        ratingBar = findViewById(R.id.ratingBar);
+        ivResImage = findViewById(R.id.ivAddRes);
 
-        btnBackAddRestaurant.setOnClickListener(this);
+        ratingBar.setOnRatingBarChangeListener(this);
+
+        if (btnBackAddRestaurant != null) {  // הוספת בדיקה למניעת קריסה
+            btnBackAddRestaurant.setOnClickListener(this);
+        } else {
+            Log.e(TAG, "btnBackAddRestaurant is null! Check if the ID exists in the XML.");
+        }
 
         btnAdd.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
     }
 
+
     @Override
     public void onClick(View view) {
-
+        if (view == btnBackAddRestaurant) {
+            Intent go = new Intent(this, MainActivity2.class);
+            startActivity(go);
+        }
 
         if (view == btnGallery) {
             selectImageFromGallery(); // קורא לפונקציה לבחירת תמונה

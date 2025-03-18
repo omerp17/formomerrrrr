@@ -24,6 +24,8 @@ import com.example.formomerpeled.models.User;
 import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
 
+import org.jetbrains.annotations.NotNull;
+
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -160,6 +162,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             });
         }
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import com.example.formomerpeled.R;
 
 public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
     Button btnRegMain, btnLogMain, btnAddNewRestaurant,btnAboutUs, btnGoAllRestaurantFromMain;
+            ImageButton btnAccount;
 
 
     @Override
@@ -36,6 +38,9 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         btnLogMain.setOnClickListener(this);
         btnAboutUs = (Button)findViewById(R.id.btnAboutUs);
         btnAboutUs.setOnClickListener(this);
+        btnAccount = findViewById(R.id.btnAccount);
+        btnAccount.setOnClickListener(this);
+
         btnGoAllRestaurantFromMain = (Button)findViewById(R.id.btnGoAllRestaurantFromMain);
         btnGoAllRestaurantFromMain.setOnClickListener(this);
         btnAddNewRestaurant = (Button)findViewById(R.id.btnAddNewRestaurant);
@@ -47,6 +52,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
 
         if (v == btnGoAllRestaurantFromMain) {
             Intent go = new Intent(this, ShowRestaurants.class);
+            startActivity(go);
+        }
+        if (v == btnAccount) {
+            Intent go = new Intent(this, Profile.class);
             startActivity(go);
         }
         if (v == btnRegMain) {
@@ -61,6 +70,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         if (v == btnAddNewRestaurant) {
             Intent go = new Intent(this, AddRestaurant.class);
             startActivity(go);
+
         }
         if (v == btnAboutUs) {
             Intent go = new Intent(this ,Odot.class);
