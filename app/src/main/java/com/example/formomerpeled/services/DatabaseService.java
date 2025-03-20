@@ -133,23 +133,17 @@ public class DatabaseService {
 
     /// get a user from the database
     public void getUser(String userId, DatabaseCallback<User> callback) {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
-        databaseReference.child(userId).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        User user = task.getResult().getValue(User.class);
-                        callback.onCompleted(user); // מחזיר את המידע
-                    } else {
-                        callback.onFailed(task.getException()); // שגיאה
-                    }
-                });
+
+        getData("Users/" + userId, User.class, callback);
+
+
     }
 
 
     public void updateUser(User user, DatabaseCallback<Void> callback) {
         // עדכון המידע במסד הנתונים
         // לדוגמה, אם אתה עובד עם Firebase:
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         // שימוש ב-uid של המשתמש על מנת לעדכן את הנתונים
         databaseReference.child(user.getId()).setValue(user)
@@ -213,6 +207,9 @@ public class DatabaseService {
     }
 
 
+    public void deleteUser(@NotNull final String userId, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData("Users/" + userId, callback);
+    }
 
     /// delete a restaurant from the database
     /// @param restaurantId the id of the restaurant to delete

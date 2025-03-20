@@ -48,6 +48,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public static boolean isAdmin = false;
     private User user2=null;
+    String uid;
 
 
     @Override
@@ -61,21 +62,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return insets;
         });
 
-
+        init_views();
         authenticationService = AuthenticationService.getInstance();
-        if(authenticationService.isUserSignedIn())
-        {
 
+        uid=authenticationService.getCurrentUserId();
 
-        }
         databaseService = DatabaseService.getInstance();
 
-        User user=SharedPreferencesUtil.getUser(Login.this);
-        init_views();
-        if(user!=null) {
-            etEmail2.setText(user.getEmail());
-            etPass2.setText(user.getPassword());
-        }
+
+        databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User object) {
+                user2=object;
+                if (user2!=null){
+                etEmail2.setText(user2.getEmail());
+                etPass2.setText(user2.getPassword());}
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
+
         btnLog.setOnClickListener(this);
         btnCreateNewUser.setOnClickListener(this);
     }
@@ -118,21 +128,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     Log.d(TAG, "signInWithEmail:success");
 
 
-
-
                     databaseService.getUser(id, new DatabaseService.DatabaseCallback<User>() {
                         @Override
-                        public void onCompleted(User user) {
+                        public void onCompleted(User object) {
+                            user2 = object;
 
-                            SharedPreferencesUtil.saveUser(Login.this, user);
-                            user2=user;
 
-                            if(user2.isAdmin()) {
-                                isAdmin=true;
+                            SharedPreferencesUtil.saveUser(Login.this, user2);
+
+
+                            if (user2.isAdmin()) {
+                                isAdmin = true;
                                 Intent go = new Intent(Login.this, AdminPage.class);
                                 startActivity(go);
-                            }
-                            else {
+                            } else {
 
                                 Intent go = new Intent(Login.this, MainActivity2.class);
                                 startActivity(go);
@@ -140,6 +149,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                             // TODO add intent to main page
                         }
+
+
+                        @Override
+                        public void onFailed(Exception e) {
+
+                        }
+                    });
+
+
+                }
 
                         @Override
                         public void onFailed(Exception e) {
@@ -152,17 +171,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     });
                 }
 
-                @Override
-                public void onFailed(Exception e) {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", e);
-                    Toast.makeText(Login.this, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show();
-                }
-            });
+
+
         }
 
-    }
+
 
     @Override
     protected void onStart() {

@@ -12,53 +12,43 @@
 
     <!-- RecyclerView to display the list of restaurants -->
 
-
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/rvList"
-        app:layout_constraintEnd_toStartOf="@+id/ibBtn"
+        app:layout_constraintBottom_toTopOf="@+id/rvUsers"
+        app:layout_constraintEnd_toStartOf="@+id/ibBtnForShowUsers"
         app:layout_constraintStart_toStartOf="parent"
-        app:queryHint="חפש מסעדה לפי שם"></androidx.appcompat.widget.SearchView>
+        app:queryHint="חפש שם"></androidx.appcompat.widget.SearchView>
+
 
     <ImageButton
-        android:id="@+id/ibBtn"
+        android:id="@+id/ibBtnForShowUsers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="23dp"
         android:backgroundTint="#00123456"
         android:src="@drawable/baseline_find_replace_24"
-        app:layout_constraintBottom_toTopOf="@+id/rvList"
+        app:layout_constraintBottom_toTopOf="@+id/rvUsers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchView"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Delete Restaurant Button (Initially Hidden) -->
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvList"
+        android:id="@+id/rvUsers"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="34dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="383dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibBtn" />
-
-    <!-- Delete Restaurant Button (Initially Hidden) -->
-    <Button
-        android:id="@+id/btnDeleteRestaurant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="מחק מסעדה"
-        android:visibility="gone"
-        app:layout_constraintEnd_toStartOf="@+id/searchView"
         app:layout_constraintStart_toStartOf="@+id/searchView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ibBtnForShowUsers" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
