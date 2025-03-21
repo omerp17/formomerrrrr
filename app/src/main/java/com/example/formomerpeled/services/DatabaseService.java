@@ -161,6 +161,34 @@ public class DatabaseService {
         writeData("Restaurants/" + restaurant.getId(), restaurant, callback);
     }
 
+    public void userFavoriteRestaurant(@NotNull final String uid,@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("UserFavorite/" + uid+"/"+restaurant.getId(), restaurant, callback);
+    }
+
+
+
+
+    /// get a restaurant from the database
+    public void getUserFavoriteRestaurant(@NotNull final String uid, @NotNull final DatabaseCallback<List<Restaurant>> callback) {
+
+
+        readData("UserFavorite/" + uid).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Restaurant> restaurants = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
+                Log.d(TAG, "Got restaurant: " + restaurant);
+                restaurants.add(restaurant);
+            });
+
+            callback.onCompleted(restaurants);
+        });
+    }
+
 
 
     /// get a restaurant from the database

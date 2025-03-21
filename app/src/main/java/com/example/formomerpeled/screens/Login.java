@@ -65,9 +65,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         init_views();
         authenticationService = AuthenticationService.getInstance();
 
-        uid=authenticationService.getCurrentUserId();
+        uid = authenticationService.getCurrentUserId();
 
         databaseService = DatabaseService.getInstance();
+        user2 = SharedPreferencesUtil.getUser(Login.this);
+        if (user2 != null) {
+            etEmail2.setText(user2.getEmail());
+            etPass2.setText(user2.getPassword());
+        }
+
 
 
         databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {

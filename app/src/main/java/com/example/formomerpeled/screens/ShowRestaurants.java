@@ -59,10 +59,11 @@ public class ShowRestaurants extends AppCompatActivity {
             public void onItemClick(Restaurant restaurant) {
                 Intent go = new Intent(ShowRestaurants.this, ViewDetails.class);
                 go.putExtra("name", restaurant.getName());
-                go.putExtra("phone", restaurant.getPhoneNumber());
-                go.putExtra("website", restaurant.getDomain());
-               // go.putExtra("image", restaurant.getImageCode());
+              go.putExtra("phone", restaurant.getPhoneNumber());
+               go.putExtra("website", restaurant.getDomain());
+                go.putExtra("image", restaurant.getImageCode().toString());
 
+                go.putExtra("res",restaurant);
 
                 startActivity(go);
             }

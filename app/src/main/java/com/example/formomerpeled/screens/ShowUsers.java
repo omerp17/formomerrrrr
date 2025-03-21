@@ -2,6 +2,7 @@ package com.example.formomerpeled.screens;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import com.example.formomerpeled.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowUsers extends AppCompatActivity {
+public class ShowUsers extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "ShowUsers";
 
@@ -24,6 +25,7 @@ public class ShowUsers extends AppCompatActivity {
     private List<User> userList = new ArrayList<>();
     private SearchView searchView;
     private DatabaseService databaseService;
+    ImageButton ibBtnForShowUsers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,9 @@ public class ShowUsers extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.rvUsers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ibBtnForShowUsers=findViewById(R.id.ibBtnForShowUsers);
+        ibBtnForShowUsers.setOnClickListener(this);
 
         userAdapter = new UserAdapter(userList, this);
         recyclerView.setAdapter(userAdapter);
@@ -71,8 +76,10 @@ public class ShowUsers extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterUsers(newText);
-                return false;
+
+
+               filterUsers(newText);
+              return false;
             }
         });
     }
@@ -90,5 +97,11 @@ public class ShowUsers extends AppCompatActivity {
         } else {
             Toast.makeText(this, "אין משתמשים בשם הזה", Toast.LENGTH_SHORT).show(); // "No users with this name"
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        loadUsers();
+
     }
 }

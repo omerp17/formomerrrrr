@@ -1,6 +1,8 @@
 package com.example.formomerpeled.models;
 
-public class Restaurant {
+import java.io.Serializable;
+
+public class Restaurant  implements Serializable {
         private String id, uId;
         private String name;
         private String cuisineType;
