@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +37,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     Button btnLog, btnBackLogin, btnCreateNewUser;
 
     String email2, pass2;
- 
+
 
     public static final String MyPREFERENCES = "MyPrefs";
 
@@ -45,9 +47,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedpreferences;
 
 
-
     public static boolean isAdmin = false;
-    private User user2=null;
+    private User user2 = null;
     String uid;
 
 
@@ -75,14 +76,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
 
-
         databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User object) {
-                user2=object;
-                if (user2!=null){
-                etEmail2.setText(user2.getEmail());
-                etPass2.setText(user2.getPassword());}
+                user2 = object;
+                if (user2 != null) {
+                    etEmail2.setText(user2.getEmail());
+                    etPass2.setText(user2.getPassword());
+                }
             }
 
             @Override
@@ -100,8 +101,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnLog = findViewById(R.id.btnLog);
         etEmail2 = findViewById(R.id.etEmail2);
         etPass2 = findViewById(R.id.etPassword2);
-        btnBackLogin=findViewById(R.id.btnBackLogin);
-        btnCreateNewUser=findViewById(R.id.btnCreateNewUser);
+        btnBackLogin = findViewById(R.id.btnBackLogin);
+        btnCreateNewUser = findViewById(R.id.btnCreateNewUser);
 
         btnCreateNewUser.setOnClickListener(this);
         btnLog.setOnClickListener(this);
@@ -121,7 +122,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(go);
         }
 
-        if(btnLog==v) {
+        if (btnLog == v) {
             email2 = etEmail2.getText().toString();
             pass2 = etPass2.getText().toString();
 
@@ -166,21 +167,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                 }
 
-                        @Override
-                        public void onFailed(Exception e) {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", e);
-                            Toast.makeText(Login.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            authenticationService.signOut();
-                        }
-                    });
+                @Override
+                public void onFailed(Exception e) {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", e);
+                    Toast.makeText(Login.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                    authenticationService.signOut();
                 }
-
-
-
+            });
         }
 
+
+    }
 
 
     @Override
@@ -191,5 +190,33 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_login, menu);
+        setTitle("תפריט מסעדות");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_main) {
+            startActivity(new Intent(this, MainActivity2.class));
+            return true;
+        } else if (id == R.id.action_register) {
+            startActivity(new Intent(this, Register.class));
+            return true;
+        } else if (id == R.id.action_addRes) {
+            startActivity(new Intent(this, AddRestaurant.class));
+            return true;
+        }
+        else if (id == R.id.action_about) {
+            startActivity(new Intent(this, Odot.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

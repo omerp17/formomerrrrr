@@ -3,6 +3,8 @@ package com.example.formomerpeled.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -67,7 +69,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
     public void onClick(View v) {
         if (v == btnBackReg) {
-            Intent go = new Intent(this ,MainActivity2.class);
+            Intent go = new Intent(this, MainActivity2.class);
             startActivity(go);
         }
         if (v == btnReg) {
@@ -77,38 +79,37 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             email = etEmail.getText().toString();
             password = etPassword.getText().toString();
             //check if registration is valid
-            Boolean isValid=true;
-            if (fname.length()<2){
-               etFname.setError("הכנס שם מעל 2 תווים");
+            Boolean isValid = true;
+            if (fname.length() < 2) {
+                etFname.setError("הכנס שם מעל 2 תווים");
                 isValid = false;
             }
-            if (lname.length()<2){
-                Toast.makeText(Register.this,"שם משפחה קצר מדי", Toast.LENGTH_LONG).show();
+            if (lname.length() < 2) {
+                Toast.makeText(Register.this, "שם משפחה קצר מדי", Toast.LENGTH_LONG).show();
                 isValid = false;
             }
-            if (phone.length()<9||phone.length()>10){
-                Toast.makeText(Register.this,"מספר הטלפון לא תקין", Toast.LENGTH_LONG).show();
-                isValid = false;
-            }
-
-            if (!email.contains("@")){
-                Toast.makeText(Register.this,"כתובת האימייל לא תקינה", Toast.LENGTH_LONG).show();
-                isValid = false;
-            }
-            if(password.length()<6){
-                Toast.makeText(Register.this,"הסיסמה קצרה מדי", Toast.LENGTH_LONG).show();
-                isValid = false;
-            }
-            if(password.length()>20){
-                Toast.makeText(Register.this,"הסיסמה ארוכה מדי", Toast.LENGTH_LONG).show();
+            if (phone.length() < 9 || phone.length() > 10) {
+                Toast.makeText(Register.this, "מספר הטלפון לא תקין", Toast.LENGTH_LONG).show();
                 isValid = false;
             }
 
-            if (isValid==true){
+            if (!email.contains("@")) {
+                Toast.makeText(Register.this, "כתובת האימייל לא תקינה", Toast.LENGTH_LONG).show();
+                isValid = false;
+            }
+            if (password.length() < 6) {
+                Toast.makeText(Register.this, "הסיסמה קצרה מדי", Toast.LENGTH_LONG).show();
+                isValid = false;
+            }
+            if (password.length() > 20) {
+                Toast.makeText(Register.this, "הסיסמה ארוכה מדי", Toast.LENGTH_LONG).show();
+                isValid = false;
+            }
+
+            if (isValid == true) {
 
 
-
-                authenticationService.signUp(email, password, new  AuthenticationService.AuthCallback<String>() {
+                authenticationService.signUp(email, password, new AuthenticationService.AuthCallback<String>() {
 
                     public void onCompleted(String uid) {
                         User user = new User();
@@ -123,7 +124,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             @Override
                             public void onCompleted(Void object) {
                                 Log.d(TAG, "onCompleted: User registered successfully");
-                                                  //   / save the user to shared preferences
+                                //   / save the user to shared preferences
                                 SharedPreferencesUtil.saveUser(Register.this, user);
                                 Log.d(TAG, "onCompleted: Redirecting to MainActivity");
                                 /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
@@ -136,10 +137,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                             @Override
                             public void onFailed(Exception e) {
                                 Log.e(TAG, "onFailed: Failed to register user", e);
-                            //    / show error message to user
+                                //    / show error message to user
                                 Toast.makeText(Register.this, "Failed to register user", Toast.LENGTH_SHORT).show();
-                            //    / sign out the user if failed to register
-                            //    / this is to prevent the user from being logged in again
+                                //    / sign out the user if failed to register
+                                //    / this is to prevent the user from being logged in again
                                 authenticationService.signOut();
                             }
                         });
@@ -155,18 +156,36 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             }
 
 
-
-
         }
 
 
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_reg, menu);
+        setTitle("תפריט מסעדות");
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-
-
-
-
+        if (id == R.id.action_main) {
+            startActivity(new Intent(this, MainActivity2.class));
+            return true;
+        } else if (id == R.id.action_login) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        } else if (id == R.id.action_addRes) {
+            startActivity(new Intent(this, AddRestaurant.class));
+            return true;
+        }
+        else if (id == R.id.action_about) {
+            startActivity(new Intent(this, Odot.class));
+            return true;
         }
 
+        return super.onOptionsItemSelected(item);
+    }
 
     }

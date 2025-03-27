@@ -2,6 +2,8 @@ package com.example.formomerpeled.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -48,4 +50,33 @@ public class Odot extends AppCompatActivity implements View.OnClickListener {
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_odot, menu);
+        setTitle("תפריט מסעדות");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_main) {
+            startActivity(new Intent(this, MainActivity2.class));
+            return true;
+        } else if (id == R.id.action_register) {
+            startActivity(new Intent(this, Register.class));
+            return true;
+        } else if (id == R.id.action_login) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        }
+        else if (id == R.id.action_addRes) {
+            startActivity(new Intent(this, AddRestaurant.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

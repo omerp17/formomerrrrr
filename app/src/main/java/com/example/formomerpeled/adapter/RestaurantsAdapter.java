@@ -30,7 +30,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
     private List<Restaurant> restaurantList;
     private OnItemClickListener clickListener;
 
-    // אתחול עם רשימת מסעדות
+    // Initialize with the list of restaurants
     public RestaurantsAdapter(List<Restaurant> restaurantList, OnItemClickListener listener) {
         this.restaurantList = restaurantList;
         this.clickListener = listener;
@@ -44,13 +44,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         private TextView restaurantDomain;
         private TextView glutenFreeItems;
         private Button viewDetailsButton;
-        private ImageButton deleteButton; // כפתור מחיקה
+        private ImageButton deleteButton; // Delete button
         private ImageView ivD;
         RatingBar restaurantRatingBar;
 
         public RestaurantViewHolder(View itemView) {
             super(itemView);
-            // אתחול של כל רכיב
+            // Initialize all components
             restaurantName = itemView.findViewById(R.id.txtRestaurantName);
             restaurantCuisine = itemView.findViewById(R.id.txtRestaurantCuisine);
             restaurantAddress = itemView.findViewById(R.id.txtRestaurantAddress);
@@ -58,13 +58,13 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantDomain = itemView.findViewById(R.id.txtRestaurantDomain);
             glutenFreeItems = itemView.findViewById(R.id.txtGlutenFreeItems);
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
-            deleteButton = itemView.findViewById(R.id.btnDelete); // אתחול כפתור מחיקה
+            deleteButton = itemView.findViewById(R.id.btnDelete); // Initialize delete button
             ivD = itemView.findViewById(R.id.ivRes);
             restaurantRatingBar = itemView.findViewById(R.id.restaurantRatingBar);
         }
 
         public void bind(Restaurant restaurant) {
-            // קביעת המידע לכל אחד מה-TextViewים
+            // Set data for each TextView
             restaurantName.setText(restaurant.getName());
             restaurantCuisine.setText(restaurant.getCuisineType());
             restaurantAddress.setText(restaurant.getAddress() + " " + restaurant.getCity());
@@ -73,7 +73,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantRatingBar.setRating(restaurant.getRating());
             glutenFreeItems.setText(restaurant.getGlutenFreeMenuItems());
 
-            // אם יש תמונה, המר את ה-Base64 ל-Bitmap ושים ב-ImageView
+            // If image exists, convert Base64 to Bitmap and set to ImageView
             if (restaurant.getImageCode() != null) {
                 Bitmap bitmap = ImageUtil.convertFrom64base(restaurant.getImageCode());
                 ivD.setImageBitmap(bitmap);
@@ -83,17 +83,18 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                 viewDetailsButton.setOnClickListener(v -> clickListener.onItemClick(restaurant));
             }
 
+            // Check if the current user is an admin to show the delete button
             databaseService.getUser(authenticationService.getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User user) {
-                    if(user.isAdmin()) {
+                    if(user != null &&user.isAdmin()) {
                         deleteButton.setOnClickListener(v -> {
                             int position = getAdapterPosition();
                             if (position != RecyclerView.NO_POSITION) {
                                 databaseService.deleteRestaurant(restaurantList.get(position).getId(), new DatabaseService.DatabaseCallback<Void>() {
                                     @Override
                                     public void onCompleted(Void object) {
-                                        restaurantList.remove(position); // הסרה מהרשימה המקומית
+                                        restaurantList.remove(position); // Remove from local list
                                     }
 
                                     @Override
@@ -101,7 +102,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                                         Log.e("RestaurantsAdapter", e.getMessage());
                                     }
                                 });
-                                notifyItemRemoved(position); // עדכון ה-RecyclerView
+                                notifyItemRemoved(position); // Update the RecyclerView
                             }
                         });
                     }
@@ -109,19 +110,20 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
                 @Override
                 public void onFailed(Exception e) {
-                    Log.e("RetaurantsAdapter", e.getMessage());
+                    Log.e("RestaurantsAdapter", e.getMessage());
                 }
             });
 
-            // כפתור מחיקה
-            if(authenticationService.getCurrentUserId().equals(restaurant.getuId())) {
+            // Delete button for the owner of the restaurant
+            if (authenticationService.getCurrentUserId() != null &&
+                    authenticationService.getCurrentUserId().equals(restaurant.getuId())) {
                 deleteButton.setOnClickListener(v -> {
                     int position = getAdapterPosition();
                     if (position != RecyclerView.NO_POSITION) {
                         databaseService.deleteRestaurant(restaurantList.get(position).getId(), new DatabaseService.DatabaseCallback<Void>() {
                             @Override
                             public void onCompleted(Void object) {
-                                restaurantList.remove(position); // הסרה מהרשימה המקומית
+                                restaurantList.remove(position); // Remove from local list
                             }
 
                             @Override
@@ -129,7 +131,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
                                 Log.e("RestaurantsAdapter", e.getMessage());
                             }
                         });
-                        notifyItemRemoved(position); // עדכון ה-RecyclerView
+                        notifyItemRemoved(position); // Update the RecyclerView
                     }
                 });
             }
@@ -138,7 +140,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
 
     @Override
     public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // מניחים שמדובר ב-XML בשם item_restaurant.xml
+        // Assuming XML layout is named item_restaurant.xml
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant, parent, false);
         return new RestaurantViewHolder(view);
     }
@@ -154,15 +156,16 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         return restaurantList.size();
     }
 
-    // עדכון רשימת המסעדות
+    // Update the list of restaurants
     public void setRestaurantList(List<Restaurant> restaurantList) {
         this.restaurantList = restaurantList;
         notifyDataSetChanged();
     }
 
-    // ממשק להאזנה לאירועים על פריטים ברשימה
+    // Interface to listen for item click events
     public interface OnItemClickListener {
         void onItemClick(Restaurant restaurant);
         void onLongClick(Restaurant restaurant);
     }
 }
+

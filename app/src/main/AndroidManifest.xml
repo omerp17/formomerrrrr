@@ -42,7 +42,7 @@
             android:name=".screens.ShowUsers"
             android:exported="false" />
         <activity
-            android:name=".screens.MainActivity2"
+            android:name=".screens.AddRestaurant"
             android:exported="false" />
         <activity
             android:name=".screens.Login"
@@ -51,7 +51,7 @@
             android:name=".screens.AdminPage"
             android:exported="false" />
         <activity
-            android:name=".screens.AddRestaurant"
+            android:name=".screens.MainActivity2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFE8BB"
     android:padding="16dp"
-    tools:context=".screens.ShowRestaurants">
+    >
 
     <!-- Search Bar (SearchView) -->
 

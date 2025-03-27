@@ -13,6 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -93,6 +95,11 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         btnAdd = findViewById(R.id.btnAdd);
         btnGallery = findViewById(R.id.btnGalleryD);
         btnBackAddRestaurant = findViewById(R.id.btnBackAddRestaurant); // תיקון קריטי
+
+
+
+
+
 
 
         etName = findViewById(R.id.etName);
@@ -252,5 +259,34 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
         rating2=rating;
+    }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_addres, menu);
+        setTitle("תפריט מסעדות");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_main) {
+            startActivity(new Intent(this, MainActivity2.class));
+            return true;
+        } else if (id == R.id.action_register) {
+            startActivity(new Intent(this, Register.class));
+            return true;
+        } else if (id == R.id.action_login) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        }
+        else if (id == R.id.action_about) {
+            startActivity(new Intent(this, Odot.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
