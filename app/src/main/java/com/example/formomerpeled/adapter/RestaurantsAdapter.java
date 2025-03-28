@@ -1,5 +1,6 @@
 package com.example.formomerpeled.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,14 +11,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.content.Intent;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.Utils.ImageUtil;
+import com.example.formomerpeled.Utils.SharedPreferencesUtil;
 import com.example.formomerpeled.models.Restaurant;
 import com.example.formomerpeled.models.User;
+import com.example.formomerpeled.screens.ViewDetails;
 import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
 
@@ -25,16 +29,101 @@ import java.util.List;
 
 public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.RestaurantViewHolder> {
 
-    private DatabaseService databaseService = DatabaseService.getInstance();
-    private AuthenticationService authenticationService = AuthenticationService.getInstance();
+    AuthenticationService authenticationService = AuthenticationService.getInstance();
+    DatabaseService databaseService = DatabaseService.getInstance();
     private List<Restaurant> restaurantList;
-    private OnItemClickListener clickListener;
+    private   Context context;
+
 
     // Initialize with the list of restaurants
-    public RestaurantsAdapter(List<Restaurant> restaurantList, OnItemClickListener listener) {
+
+
+    public RestaurantsAdapter(List<Restaurant> restaurantList, Context context) {
         this.restaurantList = restaurantList;
-        this.clickListener = listener;
+        this.context = context;
     }
+
+    @NonNull
+    @Override
+    public RestaurantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant, parent, false);
+        return new RestaurantViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
+        final int pos = position;
+        Restaurant restaurant = restaurantList.get(position);
+        holder.restaurantName.setText(restaurant.getName());
+        holder.restaurantCuisine.setText(restaurant.getCuisineType());
+        holder.restaurantAddress.setText(restaurant.getAddress() + " " + restaurant.getCity());
+        holder.restaurantPhoneNumber.setText(restaurant.getPhoneNumber());
+        holder.restaurantDomain.setText(restaurant.getDomain());
+        holder.restaurantRatingBar.setRating(restaurant.getRating());
+        holder.glutenFreeItems.setText(restaurant.getGlutenFreeMenuItems());
+        holder.viewDetailsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go=new Intent(context, ViewDetails.class);
+                go.putExtra("res", restaurant);
+                context.startActivity(go);
+            }
+        });
+
+        String current_uid =authenticationService.getCurrentUserId();
+        databaseService.getUser(current_uid, new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User user) {
+                if(!(user.isAdmin() || user.getId().equals(restaurant.getuId())))
+                    holder.deleteButton.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e("error", e.getMessage());
+            }
+        });
+
+
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String current_uid =authenticationService.getCurrentUserId();
+                User user = SharedPreferencesUtil.getUser(context);
+                assert user != null;
+                if(user.isAdmin() || user.getId().equals(restaurant.getuId())) {
+                    databaseService.deleteRestaurant(restaurant.getId(), new DatabaseService.DatabaseCallback<Void>() {
+                        @Override
+                        public void onCompleted(Void object) {
+                            restaurantList.remove(pos);
+                            notifyItemRemoved(pos);
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+                            Log.e("error", e.getMessage());
+                        }
+                    });
+                }
+
+            }
+        });
+
+
+        // If image exists, convert Base64 to Bitmap and set to ImageView
+        if (restaurant.getImageCode() != null) {
+            Bitmap bitmap = ImageUtil.convertFrom64base(restaurant.getImageCode());
+            holder.ivD.setImageBitmap(bitmap);
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return this.restaurantList.size();
+    }
+
 
     public class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private TextView restaurantName;
@@ -58,114 +147,11 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             restaurantDomain = itemView.findViewById(R.id.txtRestaurantDomain);
             glutenFreeItems = itemView.findViewById(R.id.txtGlutenFreeItems);
             viewDetailsButton = itemView.findViewById(R.id.btnViewDetails);
-            deleteButton = itemView.findViewById(R.id.btnDelete); // Initialize delete button
+            deleteButton = itemView.findViewById(R.id.btnDelete);// Initialize delete button
+
             ivD = itemView.findViewById(R.id.ivRes);
             restaurantRatingBar = itemView.findViewById(R.id.restaurantRatingBar);
         }
-
-        public void bind(Restaurant restaurant) {
-            // Set data for each TextView
-            restaurantName.setText(restaurant.getName());
-            restaurantCuisine.setText(restaurant.getCuisineType());
-            restaurantAddress.setText(restaurant.getAddress() + " " + restaurant.getCity());
-            restaurantPhoneNumber.setText(restaurant.getPhoneNumber());
-            restaurantDomain.setText(restaurant.getDomain());
-            restaurantRatingBar.setRating(restaurant.getRating());
-            glutenFreeItems.setText(restaurant.getGlutenFreeMenuItems());
-
-            // If image exists, convert Base64 to Bitmap and set to ImageView
-            if (restaurant.getImageCode() != null) {
-                Bitmap bitmap = ImageUtil.convertFrom64base(restaurant.getImageCode());
-                ivD.setImageBitmap(bitmap);
-            }
-
-            if (clickListener != null) {
-                viewDetailsButton.setOnClickListener(v -> clickListener.onItemClick(restaurant));
-            }
-
-            // Check if the current user is an admin to show the delete button
-            databaseService.getUser(authenticationService.getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
-                @Override
-                public void onCompleted(User user) {
-                    if(user != null &&user.isAdmin()) {
-                        deleteButton.setOnClickListener(v -> {
-                            int position = getAdapterPosition();
-                            if (position != RecyclerView.NO_POSITION) {
-                                databaseService.deleteRestaurant(restaurantList.get(position).getId(), new DatabaseService.DatabaseCallback<Void>() {
-                                    @Override
-                                    public void onCompleted(Void object) {
-                                        restaurantList.remove(position); // Remove from local list
-                                    }
-
-                                    @Override
-                                    public void onFailed(Exception e) {
-                                        Log.e("RestaurantsAdapter", e.getMessage());
-                                    }
-                                });
-                                notifyItemRemoved(position); // Update the RecyclerView
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    Log.e("RestaurantsAdapter", e.getMessage());
-                }
-            });
-
-            // Delete button for the owner of the restaurant
-            if (authenticationService.getCurrentUserId() != null &&
-                    authenticationService.getCurrentUserId().equals(restaurant.getuId())) {
-                deleteButton.setOnClickListener(v -> {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        databaseService.deleteRestaurant(restaurantList.get(position).getId(), new DatabaseService.DatabaseCallback<Void>() {
-                            @Override
-                            public void onCompleted(Void object) {
-                                restaurantList.remove(position); // Remove from local list
-                            }
-
-                            @Override
-                            public void onFailed(Exception e) {
-                                Log.e("RestaurantsAdapter", e.getMessage());
-                            }
-                        });
-                        notifyItemRemoved(position); // Update the RecyclerView
-                    }
-                });
-            }
-        }
-    }
-
-    @Override
-    public RestaurantViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // Assuming XML layout is named item_restaurant.xml
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_restaurant, parent, false);
-        return new RestaurantViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(RestaurantViewHolder holder, int position) {
-        Restaurant restaurant = restaurantList.get(position);
-        holder.bind(restaurant);
-    }
-
-    @Override
-    public int getItemCount() {
-        return restaurantList.size();
-    }
-
-    // Update the list of restaurants
-    public void setRestaurantList(List<Restaurant> restaurantList) {
-        this.restaurantList = restaurantList;
-        notifyDataSetChanged();
-    }
-
-    // Interface to listen for item click events
-    public interface OnItemClickListener {
-        void onItemClick(Restaurant restaurant);
-        void onLongClick(Restaurant restaurant);
     }
 }
 

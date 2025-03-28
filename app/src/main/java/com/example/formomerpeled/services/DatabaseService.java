@@ -32,6 +32,8 @@ public class DatabaseService {
     /// @see DatabaseCallback#onFailed(Exception)
     public interface DatabaseCallback<T> {
         /// called when the operation is completed successfully
+
+
         void onCompleted(T object);
 
         /// called when the operation fails with an exception
@@ -246,5 +248,6 @@ public class DatabaseService {
         deleteData("/Restaurants/" + restaurantId, callback);
 //        writeData("/Restaurants/" + restaurantId, null, callback);
     }
+
 
 }

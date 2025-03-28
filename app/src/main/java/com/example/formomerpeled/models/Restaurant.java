@@ -82,6 +82,7 @@ public class Restaurant  implements Serializable {
                 return rating;
         }
 
+
         @Override
         public String toString() {
                 return "Restaurant{" +

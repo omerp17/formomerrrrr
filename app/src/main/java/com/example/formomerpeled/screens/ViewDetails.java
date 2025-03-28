@@ -53,20 +53,22 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         restaurant= (Restaurant) reciever.getSerializableExtra("res");
 
 
-        txtRestaurantNameView.setText(reciever.getStringExtra("name"));
-        txtRestaurantPhoneNumberView.setText(reciever.getStringExtra("phone"));
-        txtRestaurantDomainView.setText(reciever.getStringExtra("website"));
-
-        String imS=reciever.getStringExtra("image");
+        txtRestaurantNameView.setText(restaurant.getName());
+       txtRestaurantPhoneNumberView.setText(restaurant.getPhoneNumber());
 
 
-        if (imS != null) {
-            Bitmap bitmap = ImageUtil.convertFrom64base(imS);
-            ivDViewDetails.setImageBitmap(bitmap);
+      //  String imS=reciever.getStringExtra("image");
+
+        if(restaurant!=null) {
+            txtRestaurantDomainView.setText(restaurant.getDomain());
+
+            if (restaurant.getImageCode() != null) {
+                Bitmap bitmap = ImageUtil.convertFrom64base(restaurant.getImageCode());
+                ivDViewDetails.setImageBitmap(bitmap);
+            }
+
+
         }
-
-
-
 
     }
 

@@ -55,70 +55,14 @@ public class ShowRestaurants extends AppCompatActivity {
         restaurantList = new ArrayList<>();
 
         // Create the adapter and set it to the RecyclerView
-        restaurantsAdapter = new RestaurantsAdapter(restaurantList, new RestaurantsAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Restaurant restaurant) {
-                Intent go = new Intent(ShowRestaurants.this, ViewDetails.class);
-                go.putExtra("name", restaurant.getName());
-              go.putExtra("phone", restaurant.getPhoneNumber());
-               go.putExtra("website", restaurant.getDomain());
-                go.putExtra("image", restaurant.getImageCode().toString());
-
-                go.putExtra("res",restaurant);
-
-                startActivity(go);
-            }
-
-            Button buttonNavigate = findViewById(R.id.btnViewDetails);
-
-            // Set the button's click listener
-
-
-
-        @Override
-            public void onLongClick(Restaurant restaurant) {
-                User user = SharedPreferencesUtil.getUser(ShowRestaurants.this);
-
-                if (user.isAdmin()) {
-                    databaseService.deleteRestaurant(restaurant.getId(), new DatabaseService.DatabaseCallback<Void>() {
-                        @Override
-                        public void onCompleted(Void object) {
-                            Toast.makeText(ShowRestaurants.this,"the res delete",Toast.LENGTH_LONG).show();
-
-                        }
-
-                        @Override
-                        public void onFailed(Exception e) {
-
-                        }
-                    });
-
-
-
-
-                }
-            }
-        });
+        restaurantsAdapter = new RestaurantsAdapter(restaurantList, ShowRestaurants.this);
         rvList.setAdapter(restaurantsAdapter);
 
 
 
-
-
-
-        /// Adapter for the restaurant recycler view
-        /// @see ArrayAdapter
-        /// @see Restaurant
-
-
-        /// Adapter for the restaurant spinner
-        /// @see RestaurantSpinnerAdapter
-        /// @see Restaurant
-
-        /// get all the restaurants from the database
+        initViews();
 
         databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
-
 
 
             @Override
@@ -142,7 +86,23 @@ public class ShowRestaurants extends AppCompatActivity {
             }
         });
 
-        initViews();
+
+
+
+
+        /// Adapter for the restaurant recycler view
+        /// @see ArrayAdapter
+        /// @see Restaurant
+
+
+        /// Adapter for the restaurant spinner
+        /// @see RestaurantSpinnerAdapter
+        /// @see Restaurant
+
+        /// get all the restaurants from the database
+
+
+
     }
 
     private void initViews() {
@@ -171,39 +131,10 @@ public class ShowRestaurants extends AppCompatActivity {
 
                             rvList.setLayoutManager(new LinearLayoutManager(ShowRestaurants.this)); // Set the layout manager (linear vertical list)
 
-                            restaurantsAdapter = new RestaurantsAdapter(list, new RestaurantsAdapter.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(Restaurant restaurant) {
-                                    Intent go = new Intent(ShowRestaurants.this, ViewDetails.class);
-                                    go.putExtra("name", restaurant.getName());
-                                    go.putExtra("phone", restaurant.getPhoneNumber());
-                                    go.putExtra("website", restaurant.getDomain());
-                                    // go.putExtra("image", restaurant.getImageCode());
+                            restaurantsAdapter = new RestaurantsAdapter(list, ShowRestaurants.this) ;
 
 
-                                    startActivity(go);
-                                }
 
-                                @Override
-                                public void onLongClick(Restaurant restaurant) {
-                                    User user = SharedPreferencesUtil.getUser(ShowRestaurants.this);
-
-                                    if (user.isAdmin()) {
-                                        databaseService.deleteRestaurant(restaurant.getId(), new DatabaseService.DatabaseCallback<Void>() {
-                                            @Override
-                                            public void onCompleted(Void object) {
-                                                Toast.makeText(ShowRestaurants.this, "the res delete", Toast.LENGTH_LONG).show();
-
-                                            }
-
-                                            @Override
-                                            public void onFailed(Exception e) {
-                                                Log.e("ShowRestaurantsError", e.getMessage());
-                                            }
-                                        });
-                                    }
-                                }
-                            });
                             rvList.setAdapter(restaurantsAdapter);
                         }
                         else
@@ -226,3 +157,24 @@ public class ShowRestaurants extends AppCompatActivity {
         });
     }
 }
+
+
+//public void onLongClick(Restaurant restaurant) {
+//    User user = SharedPreferencesUtil.getUser(ShowRestaurants.this);
+//
+//    if (user.isAdmin()) {
+//        databaseService.deleteRestaurant(restaurant.getId(), new DatabaseService.DatabaseCallback<Void>() {
+//            @Override
+//            public void onCompleted(Void object) {
+//                Toast.makeText(ShowRestaurants.this, "the res delete", Toast.LENGTH_LONG).show();
+//
+//            }
+//
+//            @Override
+//            public void onFailed(Exception e) {
+//
+//            }
+//        });
+//
+//
+//    }}}
