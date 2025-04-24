@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"> <!-- הוספתי את המרחב app -->
+
+    <item
+        android:id="@+id/action_main"
+        android:title="עמוד ראשי"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_register"
@@ -13,12 +18,24 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/action_addRes"
+        android:title="הוספת מסעדה"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/action_restaurants"
+        android:title="מסעדות"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/action_about"
         android:title="אודות"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_admin"
-        android:title="תפריט אדמין"
+        android:title="עמוד אדמין"
         app:showAsAction="never" />
+
+
 </menu>

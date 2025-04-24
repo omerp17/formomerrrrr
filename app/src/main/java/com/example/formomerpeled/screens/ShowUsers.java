@@ -131,4 +131,41 @@ public class ShowUsers extends AppCompatActivity implements View.OnClickListener
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_users, menu);
+        setTitle("תפריט מסעדות");
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_main) {
+            startActivity(new Intent(this, MainActivity2.class));
+            return true;
+        } else if (id == R.id.action_register) {
+            startActivity(new Intent(this, Register.class));
+            return true;
+        } else if (id == R.id.action_login) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        }else if (id == R.id.action_addRes) {
+            startActivity(new Intent(this, AddRestaurant.class));
+            return true;
+        } else if (id == R.id.action_restaurants) {
+            startActivity(new Intent(this, ShowRestaurants.class));
+            return true;
+        } else if (id == R.id.action_admin) {
+            startActivity(new Intent(this, AdminPage.class));
+            return true;
+        } else if (id == R.id.action_about) {
+            startActivity(new Intent(this, Odot.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

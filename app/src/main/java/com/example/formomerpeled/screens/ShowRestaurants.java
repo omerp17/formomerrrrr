@@ -3,6 +3,8 @@ package com.example.formomerpeled.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -156,6 +158,38 @@ public class ShowRestaurants extends AppCompatActivity {
             }
         });
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_restaurants, menu);
+        setTitle("תפריט מסעדות");
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_main) {
+            startActivity(new Intent(this, MainActivity2.class));
+            return true;
+        } else if (id == R.id.action_register) {
+            startActivity(new Intent(this, Register.class));
+            return true;
+        } else if (id == R.id.action_login) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        }
+        else if (id == R.id.action_addRes) {
+            startActivity(new Intent(this, AddRestaurant.class));
+            return true;
+        } else if (id == R.id.action_about) {
+            startActivity(new Intent(this, Odot.class));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
 
 
