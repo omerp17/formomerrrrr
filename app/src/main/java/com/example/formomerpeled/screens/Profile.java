@@ -38,7 +38,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (v.getId() == btnBack.getId()) {
-                    Intent go = new Intent(Profile.this, MainActivity2.class);
+                    Intent go = new Intent(Profile.this, AfterPage.class);
                     startActivity(go);
                 }
 

@@ -53,7 +53,7 @@ public class Odot extends AppCompatActivity implements View.OnClickListener {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_odot, menu);
-        setTitle("תפריט מסעדות");
+        setTitle("אודות");
         return true;
     }
 

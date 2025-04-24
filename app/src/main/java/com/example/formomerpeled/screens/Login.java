@@ -194,7 +194,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_login, menu);
-        setTitle("תפריט מסעדות");
+        setTitle("התחברות");
         return true;
     }
 

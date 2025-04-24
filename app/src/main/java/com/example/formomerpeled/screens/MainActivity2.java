@@ -40,26 +40,10 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         btnLogMain.setOnClickListener(this);
         btnAboutUs = (Button)findViewById(R.id.btnAboutUs);
         btnAboutUs.setOnClickListener(this);
-        btnAccount = findViewById(R.id.btnAccount);
-        btnAccount.setOnClickListener(this);
-
-        btnGoAllRestaurantFromMain = (Button)findViewById(R.id.btnGoAllRestaurantFromMain);
-        btnGoAllRestaurantFromMain.setOnClickListener(this);
-        btnAddNewRestaurant = (Button)findViewById(R.id.btnAddNewRestaurant);
-        btnAddNewRestaurant.setOnClickListener(this);
-
     }
 
     public void onClick(View v) {
 
-        if (v == btnGoAllRestaurantFromMain) {
-            Intent go = new Intent(this, ShowRestaurants.class);
-            startActivity(go);
-        }
-        if (v == btnAccount) {
-            Intent go = new Intent(this, Profile.class);
-            startActivity(go);
-        }
         if (v == btnRegMain) {
             Intent go = new Intent(this, Register.class);
             startActivity(go);
@@ -69,11 +53,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             Intent go = new Intent(this, Login.class);
             startActivity(go);
         }
-        if (v == btnAddNewRestaurant) {
-            Intent go = new Intent(this, AddRestaurant.class);
-            startActivity(go);
-
-        }
         if (v == btnAboutUs) {
             Intent go = new Intent(this ,Odot.class);
             startActivity(go);
@@ -81,7 +60,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        setTitle("תפריט מסעדות");
+        setTitle("עמוד ראשי");
         return true;
     }
 

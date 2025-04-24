@@ -13,16 +13,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/action_addRes"
-        android:title="הוספת מסעדה"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_about"
         android:title="אודות"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_admin"
-        android:title="תפריט אדמין"
         app:showAsAction="never" />
 </menu>

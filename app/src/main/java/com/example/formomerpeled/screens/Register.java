@@ -162,7 +162,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_reg, menu);
-        setTitle("תפריט מסעדות");
+        setTitle("הרשמה");
         return true;
     }
 

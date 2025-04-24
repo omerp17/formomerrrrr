@@ -264,7 +264,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_addres, menu);
-        setTitle("תפריט מסעדות");
+        setTitle("הוספת מסעדה");
         return true;
     }
 

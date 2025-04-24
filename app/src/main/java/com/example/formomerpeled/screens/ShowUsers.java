@@ -1,7 +1,10 @@
 package com.example.formomerpeled.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -102,6 +105,30 @@ public class ShowUsers extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
         loadUsers();
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_admin, menu);
+        setTitle("משתמשים");
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_register) {
+            startActivity(new Intent(this, Register.class));
+            return true;
+        } else if (id == R.id.action_login) {
+            startActivity(new Intent(this, Login.class));
+            return true;
+        } else if (id == R.id.action_about) {
+            startActivity(new Intent(this, Odot.class));
+            return true;
+        }else if (id == R.id.action_admin) {
+            startActivity(new Intent(this, AdminPage.class));
+            return true;
+
+        return super.onOptionsItemSelected(item);
     }
 }
