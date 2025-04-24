@@ -149,8 +149,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                                 Intent go = new Intent(Login.this, AdminPage.class);
                                 startActivity(go);
                             } else {
-
-                                Intent go = new Intent(Login.this, MainActivity2.class);
+                                Log.d("joe", "mama");
+                                Intent go = new Intent(Login.this, AfterPage.class);
                                 startActivity(go);
                             }
 

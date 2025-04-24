@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE8BB"
+    android:padding="20dp"
+    android:id="@+id/main"
+    tools:context=".screens.AfterPage">
+
+    <!-- Account Button (Top-left) -->
+
+    <!-- Title Text -->
+
+    <ImageButton
+        android:id="@+id/btnAccount"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="34dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Account"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profileuser"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toStartOf="@+id/tvtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Image View (Logo) -->
+
+    <!-- Add New Restaurant Button -->
+    <TextView
+        android:id="@+id/tvtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="89dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginBottom="313dp"
+        android:gravity="center"
+        android:shadowColor="#3F594A"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="10"
+        android:text="FIND G-Free"
+        android:textColor="#2C666E"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNewRestaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAccount"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="35dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/btnAddNewRestaurant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAccount" />
+
+    <!-- Restaurants Button -->
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddNewRestaurant"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="229dp"
+        android:backgroundTint="#6C9182"
+        android:text="הכנס מסעדה"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:cornerRadius="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvtitle" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnGoAllRestaurantFromMain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="157dp"
+        android:backgroundTint="#6C9182"
+        android:text="מסעדות"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        app:cornerRadius="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddNewRestaurant" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
