@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="112dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:shadowColor="#3F594A"
@@ -24,7 +24,7 @@
         android:textColor="#2C666E"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail2"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,14 +35,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="30dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/txtDontHaveAnAcount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail2" />
+        app:layout_constraintTop_toBottomOf="@+id/txtSignIn" />
 
     <EditText
         android:id="@+id/etEmail2"
@@ -51,11 +51,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="152dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="461dp"
+        android:layout_marginBottom="139dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/btnBackLogin"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateNewUser"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,46 +64,36 @@
         android:id="@+id/btnLog"
         android:layout_width="124dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="142dp"
+        android:layout_marginBottom="141dp"
         android:backgroundTint="#6C9182"
         android:text="התחבר"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnCreateNewUser" />
+        app:layout_constraintTop_toBottomOf="@+id/txtDontHaveAnAcount" />
 
     <Button
         android:id="@+id/btnCreateNewUser"
         android:layout_width="74dp"
         android:layout_height="0dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="290dp"
         android:backgroundTint="#6C9182"
         android:text="צור"
-        app:layout_constraintBottom_toTopOf="@+id/btnLog"
-        app:layout_constraintStart_toStartOf="@+id/txtDontHaveAnAcount"
-        app:layout_constraintTop_toBottomOf="@+id/txtDontHaveAnAcount" />
-
-    <Button
-        android:id="@+id/btnBackLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="21dp"
-        android:layout_marginBottom="19dp"
-        android:backgroundTint="#6C9182"
-        android:text="חזור"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmail2" />
 
     <TextView
         android:id="@+id/txtDontHaveAnAcount"
-        android:layout_width="192dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="3dp"
+        android:layout_marginBottom="109dp"
         android:text="אין לך משתמש? צור אחד"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateNewUser"
+        app:layout_constraintBottom_toTopOf="@+id/btnLog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,12 +27,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
     EditText etLname, etFname, etEmail, etPhone, etPassword;
 
-    Button btnReg, btnBackReg;
+    Button btnReg, btnAlreadyHave;
     String lname, fname, email, phone, password;
 
 
     DatabaseService databaseService;
-    AuthenticationService authenticationService ;
+    AuthenticationService authenticationService;
 
 
     @Override
@@ -47,8 +47,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         });
         initViews();
 
-        authenticationService=AuthenticationService.getInstance();
-        databaseService=DatabaseService.getInstance();
+        authenticationService = AuthenticationService.getInstance();
+        databaseService = DatabaseService.getInstance();
 
     }
 
@@ -57,21 +57,24 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         etLname = findViewById(R.id.etLname);
         etEmail = findViewById(R.id.etEmail);
         etPhone = findViewById(R.id.etPhone);
-        btnReg = (Button)findViewById(R.id.btnReg);
+        btnReg = findViewById(R.id.btnReg);
+        btnAlreadyHave = findViewById(R.id.btnAlreadyHave);
 
 
         etPassword = findViewById(R.id.etPassword);
 
         btnReg.setOnClickListener(this);
+        btnAlreadyHave.setOnClickListener(this);
 
-        btnBackReg=findViewById(R.id.btnBackReg);
-        btnBackReg.setOnClickListener(this);
+
     }
+
     public void onClick(View v) {
-        if (v == btnBackReg) {
-            Intent go = new Intent(this, MainActivity2.class);
+        if (v == btnAlreadyHave) {
+            Intent go = new Intent(this, Login.class);
             startActivity(go);
         }
+
         if (v == btnReg) {
             fname = etFname.getText().toString();
             lname = etLname.getText().toString();
@@ -160,32 +163,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
 
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_reg, menu);
-        setTitle("הרשמה");
-        return true;
-    }
+}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
 
-        if (id == R.id.action_main) {
-            startActivity(new Intent(this, MainActivity2.class));
-            return true;
-        } else if (id == R.id.action_login) {
-            startActivity(new Intent(this, Login.class));
-            return true;
-        } else if (id == R.id.action_addRes) {
-            startActivity(new Intent(this, AddRestaurant.class));
-            return true;
-        }
-        else if (id == R.id.action_about) {
-            startActivity(new Intent(this, Odot.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    }

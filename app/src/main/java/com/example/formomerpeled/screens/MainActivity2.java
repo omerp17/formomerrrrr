@@ -58,31 +58,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             startActivity(go);
         }
     }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        setTitle("עמוד ראשי");
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_register) {
-            startActivity(new Intent(this, Register.class));
-            return true;
-        } else if (id == R.id.action_login) {
-            startActivity(new Intent(this, Login.class));
-            return true;
-        }else if (id == R.id.action_addRes) {
-            startActivity(new Intent(this, AddRestaurant.class));
-            return true;
-        } else if (id == R.id.action_about) {
-            startActivity(new Intent(this, Odot.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
 

@@ -3,6 +3,7 @@ package com.example.formomerpeled.screens;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,6 +36,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.Utils.ImageUtil;
 import com.example.formomerpeled.models.Restaurant;
+import com.example.formomerpeled.models.User;
 import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
 import com.google.firebase.database.DatabaseReference;
@@ -50,15 +53,14 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
     RatingBar ratingBar;
 
 
-    private final String TAG="AddRestaurant";
+    private final String TAG = "AddRestaurant";
     Spinner spCity;
-    Button btnAdd, btnBackAddRestaurant, btnGallery;
+    Button btnAdd, btnGallery;
     ImageView ivResImage;
-    float rating= 0.0F;
+    float rating = 0.0F;
 
     /// Activity result launcher for selecting image from gallery
     private ActivityResultLauncher<Intent> selectImageLauncher;
-
 
 
     // constant to compare
@@ -94,12 +96,6 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
     private void initViews() {
         btnAdd = findViewById(R.id.btnAdd);
         btnGallery = findViewById(R.id.btnGalleryD);
-        btnBackAddRestaurant = findViewById(R.id.btnBackAddRestaurant); // תיקון קריטי
-
-
-
-
-
 
 
         etName = findViewById(R.id.etName);
@@ -114,11 +110,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
         ratingBar.setOnRatingBarChangeListener(this);
 
-        if (btnBackAddRestaurant != null) {  // הוספת בדיקה למניעת קריסה
-            btnBackAddRestaurant.setOnClickListener(this);
-        } else {
-            Log.e(TAG, "btnBackAddRestaurant is null! Check if the ID exists in the XML.");
-        }
+
 
         btnAdd.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
@@ -127,10 +119,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        if (view == btnBackAddRestaurant) {
-            Intent go = new Intent(this, MainActivity2.class);
-            startActivity(go);
-        }
+
 
         if (view == btnGallery) {
             selectImageFromGallery(); // קורא לפונקציה לבחירת תמונה
@@ -145,8 +134,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
             Domain = etDomain.getText().toString();
             GlutenFreeItems = etGlutenFreeItems.getText().toString();
             imageCode = ImageUtil.convertTo64Base(ivResImage); // המרת התמונה ל-Base64
-           //rating = ratingBar.getRating();
-
+            //rating = ratingBar.getRating();
 
 
             // בדוק אם התמונה קיימת
@@ -155,7 +143,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
             }
 
 
-                // יצירת אובייקט מסעדה
+            // יצירת אובייקט מסעדה
             Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), authenticationService.getCurrentUserId(), Name, RestaurantType, Address, City, PhoneNumber, GlutenFreeItems, Domain, imageCode, rating2);
             databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
@@ -182,7 +170,6 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
     private void selectImageFromGallery() {
         // פתיחת הגלריה לבחירת תמונה
-
 
 
         imageChooser();
@@ -258,35 +245,68 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-        rating2=rating;
+        rating2 = rating;
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_addres, menu);
-        setTitle("הוספת מסעדה");
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int id = item.getItemId();
 
-        if (id == R.id.action_main) {
-            startActivity(new Intent(this, MainActivity2.class));
-            return true;
-        } else if (id == R.id.action_register) {
-            startActivity(new Intent(this, Register.class));
-            return true;
-        } else if (id == R.id.action_login) {
-            startActivity(new Intent(this, Login.class));
-            return true;
+        if(id == R.id.action_admin){
+            databaseService.getUser(authenticationService.getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
+                @Override
+                public void onCompleted(User user) {
+                    if(user.isAdmin())
+                    {
+                        Intent go = new Intent(AddRestaurant.this, AdminPage.class);
+                        startActivity(go);
+                    }
+                    else
+                        Toast.makeText(AddRestaurant.this, "אינך מנהל", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(AddRestaurant.this, "שגיאה באחזור פרטים", Toast.LENGTH_SHORT).show();
+                    Log.e("AfterPageMenu", "tried to log into admin page and ecountered: " + e.getMessage());
+                }
+            });
+        }
+        else if(id == R.id.action_home){
+            Intent go = new Intent(AddRestaurant.this, AfterPage.class);
+            startActivity(go);
+        }
+        else if (id == R.id.action_update) {
+            Intent go = new Intent(AddRestaurant.this, Profile.class);
+            startActivity(go);
+        }
+        else if (id == R.id.action_guide) {
+//            Intent go = new Intent(AddRestaurant.this, Guide.class);
+//            startActivity(go);
         }
         else if (id == R.id.action_about) {
-            startActivity(new Intent(this, Odot.class));
-            return true;
+            Intent go = new Intent(AddRestaurant.this, Odot.class);
+            startActivity(go);
+        }
+        else if (id == R.id.action_logout) {
+            authenticationService.signOut();
+            Intent go = new Intent(AddRestaurant.this, MainActivity2.class);
+            startActivity(go);
         }
 
-        return super.onOptionsItemSelected(item);
+
+        return true;
     }
 }
+
+
+

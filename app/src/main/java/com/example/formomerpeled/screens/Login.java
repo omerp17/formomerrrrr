@@ -101,12 +101,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btnLog = findViewById(R.id.btnLog);
         etEmail2 = findViewById(R.id.etEmail2);
         etPass2 = findViewById(R.id.etPassword2);
-        btnBackLogin = findViewById(R.id.btnBackLogin);
         btnCreateNewUser = findViewById(R.id.btnCreateNewUser);
 
         btnCreateNewUser.setOnClickListener(this);
         btnLog.setOnClickListener(this);
-        btnBackLogin.setOnClickListener(this);
+
     }
 
 
@@ -146,7 +145,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
                             if (user2.isAdmin()) {
                                 isAdmin = true;
-                                Intent go = new Intent(Login.this, AdminPage.class);
+                                Intent go = new Intent(Login.this, AfterPage.class);
                                 startActivity(go);
                             } else {
                                 Log.d("joe", "mama");
@@ -192,31 +191,5 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        setTitle("התחברות");
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_main) {
-            startActivity(new Intent(this, MainActivity2.class));
-            return true;
-        } else if (id == R.id.action_register) {
-            startActivity(new Intent(this, Register.class));
-            return true;
-        } else if (id == R.id.action_addRes) {
-            startActivity(new Intent(this, AddRestaurant.class));
-            return true;
-        }
-        else if (id == R.id.action_about) {
-            startActivity(new Intent(this, Odot.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

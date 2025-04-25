@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"> <!-- הוספתי את המרחב app -->
+
+    <item
+        android:id="@+id/action_admin"
+        android:title="דף מנהל"
+        app:showAsAction="never"
+ />
+
+    <item
+        android:id="@+id/action_home"
+        android:title="דף ראשי"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_update"
+        android:title="עדכן פרטים"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_guide"
+        android:title="מדריך"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_about"
+        android:title="אודות"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_logout"
+        android:title="התנתק"
+        app:showAsAction="never"
+        />
+</menu>
