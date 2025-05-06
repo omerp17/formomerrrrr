@@ -48,6 +48,9 @@
             android:name=".screens.AdminPage"
             android:exported="false" />
         <activity
+            android:name=".screens.Odot"
+            android:exported="false" />
+        <activity
             android:name=".screens.MainActivity2"
             android:exported="true">
             <intent-filter>
