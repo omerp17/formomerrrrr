@@ -35,7 +35,6 @@ public class Profile extends AppCompatActivity {
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
         etPhone = findViewById(R.id.etPhone);
-        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
 
@@ -62,7 +61,6 @@ public class Profile extends AppCompatActivity {
                 user.setFname(etFirstName.getText().toString());
                 user.setLname(etLastName.getText().toString());
                 user.setPhone(etPhone.getText().toString());
-                user.setEmail(etEmail.getText().toString());
                 user.setPassword(etPassword.getText().toString());
 
                 // שמירת הערכים המעודכנים ב-SharedPreferences

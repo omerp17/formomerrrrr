@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:background="#FFE8BB"
     tools:context=".screens.Login">
 
@@ -12,8 +13,8 @@
         android:id="@+id/txtSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginTop="102dp"
+        android:layout_marginBottom="172dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:shadowColor="#3F594A"
@@ -24,76 +25,77 @@
         android:textColor="#2C666E"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword2"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/etPassword2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="30dp"
+        android:id="@+id/etEmail2"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="73dp"
         android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/txtDontHaveAnAcount"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSignIn" />
 
     <EditText
-        android:id="@+id/etEmail2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="139dp"
+        android:id="@+id/etPassword2"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="55dp"
         android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/btnCreateNewUser"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btnLog"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnLog"
-        android:layout_width="124dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="141dp"
-        android:backgroundTint="#6C9182"
-        android:text="התחבר"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDontHaveAnAcount" />
-
-    <Button
-        android:id="@+id/btnCreateNewUser"
-        android:layout_width="74dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="290dp"
-        android:backgroundTint="#6C9182"
-        android:text="צור"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etEmail2" />
 
-    <TextView
-        android:id="@+id/txtDontHaveAnAcount"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="109dp"
-        android:text="אין לך משתמש? צור אחד"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLog"
+    <Button
+        android:id="@+id/btnLog"
+        android:layout_width="133dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="56dp"
+        android:backgroundTint="#6C9182"
+        android:text="התחבר"
+        app:layout_constraintBottom_toTopOf="@+id/txtDontHaveAnAcount"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPassword2" />
+
+    <TextView
+        android:id="@+id/txtDontHaveAnAcount"
+        android:layout_width="221dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="39dp"
+        android:text="אין לך משתמש? צור אחד"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreateNewUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLog" />
+
+    <Button
+        android:id="@+id/btnCreateNewUser"
+        android:layout_width="133dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="145dp"
+        android:backgroundTint="#6C9182"
+        android:text="צור"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/btnLog"
+        app:layout_constraintStart_toStartOf="@+id/btnLog"
+        app:layout_constraintTop_toBottomOf="@+id/txtDontHaveAnAcount" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

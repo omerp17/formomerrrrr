@@ -189,6 +189,13 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
             etPhoneNumber.setError("דרוש מספר");
             return false;
         }
+
+        // בדיקה שמספר הטלפון כולל בדיוק 10 ספרות
+        if (phoneNumber.length() != 10 || !phoneNumber.matches("\\d{10}")) {
+            etPhoneNumber.setError("יש להזין מספר טלפון תקין (10 ספרות)");
+            return false;
+        }
+
         if (address.isEmpty()) {
             etAddress.setError("דרושה כתובת");
             return false;

@@ -139,36 +139,6 @@
             </LinearLayout>
 
             <!-- Email Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
-                <EditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"
-                    android:hint="Email"
-                    android:background="@android:color/white"
-                    android:padding="8dp"/>
-
-                <ImageButton
-                    android:id="@+id/btnEditEmail"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/editprofilebutton"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="Edit Email"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:padding="2dp"
-                    android:layout_gravity="end"/>
-            </LinearLayout>
 
             <!-- Password Row -->
             <LinearLayout
@@ -220,15 +190,5 @@
         android:padding="14dp"
         android:layout_gravity="center"/>
 
-    <!-- כפתור חזור -->
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="16dp"
-        android:backgroundTint="#6C9182"
-        android:text="Back"
-        android:textColor="@android:color/white"
-        android:textSize="14sp" />
+
 </LinearLayout>
