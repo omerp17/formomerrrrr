@@ -30,11 +30,12 @@ import com.example.formomerpeled.services.DatabaseService;
 public class ViewDetails extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtRestaurantNameView, txtRestaurantDomainView, txtContactView, txtRestaurantPhoneNumberView;
-    Button btnBackView;
+    Button btnBackView, btnAddReview;
     private ImageView ivDViewDetails;
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
     private String uid;
+
 
     Restaurant restaurant=null;
 
@@ -84,9 +85,11 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         txtContactView = findViewById(R.id.txtContactView);
         txtRestaurantPhoneNumberView=findViewById(R.id.txtRestaurantPhoneNumberView);
         btnBackView = findViewById(R.id.btnBackView);
+        btnAddReview = findViewById(R.id.btnAddReview);
         ivDViewDetails=findViewById(R.id.ivResViewDetails);
 
         btnBackView.setOnClickListener(this);
+        btnAddReview.setOnClickListener(this);
 
 
     }
@@ -94,6 +97,10 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
         if (v == btnBackView) {
             Intent go = new Intent(this, ShowRestaurants.class);
+            startActivity(go);
+        }
+        if (v == btnAddReview) {
+            Intent go = new Intent(this, AddReview.class);
             startActivity(go);
         }
 

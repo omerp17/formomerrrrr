@@ -4,13 +4,20 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.formomerpeled.R;
+import com.example.formomerpeled.models.Dish;
 import com.example.formomerpeled.models.Restaurant;
+import com.example.formomerpeled.models.RestaurantReview;
 import com.example.formomerpeled.models.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -124,6 +131,10 @@ public class DatabaseService {
         return generateNewId("Restaurant/");
     }
 
+    public String generateDishId() {
+        return generateNewId("Dishes/");
+    }
+
     // end of private methods for reading and writing data
 
     // public methods to interact with the database
@@ -140,6 +151,13 @@ public class DatabaseService {
 
 
     }
+
+    public void createNewDish(@NotNull final Dish dish, @Nullable final DatabaseCallback<Void> callback) {
+        writeData("Dishes/" + dish.getId(), dish, callback);
+
+     //   writeData("RestaurantDishes/" +dish.getRestaurant().g(),dish,callback);
+    }
+
 
 
     public void updateUser(User user, DatabaseCallback<Void> callback) {
@@ -217,6 +235,25 @@ public class DatabaseService {
         });
     }
 
+    /// get all the restaurants from the database
+    public void getRestaurantsNames(@NotNull final DatabaseCallback<List<String>> callback) {
+        readData("Restaurants").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<String> restaurantNames = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
+                Log.d(TAG, "Got restaurant: " + restaurant);
+                restaurantNames.add(restaurant.getName());
+            });
+
+            callback.onCompleted(restaurantNames);
+        });
+    }
+
     /// get all the users from the database
     public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
         readData("Users").get().addOnCompleteListener(task -> {
@@ -247,6 +284,34 @@ public class DatabaseService {
     public void deleteRestaurant(@NotNull final String restaurantId, @Nullable final DatabaseCallback<Void> callback) {
         deleteData("/Restaurants/" + restaurantId, callback);
 //        writeData("/Restaurants/" + restaurantId, null, callback);
+    }
+
+
+    public void submitReview(String restaurantId, @NonNull final RestaurantReview review, DatabaseCallback<Restaurant> databaseCallback) {
+        readData("Restaurants/"+ restaurantId).runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                Restaurant restaurant = currentData.getValue(Restaurant.class);
+                if (restaurant == null) return Transaction.abort();
+                restaurant.addReview(review);
+                currentData.setValue(restaurant);
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                // Transaction completed
+                Log.d(TAG, "postTransaction:onComplete:" + error);
+                if (error != null) {
+                    databaseCallback.onFailed(error.toException());
+                    return;
+                }
+                Restaurant restaurant = currentData.getValue(Restaurant.class);
+                databaseCallback.onCompleted(restaurant);
+
+            }
+        });
     }
 
 

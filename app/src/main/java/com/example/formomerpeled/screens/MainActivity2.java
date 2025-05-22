@@ -90,7 +90,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             startActivity(go);
         }
         if (v == btnAboutUs) {
-            Intent go = new Intent(this ,Odot.class);
+            Intent go = new Intent(this ,AddDish.class);
             startActivity(go);
         }
     }

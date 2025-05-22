@@ -42,6 +42,8 @@ import com.example.formomerpeled.services.DatabaseService;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class AddRestaurant extends AppCompatActivity implements View.OnClickListener, RatingBar.OnRatingBarChangeListener {
     FirebaseDatabase database;
     DatabaseService databaseService = DatabaseService.getInstance();
@@ -144,7 +146,8 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
 
             // יצירת אובייקט מסעדה
-            Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), authenticationService.getCurrentUserId(), Name, RestaurantType, Address, City, PhoneNumber, GlutenFreeItems, Domain, imageCode, rating2);
+            Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), authenticationService.getCurrentUserId(), Name, RestaurantType, Address, City,
+                    PhoneNumber, GlutenFreeItems, Domain, imageCode, new ArrayList<>());
             databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void object) {

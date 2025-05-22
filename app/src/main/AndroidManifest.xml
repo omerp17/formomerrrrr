@@ -22,15 +22,18 @@
         android:theme="@style/Theme.FormOmerPeled"
         tools:targetApi="31">
         <activity
+            android:name=".screens.AddDish"
+            android:exported="false" />
+        <activity
             android:name=".screens.EnterAnim"
             android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".screens.AfterPage"
             android:exported="false" />
@@ -63,9 +66,10 @@
             android:exported="false" />
         <activity
             android:name=".screens.MainActivity2"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
+        <activity
+            android:name=".screens.AddReview"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

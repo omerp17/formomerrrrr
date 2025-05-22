@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".screens.AddDish">
+
+    <!-- Title Header -->
+
+    <!-- Name of the Dish -->
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="37dp"
+        android:text="הוסף מנה חדשה"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/et_dishName"
+        app:layout_constraintEnd_toEndOf="@+id/et_dishName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Price of the Dish -->
+
+    <!-- Dish Details -->
+
+    <EditText
+        android:id="@+id/et_dishName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#B0BEC5"
+        android:hint="שם המנה"
+        android:inputType="text"
+        android:padding="12dp"
+        android:textColor="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/et_dishPrice"
+        app:layout_constraintEnd_toEndOf="@+id/et_dishPrice"
+        app:layout_constraintStart_toStartOf="@+id/et_dishPrice"
+        app:layout_constraintTop_toBottomOf="@+id/titleText" />
+
+
+    <!-- Dish Picture -->
+
+    <!-- Submit Button -->
+
+    <EditText
+        android:id="@+id/et_dishPrice"
+        android:layout_width="354dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="21dp"
+        android:backgroundTint="#B0BEC5"
+        android:hint="מחיר"
+        android:inputType="numberDecimal"
+        android:padding="12dp"
+        android:textColor="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/et_dishDetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_dishName" />
+
+    <EditText
+        android:id="@+id/et_dishDetails"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="51dp"
+        android:backgroundTint="#B0BEC5"
+        android:hint="פרטים על המנה"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:padding="12dp"
+        android:textColor="#333333"
+        app:layout_constraintBottom_toTopOf="@+id/spResName"
+        app:layout_constraintEnd_toEndOf="@+id/et_dishPrice"
+        app:layout_constraintStart_toStartOf="@+id/et_dishPrice"
+        app:layout_constraintTop_toBottomOf="@+id/et_dishPrice" />
+
+    <Spinner
+        android:id="@+id/spResName"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="88dp"
+        app:layout_constraintBottom_toTopOf="@+id/addDishButton"
+        app:layout_constraintEnd_toEndOf="@+id/et_dishDetails"
+        app:layout_constraintStart_toStartOf="@+id/et_dishDetails"
+        app:layout_constraintTop_toBottomOf="@+id/et_dishDetails" />
+
+    <Button
+        android:id="@+id/addDishButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="109dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginBottom="349dp"
+        android:backgroundTint="#6200EE"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="12dp"
+        android:text="הוסף מנה"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/spResName"
+        app:layout_constraintStart_toStartOf="@+id/et_dishDetails"
+        app:layout_constraintTop_toBottomOf="@+id/spResName" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
