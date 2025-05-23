@@ -59,7 +59,7 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
         holder.restaurantAddress.setText(restaurant.getAddress() + " " + restaurant.getCity());
         holder.restaurantPhoneNumber.setText(restaurant.getPhoneNumber());
         holder.restaurantDomain.setText(restaurant.getDomain());
-        holder.restaurantRatingBar.setRating(restaurant.getRating());
+
         holder.glutenFreeItems.setText(restaurant.getGlutenFreeMenuItems());
         holder.viewDetailsButton.setOnClickListener(new View.OnClickListener() {
             @Override

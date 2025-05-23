@@ -3,7 +3,7 @@ package com.example.formomerpeled.models;
 public class Dish {
     protected String id;
     protected String name;
-    protected String restaurant;
+    protected Restaurant restaurant;
     protected double price;
 
     protected String details;
@@ -12,7 +12,7 @@ public class Dish {
     protected  double rate;
     protected  double sumRate;
 
-    public Dish(String id, String name, String restaurant, double price,  String details) {
+    public Dish(String id, String name, Restaurant restaurant, double price,  String details) {
         this.id = id;
         this.name = name;
         this.restaurant = restaurant;
@@ -24,7 +24,7 @@ public class Dish {
         this.sumRate = 0.0;
     }
 
-    public Dish(String id, String name, String restaurant, double price, String details, int numberRate, double rate, double sumRate) {
+    public Dish(String id, String name, Restaurant restaurant, double price, String details, int numberRate, double rate, double sumRate) {
         this.id = id;
         this.name = name;
         this.restaurant = restaurant;
@@ -55,11 +55,11 @@ public class Dish {
         this.name = name;
     }
 
-    public String getRestaurant() {
+    public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(String restaurant) {
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 

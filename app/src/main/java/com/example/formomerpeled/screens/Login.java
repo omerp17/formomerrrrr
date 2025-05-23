@@ -39,12 +39,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     String email2, pass2;
 
 
-    public static final String MyPREFERENCES = "MyPrefs";
 
 
     AuthenticationService authenticationService;
     DatabaseService databaseService;
-    SharedPreferences sharedpreferences;
 
 
     public static boolean isAdmin = false;
@@ -76,21 +74,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
 
 
-        databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
-            @Override
-            public void onCompleted(User object) {
-                user2 = object;
-                if (user2 != null) {
-                    etEmail2.setText(user2.getEmail());
-                    etPass2.setText(user2.getPassword());
-                }
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-
-            }
-        });
 
 
         btnLog.setOnClickListener(this);
@@ -138,7 +121,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onCompleted(User object) {
                             user2 = object;
-
+                        user2.setPassword(pass2);
 
                             SharedPreferencesUtil.saveUser(Login.this, user2);
 

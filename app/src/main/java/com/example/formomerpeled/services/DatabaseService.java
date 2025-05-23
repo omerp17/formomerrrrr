@@ -152,11 +152,6 @@ public class DatabaseService {
 
     }
 
-    public void createNewDish(@NotNull final Dish dish, @Nullable final DatabaseCallback<Void> callback) {
-        writeData("Dishes/" + dish.getId(), dish, callback);
-
-     //   writeData("RestaurantDishes/" +dish.getRestaurant().g(),dish,callback);
-    }
 
 
 
@@ -294,7 +289,7 @@ public class DatabaseService {
             public Transaction.Result doTransaction(@NonNull MutableData currentData) {
                 Restaurant restaurant = currentData.getValue(Restaurant.class);
                 if (restaurant == null) return Transaction.abort();
-                restaurant.addReview(review);
+
                 currentData.setValue(restaurant);
                 return Transaction.success(currentData);
             }
@@ -311,6 +306,48 @@ public class DatabaseService {
                 databaseCallback.onCompleted(restaurant);
 
             }
+        });
+    }
+
+    public void createNewDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<void> callback){
+        writeData("Dishes/", dish, callback);
+    }
+
+    /// get all the restaurants from the database
+    public void getAllDishes(@NotNull final DatabaseCallback<List<Dish>> callback) {
+        readData("Dishes").get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Dish> restaurants = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Dish dish = dataSnapshot.getValue(Dish.class);
+                Log.d(TAG, "Got restaurant: " + dish);
+                restaurants.add(dish);
+            });
+
+            callback.onCompleted(restaurants);
+        });
+    }
+
+    /// get all the restaurants from the database
+    public void getRestaurantDishes(   @NotNull final String resId, @NotNull final DatabaseCallback<List<Dish>> callback) {
+        readData("RestaurantDishes/"+resId).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<Dish> restaurants = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                Dish dish = dataSnapshot.getValue(Dish.class);
+                Log.d(TAG, "Got restaurant: " + dish);
+                restaurants.add(dish);
+            });
+
+            callback.onCompleted(restaurants);
         });
     }
 

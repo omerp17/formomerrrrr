@@ -27,7 +27,8 @@ public class Restaurant  implements Serializable {
     }
 
     public Restaurant() {
-        this.restaurantReviewList = new ArrayList<>();
+
+
     }
 
     public Restaurant(String id, String uId, String name, String cuisineType, String address, String city, String phoneNumber,
@@ -45,6 +46,24 @@ public class Restaurant  implements Serializable {
         this.restaurantReviewList = restaurantReviewList;
 
     }
+
+
+    public Restaurant(String id, String name, String cuisineType, String address, String city, String phoneNumber,
+                      String glutenFreeMenuItems, String domain, String imageCode) {
+        this.id = id;
+
+        this.name = name;
+        this.cuisineType = cuisineType;
+        this.address = address;
+        this.city = city;
+        this.phoneNumber = phoneNumber;
+        this.glutenFreeMenuItems = glutenFreeMenuItems;
+        this.domain = domain;
+        this.imageCode = imageCode;
+        this.restaurantReviewList = restaurantReviewList;
+
+    }
+
 
     // גטרים
     public String getId() {
@@ -83,14 +102,14 @@ public class Restaurant  implements Serializable {
         return imageCode;
     }
 
-    public float getRating() {
-        if (restaurantReviewList.isEmpty()) return 0;
-        float total = 0;
-        for (RestaurantReview restaurantReview : restaurantReviewList) {
-            total = restaurantReview.getUserRating();
-        }
-        return total / restaurantReviewList.size();
-    }
+//    public float getRating() {
+//        if (restaurantReviewList.isEmpty()) return 0;
+//        float total = 0;
+//        for (RestaurantReview restaurantReview : restaurantReviewList) {
+//            total = restaurantReview.getUserRating();
+//        }
+//        return total / restaurantReviewList.size();
+//    }
 
 
     @Override
@@ -105,16 +124,12 @@ public class Restaurant  implements Serializable {
                 ", glutenFreeMenuItems='" + glutenFreeMenuItems + '\'' +
                 ", domain='" + domain + '\'' +
                 ", imageCode='" + imageCode + '\'' +
-                ", rating=" + getRating() +
-                ", reviews=" + restaurantReviewList +
+
+
                 '}';
     }
 
-    // todo ADD review, REMOVE review, EDIT review AT (INDEX)
 
-    public void addReview(RestaurantReview review) {
-        this.restaurantReviewList.add(review);
-    }
 
 
 }
