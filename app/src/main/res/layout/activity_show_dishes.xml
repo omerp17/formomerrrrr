@@ -13,47 +13,69 @@
         android:id="@+id/searchViewDishes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="3dp"
         android:queryHint="חפש מנה לפי שם"
+        app:layout_constraintBottom_toBottomOf="@+id/ibSearchDish"
         app:layout_constraintEnd_toStartOf="@+id/ibSearchDish"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- כפתור חיפוש -->
     <ImageButton
         android:id="@+id/ibSearchDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="13dp"
         android:backgroundTint="#00123456"
         android:src="@drawable/baseline_find_replace_24"
+        app:layout_constraintBottom_toTopOf="@+id/rvDishes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchViewDishes"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- RecyclerView עם גלילה אנכית -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDishes"
-        android:layout_width="376dp"
-        android:layout_height="564dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="362dp"
+        android:layout_height="527dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="@+id/ibSearchDish"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchViewDishes"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/searchViewDishes"
+        app:layout_constraintTop_toBottomOf="@+id/ibSearchDish"
         tools:listitem="@layout/item_dish" />
 
     <Button
         android:id="@+id/btnAddDish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#6C9182"
+        android:layout_marginTop="7dp"
 
+        android:layout_marginEnd="136dp"
+        android:backgroundTint="#6C9182"
         android:text="הוסף מנה"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toBottomOf="@+id/rvDishes" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="85dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="18dp"
+        android:backgroundTint="#6C9182"
+        android:text="חזור"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddDish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rvDishes" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

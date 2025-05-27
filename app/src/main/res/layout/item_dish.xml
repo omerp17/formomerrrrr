@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardItem"
         android:layout_width="0dp"
@@ -15,66 +14,79 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- שם המנה -->
-            <TextView
-                android:id="@+id/txtItemName"
+            <!-- Button on the left -->
+            <Button
+                android:id="@+id/btnAction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="Item Name"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:text="דרג"
+                android:backgroundTint="#6C9182"
 
-            <!-- שם המסעדה -->
-            <TextView
-                android:id="@+id/txtItemRestaurant"
-                android:layout_width="wrap_content"
+                 />
+
+            <!-- Text content on the right -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
-                android:text="Restaurant Name"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="16sp" />
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-            <!-- מחיר -->
-            <TextView
-                android:id="@+id/txtItemPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="12.99"
-                android:textColor="@android:color/holo_green_dark"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <!-- תיאור -->
-            <TextView
-                android:id="@+id/txtItemDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif"
-                android:text="Details about the item"
-                android:textColor="@android:color/black"
-                android:textSize="14sp" />
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:max="5"
-                android:numStars="5"
-                android:rating="1"
-                android:stepSize="0.01" />
-
+                <!-- שם המנה -->
+                <TextView
+                    android:id="@+id/txtItemName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:text="Item Name"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <!-- שם המסעדה -->
+                <TextView
+                    android:id="@+id/txtItemRestaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Restaurant Name"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="16sp" />
+                <!-- מחיר -->
+                <TextView
+                    android:id="@+id/txtItemPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="12.99"
+                    android:textColor="@android:color/holo_green_dark"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <!-- תיאור -->
+                <TextView
+                    android:id="@+id/txtItemDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Details about the item"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="5"
+                    android:numStars="5"
+                    android:rating="1"
+                    android:stepSize="0.01" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
