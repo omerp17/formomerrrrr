@@ -17,6 +17,7 @@ import com.example.formomerpeled.models.Dish;
 import com.example.formomerpeled.models.User;
 import com.example.formomerpeled.screens.ShowUsers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
@@ -24,8 +25,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     private Context context;
     private List<Dish> dishList;
 
-    public DishAdapter(List<Dish> dishList, Context context) {
-        this.dishList = dishList;
+    public DishAdapter(Context context) {
+        this.dishList = new ArrayList<>();
         this.context = context;
     }
 
@@ -51,6 +52,12 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.txtItemDetails.setText(dish.getDetails());
 
 
+    }
+
+    public void updateList(List<Dish> filteredList) {
+        this.dishList.clear();
+        this.dishList.addAll(filteredList);
+        this.notifyDataSetChanged();
     }
 
     public static class DishViewHolder extends RecyclerView.ViewHolder {

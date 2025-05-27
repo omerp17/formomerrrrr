@@ -117,22 +117,12 @@
                 android:layout_gravity="start"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="#6C9182"
-                android:text="View Details"
+                android:text="פרטים נוספים"
                 android:textSize="16sp"
                 android:textColor="@android:color/white" />
 
             <!-- שדה דירוג - כוכבים -->
-            <RatingBar
-                android:id="@+id/restaurantRatingBar"
-                style="?android:attr/ratingBarStyleIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:rating="0"
-                android:stepSize="0.1" />
+
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

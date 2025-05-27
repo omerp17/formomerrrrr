@@ -30,7 +30,7 @@ import com.example.formomerpeled.services.DatabaseService;
 public class ViewDetails extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtRestaurantNameView, txtRestaurantDomainView, txtContactView, txtRestaurantPhoneNumberView;
-    Button btnBackView, btnAddReview;
+    Button btnBackView, btnToDishes;
     private ImageView ivDViewDetails;
     private AuthenticationService authenticationService;
     private DatabaseService databaseService;
@@ -85,12 +85,11 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         txtContactView = findViewById(R.id.txtContactView);
         txtRestaurantPhoneNumberView=findViewById(R.id.txtRestaurantPhoneNumberView);
         btnBackView = findViewById(R.id.btnBackView);
-        btnAddReview = findViewById(R.id.btnAddReview);
         ivDViewDetails=findViewById(R.id.ivResViewDetails);
+        btnToDishes = findViewById(R.id.btn_view_details_to_dishes);
 
         btnBackView.setOnClickListener(this);
-        btnAddReview.setOnClickListener(this);
-
+        btnToDishes.setOnClickListener(this);
 
     }
     @Override
@@ -99,11 +98,11 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
             Intent go = new Intent(this, ShowRestaurants.class);
             startActivity(go);
         }
-        if (v == btnAddReview) {
-            Intent go = new Intent(this, AddReview.class);
+        if (v == btnToDishes) {
+            Intent go = new Intent(this, ShowDishes.class);
+            go.putExtra("res", restaurant);
             startActivity(go);
         }
-
     }
 
     public void saveFav(View view) {

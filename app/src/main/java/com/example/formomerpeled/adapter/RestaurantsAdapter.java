@@ -150,7 +150,6 @@ public class RestaurantsAdapter extends RecyclerView.Adapter<RestaurantsAdapter.
             deleteButton = itemView.findViewById(R.id.btnDelete);// Initialize delete button
 
             ivD = itemView.findViewById(R.id.ivRes);
-            restaurantRatingBar = itemView.findViewById(R.id.restaurantRatingBar);
         }
     }
 }

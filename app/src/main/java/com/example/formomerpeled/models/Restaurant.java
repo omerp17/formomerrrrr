@@ -15,8 +15,6 @@ public class Restaurant  implements Serializable {
     private String domain;
     private String imageCode;
 
-    private List<RestaurantReview> restaurantReviewList;
-
 
     public String getuId() {
         return uId;
@@ -32,7 +30,7 @@ public class Restaurant  implements Serializable {
     }
 
     public Restaurant(String id, String uId, String name, String cuisineType, String address, String city, String phoneNumber,
-                      String glutenFreeMenuItems, String domain, String imageCode, List<RestaurantReview> restaurantReviewList) {
+                      String glutenFreeMenuItems, String domain, String imageCode) {
         this.id = id;
         this.uId = uId;
         this.name = name;
@@ -43,7 +41,6 @@ public class Restaurant  implements Serializable {
         this.glutenFreeMenuItems = glutenFreeMenuItems;
         this.domain = domain;
         this.imageCode = imageCode;
-        this.restaurantReviewList = restaurantReviewList;
 
     }
 
@@ -51,7 +48,6 @@ public class Restaurant  implements Serializable {
     public Restaurant(String id, String name, String cuisineType, String address, String city, String phoneNumber,
                       String glutenFreeMenuItems, String domain, String imageCode) {
         this.id = id;
-
         this.name = name;
         this.cuisineType = cuisineType;
         this.address = address;
@@ -60,8 +56,6 @@ public class Restaurant  implements Serializable {
         this.glutenFreeMenuItems = glutenFreeMenuItems;
         this.domain = domain;
         this.imageCode = imageCode;
-        this.restaurantReviewList = restaurantReviewList;
-
     }
 
 

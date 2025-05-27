@@ -1,16 +1,12 @@
 package com.example.formomerpeled.services;
 
 import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.formomerpeled.R;
 import com.example.formomerpeled.models.Dish;
 import com.example.formomerpeled.models.Restaurant;
-import com.example.formomerpeled.models.RestaurantReview;
 import com.example.formomerpeled.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -282,34 +278,8 @@ public class DatabaseService {
     }
 
 
-    public void submitReview(String restaurantId, @NonNull final RestaurantReview review, DatabaseCallback<Restaurant> databaseCallback) {
-        readData("Restaurants/"+ restaurantId).runTransaction(new Transaction.Handler() {
-            @NonNull
-            @Override
-            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
-                Restaurant restaurant = currentData.getValue(Restaurant.class);
-                if (restaurant == null) return Transaction.abort();
 
-                currentData.setValue(restaurant);
-                return Transaction.success(currentData);
-            }
-
-            @Override
-            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
-                // Transaction completed
-                Log.d(TAG, "postTransaction:onComplete:" + error);
-                if (error != null) {
-                    databaseCallback.onFailed(error.toException());
-                    return;
-                }
-                Restaurant restaurant = currentData.getValue(Restaurant.class);
-                databaseCallback.onCompleted(restaurant);
-
-            }
-        });
-    }
-
-    public void createNewDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<void> callback){
+    public void createNewDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<Void> callback){
         writeData("Dishes/", dish, callback);
     }
 

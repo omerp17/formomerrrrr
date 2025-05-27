@@ -8,12 +8,11 @@
     android:background="#FFE8BB"
     tools:context=".screens.Register">
 
+
     <TextView
         android:id="@+id/txtSignUp"
         android:layout_width="197dp"
         android:layout_height="0dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="13dp"
         android:fontFamily="sans-serif-black"
         android:gravity="center"
         android:shadowColor="#3F594A"
@@ -22,131 +21,87 @@
         android:shadowRadius="10"
         android:text="הרשמה"
         android:textColor="#2C666E"
-        android:textSize="50sp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/etFname"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        tools:layout_editor_absoluteX="107dp"
+        tools:layout_editor_absoluteY="42dp" />
 
     <EditText
         android:id="@+id/etFname"
-        android:layout_width="0dp"
+        android:layout_width="371dp"
         android:layout_height="61dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="114dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="514dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/btnAlreadyHave"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="164dp" />
 
     <EditText
         android:id="@+id/etLname"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="31dp"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:hint="Last Name"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/etPhone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFname" />
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="241dp" />
 
     <EditText
         android:id="@+id/etPhone"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="41dp"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:hint="Phone"
         android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etLname" />
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="315dp" />
 
     <EditText
         android:id="@+id/etEmail"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="33dp"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/etPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPhone" />
+        tools:layout_editor_absoluteX="22dp"
+        tools:layout_editor_absoluteY="394dp" />
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="22dp"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/btnReg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="473dp" />
 
     <Button
         android:id="@+id/btnReg"
         android:layout_width="112dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="139dp"
-        android:layout_marginEnd="138dp"
-        android:layout_marginBottom="60dp"
+        android:layout_height="47dp"
         android:backgroundTint="#6C9182"
         android:text="הרשמה"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="@+id/etPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="542dp" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="177dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="185dp"
         android:text="כבר יש לך משתמש?"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAlreadyHave"
-        app:layout_constraintTop_toBottomOf="@+id/btnReg" />
+        tools:layout_editor_absoluteX="214dp"
+        tools:layout_editor_absoluteY="617dp" />
 
     <Button
         android:id="@+id/btnAlreadyHave"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="178dp"
         android:backgroundTint="#6C9182"
         android:text="התחבר"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="1.0" />
+        tools:layout_editor_absoluteX="289dp"
+        tools:layout_editor_absoluteY="665dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

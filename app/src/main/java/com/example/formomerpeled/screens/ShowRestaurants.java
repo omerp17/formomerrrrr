@@ -80,7 +80,6 @@ public class ShowRestaurants extends AppCompatActivity {
                 /// and the adapter should update the view
                 /// @see RestaurantSpinnerAdapter#notifyDataSetChanged()
 
-
                 restaurantsAdapter.notifyDataSetChanged();
 
             }

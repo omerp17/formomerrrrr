@@ -14,12 +14,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="67dp"
-        android:layout_marginBottom="98dp"
         android:gravity="center"
         android:text="TextView"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtCheckOurWebsite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,25 +33,24 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
         android:gravity="start"
         android:text="צרו קשר:"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtRestaurantPhoneNumberView"
+        app:layout_constraintBottom_toBottomOf="@+id/txtCheckOurWebsite"
         app:layout_constraintEnd_toStartOf="@+id/txtCheckOurWebsite"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtCheckOurWebsite" />
 
     <TextView
         android:id="@+id/txtCheckOurWebsite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="46dp"
+        android:layout_marginTop="24dp"
         android:gravity="start"
         android:text="בקרו אצלנו:"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/txtRestaurantDomainView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtContactView"
         app:layout_constraintTop_toBottomOf="@+id/txtRestaurantNameView" />
@@ -64,70 +61,67 @@
     <TextView
         android:id="@+id/txtRestaurantDomainView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="61dp"
-        android:autoLink="web"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
 
+        android:autoLink="web"
         android:clickable="true"
         android:gravity="center"
         android:onClick="saveFav"
         android:text="Website"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBackView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtRestaurantPhoneNumberView"
+        app:layout_constraintEnd_toEndOf="@+id/txtCheckOurWebsite"
+        app:layout_constraintStart_toStartOf="@+id/txtCheckOurWebsite"
         app:layout_constraintTop_toBottomOf="@+id/txtCheckOurWebsite" />
 
     <TextView
         android:id="@+id/txtRestaurantPhoneNumberView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="53dp"
-        android:layout_marginEnd="91dp"
         android:gravity="center"
         android:text="Phone Number"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
-        app:layout_constraintEnd_toStartOf="@+id/txtRestaurantDomainView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/txtRestaurantDomainView"
+        app:layout_constraintEnd_toEndOf="@+id/txtContactView"
+        app:layout_constraintStart_toStartOf="@+id/txtContactView"
         app:layout_constraintTop_toTopOf="@+id/txtRestaurantDomainView" />
 
+    <!-- תמונה של המסעדה -->
     <Button
         android:id="@+id/btnBackView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#6C9182"
         android:text="חזור"
         app:layout_constraintBottom_toTopOf="@+id/ivResViewDetails"
         app:layout_constraintEnd_toEndOf="@+id/ivResViewDetails"
-        app:layout_constraintTop_toBottomOf="@+id/txtRestaurantDomainView" />
+        app:layout_constraintStart_toStartOf="@+id/ivResViewDetails" />
 
-    <!-- תמונה של המסעדה -->
     <ImageView
         android:id="@+id/ivResViewDetails"
         android:layout_width="151dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="137dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
         android:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddReview"
+        app:layout_constraintBottom_toTopOf="@+id/btn_view_details_to_dishes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBackView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnAddReview"
+        android:id="@+id/btn_view_details_to_dishes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:text="הוסף ביקורת"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="#6C9182"
+        android:text="מנות המסעדה"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivResViewDetails" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <!-- מאכלים ללא גלוטן -->
 

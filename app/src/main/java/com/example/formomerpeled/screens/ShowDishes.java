@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.adapter.DishAdapter;
 import com.example.formomerpeled.models.Dish;
+import com.example.formomerpeled.models.Restaurant;
 import com.example.formomerpeled.services.DatabaseService;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ import java.util.List;
 public class ShowDishes extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "ShowDishes";
+
+    Restaurant res;
 
     private RecyclerView rvDishes;
     private DishAdapter dishAdapter;
@@ -35,9 +38,11 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_dishes);
 
+        res = (Restaurant) getIntent().getSerializableExtra("res");
+
         rvDishes = findViewById(R.id.rvDishes);
         rvDishes.setLayoutManager(new LinearLayoutManager(this));
-        dishAdapter = new DishAdapter(this, dishList);
+        dishAdapter = new DishAdapter(this);
         rvDishes.setAdapter(dishAdapter);
 
         ibSearchDish = findViewById(R.id.ibSearchDish);
@@ -50,7 +55,7 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
     }
 
     private void loadDishes() {
-        databaseService.getRestaurantDishes(new DatabaseService.DatabaseCallback<List<Dish>>() {
+        databaseService.getRestaurantDishes(res.getId() ,new DatabaseService.DatabaseCallback<List<Dish>>() {
             @Override
             public void onCompleted(List<Dish> dishes) {
                 Log.d(TAG, "Dishes loaded: " + dishes);

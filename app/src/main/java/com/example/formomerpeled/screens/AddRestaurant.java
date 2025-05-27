@@ -44,7 +44,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class AddRestaurant extends AppCompatActivity implements View.OnClickListener, RatingBar.OnRatingBarChangeListener {
+public class AddRestaurant extends AppCompatActivity implements View.OnClickListener {
     FirebaseDatabase database;
     DatabaseService databaseService = DatabaseService.getInstance();
     AuthenticationService authenticationService = AuthenticationService.getInstance();
@@ -107,10 +107,8 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
         etAddress = findViewById(R.id.etAddress);
         etDomain = findViewById(R.id.etDomain);
         etGlutenFreeItems = findViewById(R.id.etGlutenFreeItems);
-        ratingBar = findViewById(R.id.ratingBar);
         ivResImage = findViewById(R.id.ivAddRes);
 
-        ratingBar.setOnRatingBarChangeListener(this);
 
 
 
@@ -147,7 +145,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
 
             // יצירת אובייקט מסעדה
             Restaurant restaurant = new Restaurant(databaseService.generateRestaurantId(), authenticationService.getCurrentUserId(), Name, RestaurantType, Address, City,
-                    PhoneNumber, GlutenFreeItems, Domain, imageCode, new ArrayList<>());
+                    PhoneNumber, GlutenFreeItems, Domain, imageCode);
             databaseService.createNewRestaurant(restaurant, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void object) {
@@ -158,7 +156,6 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
                     etAddress.setText("");
                     etDomain.setText("");
                     etGlutenFreeItems.setText("");
-                    ratingBar.setRating(0); // מאפס את ה-RatingBar ל-0 (אם תרצה)
 
                 }
 
@@ -253,10 +250,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
     }
 
 
-    @Override
-    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-        rating2 = rating;
-    }
+
 
 
     @Override
