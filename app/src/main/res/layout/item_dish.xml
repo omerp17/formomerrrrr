@@ -1,92 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="16dp">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardItem"
-        android:layout_width="0dp"
+        android:layout_width="363dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="16dp">
 
-            <!-- Button on the left -->
-            <Button
-                android:id="@+id/btnAction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="16dp"
-                android:text="דרג"
-                android:backgroundTint="#6C9182"
+            <!-- Left side (optional image or icon) -->
+            <!-- You can add a button or image here if needed -->
 
-                 />
-
-            <!-- Text content on the right -->
-            <LinearLayout
+            <!-- Right side content with top-right button -->
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_weight="1">
 
-                <!-- שם המנה -->
-                <TextView
-                    android:id="@+id/txtItemName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Item Name"
-                    android:textColor="@android:color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                <!-- שם המסעדה -->
-                <TextView
-                    android:id="@+id/txtItemRestaurant"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-medium"
-                    android:text="Restaurant Name"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="16sp" />
-                <!-- מחיר -->
-                <TextView
-                    android:id="@+id/txtItemPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="12.99"
-                    android:textColor="@android:color/holo_green_dark"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-                <!-- תיאור -->
-                <TextView
-                    android:id="@+id/txtItemDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="sans-serif"
-                    android:text="Details about the item"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-                <RatingBar
-                    android:id="@+id/ratingBar"
+                <!-- Textual content -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:max="5"
-                    android:numStars="5"
-                    android:rating="1"
-                    android:stepSize="0.01" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:paddingEnd="112dp"> <!-- Prevent overlap with button -->
+
+                    <!-- שם המנה -->
+                    <TextView
+                        android:id="@+id/txtItemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Item Name"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <!-- שם המסעדה -->
+
+                    <!-- מחיר -->
+                    <TextView
+                        android:id="@+id/txtItemPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="12.99"
+                        android:textColor="@android:color/holo_green_dark"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- תיאור -->
+                    <TextView
+                        android:id="@+id/txtItemDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Details about the item"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+
+                    <!-- דירוג -->
+                    <RatingBar
+                        android:id="@+id/ratingBarAdapter"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:max="5"
+                        android:numStars="5"
+                        android:scaleX="1.3"
+                        android:scaleY="1.3"
+                        android:stepSize="0.5" />
+
+
+                </LinearLayout>
+
+                <!-- כפתור בפינה הימנית העליונה -->
+                <Button
+                    android:id="@+id/btnAddDishReview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:backgroundTint="#6C9182"
+                    android:text="הוסף ביקורת" />
+            </FrameLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

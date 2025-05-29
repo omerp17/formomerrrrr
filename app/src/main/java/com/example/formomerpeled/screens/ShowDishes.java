@@ -1,8 +1,10 @@
 package com.example.formomerpeled.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -33,25 +35,44 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
     private DatabaseService databaseService;
     private ImageButton ibSearchDish;
 
+    Button btnAddDish, btnShowDishesBackToView, btnAddDishReview;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_dishes);
+        databaseService = DatabaseService.getInstance();
 
         res = (Restaurant) getIntent().getSerializableExtra("res");
 
+
+        initViews();
+
+
+      dishAdapter=new DishAdapter(ShowDishes.this,dishList);
+        rvDishes.setAdapter(dishAdapter);
+        loadDishes();
+
+
+
+
+
+      //  initSearch();
+    }
+
+    private void initViews() {
+
+        btnAddDish=findViewById(R.id.btnAddDish);
+        btnAddDish.setOnClickListener(this);
+        btnShowDishesBackToView=findViewById(R.id.btnShowDishesBackToView);
+        btnShowDishesBackToView.setOnClickListener(this);
         rvDishes = findViewById(R.id.rvDishes);
         rvDishes.setLayoutManager(new LinearLayoutManager(this));
-        dishAdapter = new DishAdapter(this);
-        rvDishes.setAdapter(dishAdapter);
 
-        ibSearchDish = findViewById(R.id.ibSearchDish);
-        ibSearchDish.setOnClickListener(this);
 
-        databaseService = DatabaseService.getInstance();
 
-        loadDishes();
-        initSearch();
     }
 
     private void loadDishes() {
@@ -106,6 +127,30 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        loadDishes();
+
+        if(v==ibSearchDish){
+
+           // loadDishes();
+        }
+
+        if(v==btnAddDish){
+
+            Intent go= new Intent(ShowDishes.this, AddDish.class);
+            go.putExtra("resId", res.getId());
+            startActivity(go);
+        }
+
+        if(v==btnAddDishReview){
+
+            Intent go= new Intent(ShowDishes.this, ReviewDish.class);
+            startActivity(go);
+        }
+
+        if(v==btnShowDishesBackToView){
+
+            Intent go= new Intent(ShowDishes.this, ViewDetails.class);
+            startActivity(go);
+        }
+
     }
 }

@@ -1,9 +1,11 @@
 package com.example.formomerpeled.models;
 
-public class Dish {
+import java.io.Serializable;
+
+public class Dish  implements Serializable {
     protected String id;
     protected String name;
-    protected Restaurant restaurant;
+    protected String resId;
     protected double price;
 
     protected String details;
@@ -12,29 +14,17 @@ public class Dish {
     protected  double rate;
     protected  double sumRate;
 
-    public Dish(String id, String name, Restaurant restaurant, double price,  String details) {
+    public Dish(String id, String name, String resId, double price, String details, int numberRate, double rate, double sumRate) {
         this.id = id;
         this.name = name;
-        this.restaurant = restaurant;
+        this.resId = resId;
         this.price = price;
-
-        this.details = details;
-        this.numberRate = 0;
-        this.rate = 0.0;
-        this.sumRate = 0.0;
-    }
-
-    public Dish(String id, String name, Restaurant restaurant, double price, String details, int numberRate, double rate, double sumRate) {
-        this.id = id;
-        this.name = name;
-        this.restaurant = restaurant;
-        this.price = price;
-
         this.details = details;
         this.numberRate = numberRate;
         this.rate = rate;
         this.sumRate = sumRate;
     }
+
 
     public Dish() {
     }
@@ -55,12 +45,12 @@ public class Dish {
         this.name = name;
     }
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public String getResId() {
+        return resId;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
+    public void setResId(String resId) {
+        this.resId = resId;
     }
 
     public double getPrice() {
@@ -70,8 +60,6 @@ public class Dish {
     public void setPrice(double price) {
         this.price = price;
     }
-
-
 
     public String getDetails() {
         return details;
@@ -85,12 +73,19 @@ public class Dish {
         return numberRate;
     }
 
+
     public void setNumberRate(int numberRate) {
         this.numberRate = numberRate;
     }
+    public void setNumberRate() {
+        this.numberRate++;
+    }
 
     public double getRate() {
-        return rate;
+
+        if(numberRate>0&& sumRate>0)
+                    return sumRate/numberRate;
+        return  0.0;
     }
 
     public void setRate(double rate) {
@@ -104,13 +99,20 @@ public class Dish {
     public void setSumRate(double sumRate) {
         this.sumRate = sumRate;
     }
+    public void setNewSumRate(double rate) {
+        this.sumRate += rate;
+    }
+
+
+
+
 
     @Override
     public String toString() {
         return "Dish{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", restaurant=" + restaurant +
+                ", restaurant=" + resId +
                 ", price=" + price +
                 ", details='" + details + '\'' +
                 ", numberRate=" + numberRate +

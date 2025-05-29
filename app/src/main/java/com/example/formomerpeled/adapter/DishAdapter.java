@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,19 +17,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.models.Dish;
 import com.example.formomerpeled.models.User;
+import com.example.formomerpeled.screens.AddDish;
+import com.example.formomerpeled.screens.ReviewDish;
+import com.example.formomerpeled.screens.ShowDishes;
 import com.example.formomerpeled.screens.ShowUsers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
 
     private Context context;
     private List<Dish> dishList;
 
-    public DishAdapter(Context context) {
-        this.dishList = new ArrayList<>();
+    public DishAdapter(Context context, List<Dish> dishList) {
         this.context = context;
+        this.dishList = dishList;
     }
 
     @NonNull
@@ -40,16 +46,26 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     @Override
     public int getItemCount() {
-        return 0;
+        return this.dishList.size();
     }
 
     @Override
     public void onBindViewHolder(@NonNull DishAdapter.DishViewHolder holder, int position) {
         Dish dish = dishList.get(position);
         holder.txtItemName.setText(dish.getName());
-        holder.txtItemRestaurant.setText(dish.getRestaurant().getName());
+
         holder.txtItemPrice.setText(dish.getPrice() + "");
         holder.txtItemDetails.setText(dish.getDetails());
+        holder.ratingBarAdapter.setRating((float) dish.getRate());
+        holder.btnAddReviewDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go= new Intent(context, ReviewDish.class);
+                go.putExtra("dish",dish);
+                context.startActivity(go);
+
+            }
+        });
 
 
     }
@@ -63,12 +79,19 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     public static class DishViewHolder extends RecyclerView.ViewHolder {
         public TextView txtItemName, txtItemRestaurant, txtItemPrice, txtItemDetails;
 
+        Button btnAddReviewDish;
+
+         RatingBar ratingBarAdapter;
+
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
             txtItemName = itemView.findViewById(R.id.txtItemName);
-            txtItemRestaurant = itemView.findViewById(R.id.txtItemRestaurant);
+        //    txtItemRestaurant = itemView.findViewById(R.id.txtItemRestaurant);
             txtItemPrice = itemView.findViewById(R.id.txtItemPrice);
             txtItemDetails = itemView.findViewById(R.id.txtItemDetails);
+            btnAddReviewDish=itemView.findViewById(R.id.btnAddDishReview);
+            ratingBarAdapter=itemView.findViewById(R.id.ratingBarAdapter);
+
 
 
         }
