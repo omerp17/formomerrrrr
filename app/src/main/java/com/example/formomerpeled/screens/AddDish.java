@@ -33,12 +33,14 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
 
 
 
+
     DatabaseService databaseService;
 
 
 
     Button addDishButton;
     String restaurantId;
+    private Restaurant res=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,8 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
 
         Intent takeit = getIntent();
         restaurantId= (String) takeit.getSerializableExtra("resId");
+        res = (Restaurant) getIntent().getSerializableExtra("res");
+
 
         databaseService=DatabaseService.getInstance();
 
@@ -77,6 +81,13 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
             details = etDishDetails.getText().toString();
             price = Double.parseDouble(etDishPrice.getText().toString());
             dishName = etDishName.getText().toString();
+
+            if (v.getId() == addDishButton.getId()) {
+                Intent go = new Intent(this, ShowDishes.class);
+                go.putExtra("res", res);
+                startActivity(go);
+
+            }
 
             String dishId=databaseService.generateDishId();
             Dish newDish = new Dish(dishId, dishName, restaurantId, price, details, 0, 0.0, 0.0);

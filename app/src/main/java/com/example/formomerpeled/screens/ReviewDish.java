@@ -38,12 +38,13 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
     private DatabaseService databaseService;
 
 
-    Button btnSendReviewsDish, btnBackToShowDishesFromReview;
+    Button btnSendReviewsDish;
     RatingBar ratingbar;
     double rate;
 
     TextView txtDishNameInReviewPage;
     Intent takeit;
+    private Restaurant res=null;
 
 
     @Override
@@ -60,6 +61,8 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
         takeit=getIntent();
         dish= (Dish) takeit.getSerializableExtra("dish");
 
+        res = (Restaurant) getIntent().getSerializableExtra("res");
+
         initViews();
 
 
@@ -70,8 +73,7 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
     }
 
     private void initViews() {
-        btnBackToShowDishesFromReview = (Button)findViewById(R.id.btnBackToShowDishesFromReview);
-        btnBackToShowDishesFromReview.setOnClickListener((View.OnClickListener) this);
+
 
         ratingbar=findViewById(R.id.ratingBarDish);
         ratingbar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -93,19 +95,27 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
-        databaseService.updateDish(dish, new DatabaseService.DatabaseCallback<Void>() {
+        if (v.getId() == btnSendReviewsDish.getId()) {
 
 
-            @Override
-            public void onCompleted(Void object) {
 
-            }
+            databaseService.updateDish(dish, new DatabaseService.DatabaseCallback<Void>() {
 
-            @Override
-            public void onFailed(Exception e) {
 
-            }
-        });
+                @Override
+                public void onCompleted(Void object) {
+                    Intent go = new Intent(ReviewDish.this, ShowDishes.class);
+                    go.putExtra("res", res);
 
+                    go.putExtra("resId", dish.getResId());
+                    startActivity(go);
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+        }
     }
 }

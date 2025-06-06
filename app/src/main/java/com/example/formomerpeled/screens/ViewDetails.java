@@ -171,10 +171,7 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
             Intent go = new Intent(ViewDetails.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(ViewDetails.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(ViewDetails.this, Odot.class);
             startActivity(go);

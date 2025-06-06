@@ -202,10 +202,7 @@ public class ShowRestaurants extends AppCompatActivity {
             Intent go = new Intent(ShowRestaurants.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(ShowRestaurants.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(ShowRestaurants.this, Odot.class);
             startActivity(go);

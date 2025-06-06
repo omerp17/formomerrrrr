@@ -293,10 +293,7 @@ public class AddRestaurant extends AppCompatActivity implements View.OnClickList
             Intent go = new Intent(AddRestaurant.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(AddRestaurant.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(AddRestaurant.this, Odot.class);
             startActivity(go);

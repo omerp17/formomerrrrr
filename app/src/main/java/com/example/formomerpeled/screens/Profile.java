@@ -1,5 +1,6 @@
 package com.example.formomerpeled.screens;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,36 +24,65 @@ import com.example.formomerpeled.services.DatabaseService;
 
 public class Profile extends AppCompatActivity {
 
-    private EditText etFirstName, etLastName, etPhone, etEmail, etPassword;
+    private EditText etFirstName, etLastName, etPhone;
     private Button btnSaveChanges;
+
+    DatabaseService databaseService;
+    private AuthenticationService authenticationService;
+    String uid;
+    private User user=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        databaseService=DatabaseService.getInstance();
+        authenticationService = AuthenticationService.getInstance();
+        uid=authenticationService.getCurrentUserId();
+
+
         // מציאת משתנים
-        etFirstName = findViewById(R.id.etFirstName);
-        etLastName = findViewById(R.id.etLastName);
-        etPhone = findViewById(R.id.etPhone);
-        etPassword = findViewById(R.id.etPassword);
+        etFirstName = findViewById(R.id.etFirstNameChange);
+        etLastName = findViewById(R.id.etLastNameChange);
+        etPhone = findViewById(R.id.etPhoneChange);
         btnSaveChanges = findViewById(R.id.btnSaveChanges);
 
 
-        // קבלת המשתמש המחובר
-        User user = SharedPreferencesUtil.getUser(getApplicationContext());
 
-        if (user != null) {
-            // הצגת פרטי המשתמש ב-EditTexts
-            etFirstName.setText(user.getFname());
-            etLastName.setText(user.getLname());
-            etPhone.setText(user.getPhone());
-            etEmail.setText(user.getEmail());
-            etPassword.setText(user.getPassword());
-        } else {
-            // אם אין משתמש מחובר, הצגת הודעה מתאימה
-            etEmail.setText("User not logged in");
-        }
+
+        databaseService.getUser(uid, new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User user2) {
+                user=user2;
+
+
+                if (user != null) {
+                    // הצגת פרטי המשתמש ב-EditTexts
+                    etFirstName.setText(user.getFname());
+                    etLastName.setText(user.getLname());
+                    etPhone.setText(user.getPhone());
+
+
+                }
+
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(Profile.this, "שגיאה באחזור פרטים", Toast.LENGTH_SHORT).show();
+                Log.e("AfterPageMenu", "tried to log into admin page and ecountered: " + e.getMessage());
+            }
+        });
+
+
+
+
+
+
+        // קבלת המשתמש המחובר
+
 
         // כפתור שמירת שינויים
         btnSaveChanges.setOnClickListener(v -> {
@@ -61,13 +91,14 @@ public class Profile extends AppCompatActivity {
                 user.setFname(etFirstName.getText().toString());
                 user.setLname(etLastName.getText().toString());
                 user.setPhone(etPhone.getText().toString());
-                user.setPassword(etPassword.getText().toString());
+
+                finish();
 
                 // שמירת הערכים המעודכנים ב-SharedPreferences
                 SharedPreferencesUtil.saveUser(getApplicationContext(), user);
 
                 // עדכון המשתמש ב-Firebase
-                DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+               databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
                         Toast.makeText(Profile.this, "Changes saved successfully!", Toast.LENGTH_SHORT).show();
@@ -83,16 +114,28 @@ public class Profile extends AppCompatActivity {
                 Toast.makeText(Profile.this, "No user found", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
 
-    private AuthenticationService authenticationService = AuthenticationService.getInstance();
-    private DatabaseService databaseService = DatabaseService.getInstance();
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+
+        menu.removeItem(R.id.action_admin);
+        if(user!=null) {
+            if (user.isAdmin()) {
+
+                menu.add(R.id.action_admin);
+
+
+            }
+        }
         return true;
     }
 
@@ -101,26 +144,21 @@ public class Profile extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_admin){
-            databaseService.getUser(authenticationService.getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
-                @Override
-                public void onCompleted(User user) {
-                    if(user.isAdmin())
-                    {
-                        Intent go = new Intent(Profile.this, AdminPage.class);
-                        startActivity(go);
-                    }
-                    else
-                        Toast.makeText(Profile.this, "אינך מנהל", Toast.LENGTH_SHORT).show();
+
+
+
+                if (user.isAdmin()) {
+                    Intent go = new Intent(Profile.this, AdminPage.class);
+                    startActivity(go);
+                } else {
+                    Toast.makeText(Profile.this, "אינך מנהל", Toast.LENGTH_SHORT).show();
+
                 }
 
-                @Override
-                public void onFailed(Exception e) {
-                    Toast.makeText(Profile.this, "שגיאה באחזור פרטים", Toast.LENGTH_SHORT).show();
-                    Log.e("AfterPageMenu", "tried to log into admin page and ecountered: " + e.getMessage());
-                }
-            });
-        }
-        else if(id == R.id.action_home){
+
+            }
+
+       if(id == R.id.action_home){
             Intent go = new Intent(Profile.this, AfterPage.class);
             startActivity(go);
         }
@@ -128,10 +166,7 @@ public class Profile extends AppCompatActivity {
             Intent go = new Intent(Profile.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(Profile.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(Profile.this, Odot.class);
             startActivity(go);

@@ -29,7 +29,7 @@ import com.example.formomerpeled.Utils.NPH;
 import com.example.formomerpeled.Utils.NotificationHelper;
 
 public class MainActivity2 extends AppCompatActivity implements View.OnClickListener {
-    Button btnRegMain, btnLogMain, btnAddNewRestaurant,btnAboutUs, btnGoAllRestaurantFromMain;
+    Button btnRegMain, btnLogMain, btnAddNewRestaurant, btnGoAllRestaurantFromMain;
             ImageButton btnAccount;
 
 
@@ -73,8 +73,7 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
         btnRegMain.setOnClickListener(this);
         btnLogMain = (Button)findViewById(R.id.btnLogMain);
         btnLogMain.setOnClickListener(this);
-        btnAboutUs = (Button)findViewById(R.id.btnAboutUs);
-        btnAboutUs.setOnClickListener(this);
+
     }
 
 
@@ -89,9 +88,6 @@ public class MainActivity2 extends AppCompatActivity implements View.OnClickList
             Intent go = new Intent(this, Login.class);
             startActivity(go);
         }
-        if (v == btnAboutUs) {
-            Intent go = new Intent(this ,AddDish.class);
-            startActivity(go);
+
         }
     }
-}

@@ -153,10 +153,7 @@ public class ShowUsers extends AppCompatActivity implements View.OnClickListener
             Intent go = new Intent(ShowUsers.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(ShowUsers.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(ShowUsers.this, Odot.class);
             startActivity(go);

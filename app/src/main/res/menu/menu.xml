@@ -20,11 +20,7 @@
         app:showAsAction="never"
         />
 
-    <item
-        android:id="@+id/action_guide"
-        android:title="מדריך"
-        app:showAsAction="never"
-        />
+
 
     <item
         android:id="@+id/action_about"

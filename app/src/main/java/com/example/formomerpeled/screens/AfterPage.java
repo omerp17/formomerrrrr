@@ -24,7 +24,7 @@ import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
 
 public class AfterPage extends AppCompatActivity implements View.OnClickListener {
-    Button btnAddNewRestaurant, btnGoAllRestaurantFromMain;
+    Button btnAddNewRestaurant, btnGoAllRestaurantFromMain, btnAboutUs;
     ImageButton btnAccount;
 
     @Override
@@ -52,6 +52,9 @@ public class AfterPage extends AppCompatActivity implements View.OnClickListener
         btnAddNewRestaurant = (Button) findViewById(R.id.btnAddNewRestaurant);
         btnAddNewRestaurant.setOnClickListener(this);
 
+        btnAboutUs = (Button)findViewById(R.id.btnAboutUs);
+        btnAboutUs.setOnClickListener(this);
+
     }
 
 
@@ -69,7 +72,10 @@ public class AfterPage extends AppCompatActivity implements View.OnClickListener
         if (v == btnAddNewRestaurant) {
             Intent go = new Intent(this, AddRestaurant.class);
             startActivity(go);
-
+        }
+        if (v == btnAboutUs) {
+            Intent go = new Intent(this, Odot.class);
+            startActivity(go);
         }
     }
 
@@ -116,10 +122,7 @@ public class AfterPage extends AppCompatActivity implements View.OnClickListener
             Intent go = new Intent(AfterPage.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(AfterPage.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(AfterPage.this, Odot.class);
             startActivity(go);

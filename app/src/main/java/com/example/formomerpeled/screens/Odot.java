@@ -89,10 +89,7 @@ public class Odot extends AppCompatActivity  {
             Intent go = new Intent(Odot.this, Profile.class);
             startActivity(go);
         }
-        else if (id == R.id.action_guide) {
-//            Intent go = new Intent(Odot.this, Guide.class);
-//            startActivity(go);
-        }
+
         else if (id == R.id.action_about) {
             Intent go = new Intent(Odot.this, Odot.class);
             startActivity(go);
