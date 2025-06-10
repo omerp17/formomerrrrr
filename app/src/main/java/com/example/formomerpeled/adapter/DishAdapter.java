@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,6 +63,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             public void onClick(View v) {
                 Intent go= new Intent(context, ReviewDish.class);
                 go.putExtra("dish",dish);
+                go.putExtra("resId",dish.getResId());
+
                 context.startActivity(go);
 
             }

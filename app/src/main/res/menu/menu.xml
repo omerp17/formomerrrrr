@@ -13,6 +13,11 @@
         android:title="דף ראשי"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/action_restaurants"
+        android:title="מסעדות"
+        app:showAsAction="never"
+        />
 
     <item
         android:id="@+id/action_update"

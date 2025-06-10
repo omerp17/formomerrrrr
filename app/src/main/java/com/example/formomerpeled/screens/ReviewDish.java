@@ -2,13 +2,19 @@ package com.example.formomerpeled.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
@@ -20,6 +26,8 @@ import com.example.formomerpeled.R;
 import com.example.formomerpeled.adapter.DishAdapter;
 import com.example.formomerpeled.models.Dish;
 import com.example.formomerpeled.models.Restaurant;
+import com.example.formomerpeled.models.User;
+import com.example.formomerpeled.services.AuthenticationService;
 import com.example.formomerpeled.services.DatabaseService;
 
 import org.w3c.dom.Text;
@@ -63,6 +71,7 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
 
         res = (Restaurant) getIntent().getSerializableExtra("res");
 
+
         initViews();
 
 
@@ -105,7 +114,8 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
                 @Override
                 public void onCompleted(Void object) {
                     Intent go = new Intent(ReviewDish.this, ShowDishes.class);
-                    go.putExtra("res", res);
+
+
 
                     go.putExtra("resId", dish.getResId());
                     startActivity(go);
@@ -116,6 +126,58 @@ public class ReviewDish extends AppCompatActivity implements View.OnClickListene
 
                 }
             });
+
+
         }
+    }
+
+    private AuthenticationService authenticationService = AuthenticationService.getInstance();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_admin) {
+            databaseService.getUser(authenticationService.getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
+                @Override
+                public void onCompleted(User user) {
+                    if (user.isAdmin()) {
+                        Intent go = new Intent(ReviewDish.this, AdminPage.class);
+                        startActivity(go);
+                    } else
+                        Toast.makeText(ReviewDish.this, "אינך מנהל", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(ReviewDish.this, "שגיאה באחזור פרטים", Toast.LENGTH_SHORT).show();
+                    Log.e("AfterPageMenu", "tried to log into admin page and ecountered: " + e.getMessage());
+                }
+            });
+        } else if (id == R.id.action_home) {
+            Intent go = new Intent(ReviewDish.this, AfterPage.class);
+            startActivity(go);
+        } else if (id == R.id.action_restaurants) {
+            Intent go = new Intent(ReviewDish.this, ShowRestaurants.class);
+            startActivity(go);
+        } else if (id == R.id.action_update) {
+            Intent go = new Intent(ReviewDish.this, Profile.class);
+            startActivity(go);
+        } else if (id == R.id.action_about) {
+            Intent go = new Intent(ReviewDish.this, Odot.class);
+            startActivity(go);
+        } else if (id == R.id.action_logout) {
+            authenticationService.signOut();
+            Intent go = new Intent(ReviewDish.this, MainActivity2.class);
+            startActivity(go);
+        }
+        return true;
     }
 }

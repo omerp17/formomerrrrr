@@ -42,7 +42,7 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
     private ImageButton ibSearchDish;
 
     Button btnAddDish, btnShowDishesBackToView, btnAddDishReview;
-
+String resId;
 
 
     @Override
@@ -50,11 +50,21 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_dishes);
         databaseService = DatabaseService.getInstance();
-
-        res = (Restaurant) getIntent().getSerializableExtra("res");
-
-
         initViews();
+        res = (Restaurant) getIntent().getSerializableExtra("res");
+        resId= (String) getIntent().getSerializableExtra("resId");
+        if(res!=null)
+
+                resId=res.getId();
+
+
+
+
+
+
+
+
+
 
         loadDishes();
 
@@ -77,16 +87,20 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
 
     private void loadDishes() {
 
-        if(res!=null) {
-            databaseService.getRestaurantDishes(res.getId(), new DatabaseService.DatabaseCallback<List<Dish>>() {
+        if(resId!=null) {
+
+            dishAdapter = new DishAdapter(ShowDishes.this, dishList);
+            rvDishes.setAdapter(dishAdapter);
+
+            databaseService.getRestaurantDishes(resId, new DatabaseService.DatabaseCallback<List<Dish>>() {
                 @Override
                 public void onCompleted(List<Dish> dishes) {
                     Log.d(TAG, "Dishes loaded: " + dishes);
                     dishList.clear();
                     dishList.addAll(dishes);
+                    dishAdapter.notifyDataSetChanged();
 
-                    dishAdapter = new DishAdapter(ShowDishes.this, dishList);
-                    rvDishes.setAdapter(dishAdapter);
+
                 }
 
                 @Override
@@ -197,6 +211,10 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
         }
         else if(id == R.id.action_home){
             Intent go = new Intent(ShowDishes.this, AfterPage.class);
+            startActivity(go);
+        }
+        else if (id == R.id.action_restaurants) {
+            Intent go = new Intent(ShowDishes.this, ShowRestaurants.class);
             startActivity(go);
         }
         else if (id == R.id.action_update) {

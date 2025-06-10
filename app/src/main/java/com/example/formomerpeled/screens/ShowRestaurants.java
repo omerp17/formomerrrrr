@@ -198,6 +198,7 @@ public class ShowRestaurants extends AppCompatActivity {
             Intent go = new Intent(ShowRestaurants.this, AfterPage.class);
             startActivity(go);
         }
+
         else if (id == R.id.action_update) {
             Intent go = new Intent(ShowRestaurants.this, Profile.class);
             startActivity(go);
