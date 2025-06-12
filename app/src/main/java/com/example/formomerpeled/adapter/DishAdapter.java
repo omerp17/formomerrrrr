@@ -3,6 +3,7 @@ package com.example.formomerpeled.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.formomerpeled.screens.AddDish;
 import com.example.formomerpeled.screens.ReviewDish;
 import com.example.formomerpeled.screens.ShowDishes;
 import com.example.formomerpeled.screens.ShowUsers;
+import com.example.formomerpeled.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,11 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     }
 
+
+
+
+
+
     public void updateList(List<Dish> filteredList) {
         this.dishList.clear();
         this.dishList.addAll(filteredList);
@@ -82,7 +89,8 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
     public static class DishViewHolder extends RecyclerView.ViewHolder {
         public TextView txtItemName, txtItemRestaurant, txtItemPrice, txtItemDetails;
 
-        Button btnAddReviewDish;
+        Button btnAddReviewDish, btnDeleteDish;
+
 
          RatingBar ratingBarAdapter;
 
@@ -94,8 +102,18 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
             txtItemDetails = itemView.findViewById(R.id.txtItemDetails);
             btnAddReviewDish=itemView.findViewById(R.id.btnAddDishReview);
             ratingBarAdapter=itemView.findViewById(R.id.ratingBarAdapter);
+            //deleteButton2 = itemView.findViewById(R.id.btnDeleteDish);// Initialize delete button
 
 
+// כפתור מחיקה
+            holder.btnDeleteDish.setOnClickListener(v -> {
+                new AlertDialog.Builder(context)
+                        .setTitle("מחיקת משתמש")
+                        .setMessage("האם אתה בטוח שברצונך למחוק את המשתמש?")
+                        .setPositiveButton("כן", (dialog, which) -> deleteDish(Dish.getId(), position))
+                        .setNegativeButton("לא", (dialog, which) -> dialog.dismiss())
+                        .show();
+            });
 
         }
     }

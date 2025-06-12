@@ -114,6 +114,8 @@ public class DatabaseService {
     }
 
 
+
+
     /// generate a new id for a new object in the database
     private String generateNewId(@NotNull final String path) {
         return databaseReference.child(path).push().getKey();
@@ -267,6 +269,10 @@ public class DatabaseService {
 
     public void deleteUser(@NotNull final String userId, @Nullable final DatabaseCallback<Void> callback) {
         deleteData("Users/" + userId, callback);
+    }
+
+    public void deleteDish(@NotNull final String dishId, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData("Users/" + dishId, callback);
     }
 
     /// delete a restaurant from the database

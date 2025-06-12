@@ -83,12 +83,10 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
             price = Double.parseDouble(etDishPrice.getText().toString());
             dishName = etDishName.getText().toString();
 
-            if (v.getId() == addDishButton.getId()) {
-                Intent go = new Intent(this, ShowDishes.class);
-                go.putExtra("res", res);
-                startActivity(go);
-
+            if (!isValid(dishName, price, details)) {
+                return;
             }
+
 
             String dishId=databaseService.generateDishId();
             Dish newDish = new Dish(dishId, dishName, restaurantId, price, details, 0, 0.0, 0.0);
@@ -97,10 +95,9 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
 
                 @Override
                 public void onCompleted(Void object) {
-
-                    //   Intent go = new Intent(AddDish.this, MainActivity2.class);
-                  //  startActivity(go);
-
+                    Intent go = new Intent(AddDish.this, ShowDishes.class);
+                    go.putExtra("res", res);
+                    startActivity(go);
                 }
 
                 @Override
@@ -117,10 +114,10 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
     // פונקציה לבדוק אם כל השדות מלאים
     private boolean isValid(String name, double price, String details) {
         if (name.isEmpty()) {
-            etdishName.setError("דרוש שם מנה");
+            etDishName.setError("דרוש שם מנה");
             return false;
         }
-        if (double.isEmpty()) {
+        if (price == 0) {
             etDishPrice.setError("דרוש מחיר מנה");
             return false;
         }
