@@ -96,14 +96,7 @@ public class Restaurant  implements Serializable {
         return imageCode;
     }
 
-//    public float getRating() {
-//        if (restaurantReviewList.isEmpty()) return 0;
-//        float total = 0;
-//        for (RestaurantReview restaurantReview : restaurantReviewList) {
-//            total = restaurantReview.getUserRating();
-//        }
-//        return total / restaurantReviewList.size();
-//    }
+
 
 
     @Override

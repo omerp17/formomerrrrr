@@ -56,23 +56,9 @@ String resId;
         if(res!=null)
 
                 resId=res.getId();
-
-
-
-
-
-
-
-
-
-
         loadDishes();
 
 
-
-
-
-      //  initSearch();
     }
 
     private void initViews() {
@@ -82,6 +68,7 @@ String resId;
         rvDishes = findViewById(R.id.rvDishes);
         rvDishes.setLayoutManager(new LinearLayoutManager(this));
 
+        initSearch();
 
     }
 
@@ -115,6 +102,13 @@ String resId;
     }
 
     private void initSearch() {
+        ibSearchDish= findViewById(R.id.ibSearchDish);
+        ibSearchDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recreate();
+            }
+        });
         searchView = findViewById(R.id.searchViewDishes);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

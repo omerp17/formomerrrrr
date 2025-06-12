@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -111,6 +112,24 @@ public class AddDish extends AppCompatActivity implements View.OnClickListener{
 
 
 
+    }
+
+    // פונקציה לבדוק אם כל השדות מלאים
+    private boolean isValid(String name, double price, String details) {
+        if (name.isEmpty()) {
+            etdishName.setError("דרוש שם מנה");
+            return false;
+        }
+        if (double.isEmpty()) {
+            etDishPrice.setError("דרוש מחיר מנה");
+            return false;
+        }
+        if (details.isEmpty()) {
+            etDishDetails.setError("דרושים פרטים על המנה");
+            return false;
+        }
+
+        return true;
     }
 
 

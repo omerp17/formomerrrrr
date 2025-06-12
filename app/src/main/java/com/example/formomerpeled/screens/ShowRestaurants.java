@@ -64,7 +64,6 @@ public class ShowRestaurants extends AppCompatActivity {
         rvList.setAdapter(restaurantsAdapter);
 
 
-
         initViews();
 
         databaseService.getRestaurants(new DatabaseService.DatabaseCallback<List<Restaurant>>() {
@@ -89,8 +88,6 @@ public class ShowRestaurants extends AppCompatActivity {
                 Log.e(TAG, "onFailed: ", e);
             }
         });
-
-
 
 
 
@@ -218,24 +215,3 @@ public class ShowRestaurants extends AppCompatActivity {
         return true;
     }
 }
-
-
-//public void onLongClick(Restaurant restaurant) {
-//    User user = SharedPreferencesUtil.getUser(ShowRestaurants.this);
-//
-//    if (user.isAdmin()) {
-//        databaseService.deleteRestaurant(restaurant.getId(), new DatabaseService.DatabaseCallback<Void>() {
-//            @Override
-//            public void onCompleted(Void object) {
-//                Toast.makeText(ShowRestaurants.this, "the res delete", Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//            @Override
-//            public void onFailed(Exception e) {
-//
-//            }
-//        });
-//
-//
-//    }}}
