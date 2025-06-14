@@ -1,6 +1,7 @@
 package com.example.formomerpeled.models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Dish  implements Serializable {
     protected String id;
@@ -105,8 +106,6 @@ public class Dish  implements Serializable {
 
 
 
-
-
     @Override
     public String toString() {
         return "Dish{" +
@@ -119,5 +118,18 @@ public class Dish  implements Serializable {
                 ", rate=" + rate +
                 ", sumRate=" + sumRate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(id, dish.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

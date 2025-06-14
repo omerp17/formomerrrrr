@@ -67,7 +67,6 @@
         android:autoLink="web"
         android:clickable="true"
         android:gravity="center"
-        android:onClick="saveFav"
         android:text="Website"
         android:textColor="@android:color/holo_blue_dark"
         android:textSize="14sp"

@@ -42,7 +42,7 @@ public class ShowDishes extends AppCompatActivity implements View.OnClickListene
     private ImageButton ibSearchDish;
 
     Button btnAddDish, btnShowDishesBackToView, btnAddDishReview;
-String resId;
+    String resId;
 
 
     @Override
@@ -50,23 +50,34 @@ String resId;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_dishes);
         databaseService = DatabaseService.getInstance();
-        initViews();
+
         res = (Restaurant) getIntent().getSerializableExtra("res");
-        resId= (String) getIntent().getSerializableExtra("resId");
-        if(res!=null)
+        resId = (String) getIntent().getSerializableExtra("resId");
+        if (res != null)
+            resId = res.getId();
 
-                resId=res.getId();
+        initViews();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadDishes();
-
-
     }
 
     private void initViews() {
 
-        btnAddDish=findViewById(R.id.btnAddDish);
+        btnAddDish = findViewById(R.id.btnAddDish);
         btnAddDish.setOnClickListener(this);
         rvDishes = findViewById(R.id.rvDishes);
         rvDishes.setLayoutManager(new LinearLayoutManager(this));
+
+
+        if (res.getuId().equals(AuthenticationService.getInstance().getCurrentUserId())) {
+            btnAddDish.setVisibility(View.VISIBLE);
+        } else {
+            btnAddDish.setVisibility(View.GONE);
+        }
 
         initSearch();
 
@@ -74,35 +85,57 @@ String resId;
 
     private void loadDishes() {
 
-        if(resId!=null) {
-
-            dishAdapter = new DishAdapter(ShowDishes.this, dishList);
-            rvDishes.setAdapter(dishAdapter);
-
-            databaseService.getRestaurantDishes(resId, new DatabaseService.DatabaseCallback<List<Dish>>() {
-                @Override
-                public void onCompleted(List<Dish> dishes) {
-                    Log.d(TAG, "Dishes loaded: " + dishes);
-                    dishList.clear();
-                    dishList.addAll(dishes);
-                    dishAdapter.notifyDataSetChanged();
-
-
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    Log.e(TAG, "Error loading dishes", e);
-                    Toast.makeText(ShowDishes.this, "שגיאה בטעינת מנות", Toast.LENGTH_SHORT).show();
-                }
-            });
-
+        if (resId == null) {
+            Toast.makeText(ShowDishes.this, "שגיאה  מנות", Toast.LENGTH_SHORT).show();
+            return;
         }
-        else {   Toast.makeText(ShowDishes.this, "שגיאה  מנות", Toast.LENGTH_SHORT).show();   }
+        dishAdapter = new DishAdapter(ShowDishes.this, dishList, new DishAdapter.OnDishListener() {
+            @Override
+            public boolean showDeleteButton(Dish dish) {
+                return res.getuId().equals(AuthenticationService.getInstance().getCurrentUserId());
+            }
+
+            @Override
+            public void onDeleteClick(Dish dish) {
+                databaseService.deleteRestaurantDish(dish.getResId(), dish.getId(), new DatabaseService.DatabaseCallback<Void>() {
+
+                    @Override
+                    public void onCompleted(Void object) {
+                        dishList.remove(dish);
+                        dishAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+
+                    }
+                });
+            }
+        });
+        rvDishes.setAdapter(dishAdapter);
+
+        databaseService.getRestaurantDishes(resId, new DatabaseService.DatabaseCallback<List<Dish>>() {
+            @Override
+            public void onCompleted(List<Dish> dishes) {
+                Log.d(TAG, "Dishes loaded: " + dishes);
+                dishList.clear();
+                dishList.addAll(dishes);
+                dishAdapter.notifyDataSetChanged();
+
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Error loading dishes", e);
+                Toast.makeText(ShowDishes.this, "שגיאה בטעינת מנות", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void initSearch() {
-        ibSearchDish= findViewById(R.id.ibSearchDish);
+        ibSearchDish = findViewById(R.id.ibSearchDish);
         ibSearchDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,56 +176,55 @@ String resId;
     @Override
     public void onClick(View v) {
 
-        if(v==ibSearchDish){
+        if (v == ibSearchDish) {
 
-           // loadDishes();
+            // loadDishes();
         }
 
-        if(v==btnAddDish){
+        if (v == btnAddDish) {
 
-            Intent go= new Intent(ShowDishes.this, AddDish.class);
+            Intent go = new Intent(ShowDishes.this, AddDish.class);
             go.putExtra("resId", res.getId());
             go.putExtra("res", res);
             startActivity(go);
         }
 
-        if(v==btnAddDishReview){
+        if (v == btnAddDishReview) {
 
-            Intent go= new Intent(ShowDishes.this, ReviewDish.class);
+            Intent go = new Intent(ShowDishes.this, ReviewDish.class);
             go.putExtra("res", res);
             startActivity(go);
         }
 
-        if(v==btnShowDishesBackToView){
+        if (v == btnShowDishesBackToView) {
 
-            Intent go= new Intent(ShowDishes.this, ViewDetails.class);
+            Intent go = new Intent(ShowDishes.this, ViewDetails.class);
             startActivity(go);
         }
 
     }
+
     private AuthenticationService authenticationService = AuthenticationService.getInstance();
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
+
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        if(id == R.id.action_admin){
+        if (id == R.id.action_admin) {
             databaseService.getUser(authenticationService.getCurrentUserId(), new DatabaseService.DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User user) {
-                    if(user.isAdmin())
-                    {
+                    if (user.isAdmin()) {
                         Intent go = new Intent(ShowDishes.this, AdminPage.class);
                         startActivity(go);
-                    }
-                    else
+                    } else
                         Toast.makeText(ShowDishes.this, "אינך מנהל", Toast.LENGTH_SHORT).show();
                 }
 
@@ -202,25 +234,19 @@ String resId;
                     Log.e("AfterPageMenu", "tried to log into admin page and ecountered: " + e.getMessage());
                 }
             });
-        }
-        else if(id == R.id.action_home){
+        } else if (id == R.id.action_home) {
             Intent go = new Intent(ShowDishes.this, AfterPage.class);
             startActivity(go);
-        }
-        else if (id == R.id.action_restaurants) {
+        } else if (id == R.id.action_restaurants) {
             Intent go = new Intent(ShowDishes.this, ShowRestaurants.class);
             startActivity(go);
-        }
-        else if (id == R.id.action_update) {
+        } else if (id == R.id.action_update) {
             Intent go = new Intent(ShowDishes.this, Profile.class);
             startActivity(go);
-        }
-
-        else if (id == R.id.action_about) {
+        } else if (id == R.id.action_about) {
             Intent go = new Intent(ShowDishes.this, Odot.class);
             startActivity(go);
-        }
-        else if (id == R.id.action_logout) {
+        } else if (id == R.id.action_logout) {
             authenticationService.signOut();
             Intent go = new Intent(ShowDishes.this, MainActivity2.class);
             startActivity(go);

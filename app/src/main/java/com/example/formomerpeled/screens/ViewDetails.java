@@ -105,31 +105,6 @@ public class ViewDetails extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public void saveFav(View view) {
-
-        Toast.makeText(ViewDetails.this,"pppp[ ",Toast.LENGTH_LONG).show();
-        if(restaurant!=null) {
-
-            databaseService.userFavoriteRestaurant(uid, restaurant, new DatabaseService.DatabaseCallback<Void>() {
-
-                @Override
-              public   void onFailed(Exception e) {
-                    Toast.makeText(ViewDetails.this,"not ",Toast.LENGTH_LONG).show();
-
-
-                }
-
-                @Override
-              public   void onCompleted(Void object) {
-
-                    Toast.makeText(ViewDetails.this,"Save",Toast.LENGTH_LONG).show();
-
-                }
-            });
-
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu)

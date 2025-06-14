@@ -22,6 +22,7 @@ import java.util.List;
 
 /// a service to interact with the Firebase Realtime Database.
 /// this class is a singleton, use getInstance() to get an instance of this class
+///
 /// @see #getInstance()
 /// @see FirebaseDatabase
 public class DatabaseService {
@@ -30,6 +31,7 @@ public class DatabaseService {
     private static final String TAG = "DatabaseService";
 
     /// callback interface for database operations
+    ///
     /// @param <T> the type of the object to return
     /// @see DatabaseCallback#onCompleted(Object)
     /// @see DatabaseCallback#onFailed(Exception)
@@ -37,10 +39,10 @@ public class DatabaseService {
         /// called when the operation is completed successfully
 
 
-        void onCompleted(T object);
+        public void onCompleted(T object);
 
         /// called when the operation fails with an exception
-        void onFailed(Exception e);
+        public void onFailed(Exception e);
     }
 
     /// the instance of this class
@@ -66,7 +68,7 @@ public class DatabaseService {
     // private generic methods to write and read data from the database
 
     /// write data to the database at a specific path
-    private void writeData(@NotNull final String path, @NotNull final Object data, final @Nullable DatabaseCallback<Void> callback) {
+    private void writeData(@NotNull final String path, @Nullable final Object data, final @Nullable DatabaseCallback<Void> callback) {
         databaseReference.child(path).setValue(data).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (callback == null) return;
@@ -98,7 +100,8 @@ public class DatabaseService {
 
 
     /// remove data from the database at a specific path
-    /// @param path the path to remove the data from
+    ///
+    /// @param path     the path to remove the data from
     /// @param callback the callback to call when the operation is completed
     /// @see DatabaseCallback
     private void deleteData(@NotNull final String path, @Nullable final DatabaseCallback<Void> callback) {
@@ -114,15 +117,28 @@ public class DatabaseService {
     }
 
 
-
-
     /// generate a new id for a new object in the database
     private String generateNewId(@NotNull final String path) {
         return databaseReference.child(path).push().getKey();
     }
 
 
+    public <T> void getDataList(String path, Class<T> clazz, @NotNull final DatabaseCallback<List<T>> callback) {
+        readData(path).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting data", task.getException());
+                callback.onFailed(task.getException());
+                return;
+            }
+            List<T> list = new ArrayList<>();
+            task.getResult().getChildren().forEach(dataSnapshot -> {
+                T restaurant = dataSnapshot.getValue(clazz);
+                list.add(restaurant);
+            });
 
+            callback.onCompleted(list);
+        });
+    }
 
 
     public String generateRestaurantId() {
@@ -144,65 +160,18 @@ public class DatabaseService {
 
     /// get a user from the database
     public void getUser(String userId, DatabaseCallback<User> callback) {
-
         getData("Users/" + userId, User.class, callback);
-
-
     }
 
 
-
-
     public void updateUser(User user, DatabaseCallback<Void> callback) {
-        // עדכון המידע במסד הנתונים
-        // לדוגמה, אם אתה עובד עם Firebase:
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-
-        // שימוש ב-uid של המשתמש על מנת לעדכן את הנתונים
-        databaseReference.child(user.getId()).setValue(user)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        callback.onCompleted(null); // הצלחה
-                    } else {
-                        callback.onFailed(task.getException()); // שגיאה
-                    }
-                });
+        writeData("Users/" + user.getId(), user, callback);
     }
 
 
     public void createNewRestaurant(@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
         writeData("Restaurants/" + restaurant.getId(), restaurant, callback);
     }
-
-    public void userFavoriteRestaurant(@NotNull final String uid,@NotNull final Restaurant restaurant, @Nullable final DatabaseCallback<Void> callback) {
-        writeData("UserFavorite/" + uid+"/"+restaurant.getId(), restaurant, callback);
-    }
-
-
-
-
-    /// get a restaurant from the database
-    public void getUserFavoriteRestaurant(@NotNull final String uid, @NotNull final DatabaseCallback<List<Restaurant>> callback) {
-
-
-        readData("UserFavorite/" + uid).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<Restaurant> restaurants = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
-                Log.d(TAG, "Got restaurant: " + restaurant);
-                restaurants.add(restaurant);
-            });
-
-            callback.onCompleted(restaurants);
-        });
-    }
-
-
 
     /// get a restaurant from the database
     public void getRestaurant(@NotNull final String rid, @NotNull final DatabaseCallback<Restaurant> callback) {
@@ -211,59 +180,12 @@ public class DatabaseService {
 
     /// get all the restaurants from the database
     public void getRestaurants(@NotNull final DatabaseCallback<List<Restaurant>> callback) {
-        readData("Restaurants").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<Restaurant> restaurants = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
-                Log.d(TAG, "Got restaurant: " + restaurant);
-                restaurants.add(restaurant);
-            });
-
-            callback.onCompleted(restaurants);
-        });
-    }
-
-    /// get all the restaurants from the database
-    public void getRestaurantsNames(@NotNull final DatabaseCallback<List<String>> callback) {
-        readData("Restaurants").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<String> restaurantNames = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
-                Log.d(TAG, "Got restaurant: " + restaurant);
-                restaurantNames.add(restaurant.getName());
-            });
-
-            callback.onCompleted(restaurantNames);
-        });
+        getDataList("Restaurants", Restaurant.class, callback);
     }
 
     /// get all the users from the database
     public void getUsers(@NotNull final DatabaseCallback<List<User>> callback) {
-        readData("Users").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<User> users = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                User user = dataSnapshot.getValue(User.class);
-                Log.d(TAG, "Got user: " + user);
-                users.add(user);
-            });
-
-            callback.onCompleted(users);
-        });
+        getDataList("Users", User.class, callback);
     }
 
 
@@ -272,70 +194,42 @@ public class DatabaseService {
     }
 
     public void deleteDish(@NotNull final String dishId, @Nullable final DatabaseCallback<Void> callback) {
-        deleteData("Users/" + dishId, callback);
+        deleteData("dishes/" + dishId, callback);
     }
 
     /// delete a restaurant from the database
+    ///
     /// @param restaurantId the id of the restaurant to delete
-    /// @param callback the callback to call when the operation is completed
+    /// @param callback     the callback to call when the operation is completed
     public void deleteRestaurant(@NotNull final String restaurantId, @Nullable final DatabaseCallback<Void> callback) {
         deleteData("/Restaurants/" + restaurantId, callback);
-//        writeData("/Restaurants/" + restaurantId, null, callback);
     }
 
 
-
-    public void createNewDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<Void> callback){
+    public void createNewDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<Void> callback) {
         writeData("dishes/" + dish.getId(), dish, callback);
-        writeData("restaurantDishes/" +dish.getResId()+"/"+ dish.getId(), dish, callback);
+        writeData("restaurantDishes/" + dish.getResId() + "/" + dish.getId(), dish, callback);
     }
 
 
-    public void updateDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<Void> callback){
+    public void updateDish(@NotNull final Dish dish, @NotNull final DatabaseCallback<Void> callback) {
         writeData("dishes/" + dish.getId(), dish, callback);
-        writeData("restaurantDishes/" +dish.getResId()+"/"+ dish.getId(), dish, callback);
+        writeData("restaurantDishes/" + dish.getResId() + "/" + dish.getId(), dish, callback);
     }
 
 
     /// get all the restaurants from the database
     public void getAllDishes(@NotNull final DatabaseCallback<List<Dish>> callback) {
-        readData("dishes").get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<Dish> restaurants = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Dish dish = dataSnapshot.getValue(Dish.class);
-                Log.d(TAG, "Got dish: " + dish);
-                restaurants.add(dish);
-            });
-
-            callback.onCompleted(restaurants);
-        });
+        getDataList("dishes", Dish.class, callback);
     }
 
     /// get all the restaurants from the database
-    public void getRestaurantDishes(   @NotNull final String resId, @NotNull final DatabaseCallback<List<Dish>> callback) {
+    public void getRestaurantDishes(@NotNull final String resId, @NotNull final DatabaseCallback<List<Dish>> callback) {
+        getDataList("restaurantDishes/"+ resId , Dish.class, callback);
+    }
 
-
-
-        readData("restaurantDishes/"+resId).get().addOnCompleteListener(task -> {
-            if (!task.isSuccessful()) {
-                Log.e(TAG, "Error getting data", task.getException());
-                callback.onFailed(task.getException());
-                return;
-            }
-            List<Dish> dishList = new ArrayList<>();
-            task.getResult().getChildren().forEach(dataSnapshot -> {
-                Dish dish = dataSnapshot.getValue(Dish.class);
-                Log.d(TAG, "Got dish: " + dish);
-                dishList.add(dish);
-            });
-
-            callback.onCompleted(dishList);
-        });
+    public void deleteRestaurantDish(@NotNull final String resId, @NotNull final String dishId, @NotNull final DatabaseCallback<Void> callback) {
+        deleteData("restaurantDishes/" + resId + "/" + dishId, callback);
     }
 
 

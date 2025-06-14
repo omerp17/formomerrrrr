@@ -1,9 +1,7 @@
 package com.example.formomerpeled.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,32 +9,31 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.formomerpeled.R;
 import com.example.formomerpeled.models.Dish;
-import com.example.formomerpeled.models.User;
-import com.example.formomerpeled.screens.AddDish;
 import com.example.formomerpeled.screens.ReviewDish;
-import com.example.formomerpeled.screens.ShowDishes;
-import com.example.formomerpeled.screens.ShowUsers;
-import com.example.formomerpeled.services.DatabaseService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder> {
 
+    public interface OnDishListener {
+        public boolean showDeleteButton(Dish dish);
+        public void onDeleteClick(Dish dish);
+    }
+
     private Context context;
     private List<Dish> dishList;
+    private OnDishListener onDishListener;
 
-    public DishAdapter(Context context, List<Dish> dishList) {
+    public DishAdapter(Context context, List<Dish> dishList, OnDishListener onDishListener) {
         this.context = context;
         this.dishList = dishList;
+        this.onDishListener = onDishListener;
     }
 
     @NonNull
@@ -63,21 +60,26 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
         holder.btnAddReviewDish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go= new Intent(context, ReviewDish.class);
-                go.putExtra("dish",dish);
-                go.putExtra("resId",dish.getResId());
-
+                Intent go = new Intent(context, ReviewDish.class);
+                go.putExtra("dish", dish);
+                go.putExtra("resId", dish.getResId());
                 context.startActivity(go);
-
             }
         });
 
+        if (onDishListener.showDeleteButton(dish)) {
+            holder.btnDeleteDish.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnDeleteDish.setVisibility(View.GONE);
+        }
 
+        holder.btnDeleteDish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDishListener.onDeleteClick(dish);
+            }
+        });
     }
-
-
-
-
 
 
     public void updateList(List<Dish> filteredList) {
@@ -88,33 +90,19 @@ public class DishAdapter extends RecyclerView.Adapter<DishAdapter.DishViewHolder
 
     public static class DishViewHolder extends RecyclerView.ViewHolder {
         public TextView txtItemName, txtItemRestaurant, txtItemPrice, txtItemDetails;
-
-        Button btnAddReviewDish, btnDeleteDish;
-
-
-         RatingBar ratingBarAdapter;
+        Button btnAddReviewDish;
+        ImageButton btnDeleteDish;
+        RatingBar ratingBarAdapter;
 
         public DishViewHolder(@NonNull View itemView) {
             super(itemView);
             txtItemName = itemView.findViewById(R.id.txtItemName);
-        //    txtItemRestaurant = itemView.findViewById(R.id.txtItemRestaurant);
+            //    txtItemRestaurant = itemView.findViewById(R.id.txtItemRestaurant);
             txtItemPrice = itemView.findViewById(R.id.txtItemPrice);
             txtItemDetails = itemView.findViewById(R.id.txtItemDetails);
-            btnAddReviewDish=itemView.findViewById(R.id.btnAddDishReview);
-            ratingBarAdapter=itemView.findViewById(R.id.ratingBarAdapter);
-            //deleteButton2 = itemView.findViewById(R.id.btnDeleteDish);// Initialize delete button
-
-
-// כפתור מחיקה
-            holder.btnDeleteDish.setOnClickListener(v -> {
-                new AlertDialog.Builder(context)
-                        .setTitle("מחיקת משתמש")
-                        .setMessage("האם אתה בטוח שברצונך למחוק את המשתמש?")
-                        .setPositiveButton("כן", (dialog, which) -> deleteDish(Dish.getId(), position))
-                        .setNegativeButton("לא", (dialog, which) -> dialog.dismiss())
-                        .show();
-            });
-
+            btnAddReviewDish = itemView.findViewById(R.id.btnAddDishReview);
+            ratingBarAdapter = itemView.findViewById(R.id.ratingBarAdapter);
+            btnDeleteDish = itemView.findViewById(R.id.btnDeleteDish);
         }
     }
 }
